@@ -1,0 +1,17 @@
+
+.hddetimg{
+	width: 680rpx;
+	height: 366rpx;
+}
+.swiper{
+	width: 680rpx;
+	height: 366rpx;
+	margin: auto;
+}
+.toppng image{
+	width: 680rpx;
+	height: 366rpx;
+	margin: auto;
+	display: block;
+}
+

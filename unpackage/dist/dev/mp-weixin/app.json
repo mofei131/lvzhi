@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/ping/index",
+    "pages/my/index",
+    "pages/index/cnlist",
+    "pages/index/fabu",
+    "pages/index/lzlist",
+    "pages/index/search",
+    "pages/my/info",
+    "pages/ping/scn",
+    "pages/ping/slz",
+    "pages/ping/slh"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "履职",
+    "navigationBarBackgroundColor": "#FAFAFA",
+    "backgroundColor": "#FAFAFA"
+  },
+  "tabBar": {
+    "color": "#646464",
+    "selectedColor": "#646464",
+    "fontSize": "26px",
+    "backgroundColor": "#FAFAFA",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/image/icon1.png",
+        "selectedIconPath": "static/image/icon1_1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/ping/index",
+        "iconPath": "static/image/icon2.png",
+        "selectedIconPath": "static/image/icon2_1.png",
+        "text": "评一评"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "static/image/icon3.png",
+        "selectedIconPath": "static/image/icon3_1.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

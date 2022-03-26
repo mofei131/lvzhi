@@ -1,0 +1,78 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "评一评",
+          "pathName": "pages/ping/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "我的",
+          "pathName": "pages/my/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "晒承诺",
+          "pathName": "pages/index/cnlist",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "发布",
+          "pathName": "pages/index/fabu",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "晒履职",
+          "pathName": "pages/index/lzlist",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "检索",
+          "pathName": "pages/index/search",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "成员信息",
+          "pathName": "pages/my/info",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "晒承诺",
+          "pathName": "pages/ping/scn",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "晒履职",
+          "pathName": "pages/ping/slz",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "晒联户",
+          "pathName": "pages/ping/slh",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

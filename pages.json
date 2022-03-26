@@ -1,0 +1,88 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},{
+			"path": "pages/ping/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},{
+			"path": "pages/my/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},{
+			"path": "pages/index/cnlist",
+			"style": {
+				"navigationBarTitleText": "晒承诺"
+			}
+		},{
+			"path": "pages/index/fabu",
+			"style": {
+				"navigationBarTitleText": "发布"
+			}
+		},{
+			"path": "pages/index/lzlist",
+			"style": {
+				"navigationBarTitleText": "晒履职"
+			}
+		},{
+			"path": "pages/index/search",
+			"style": {
+				"navigationBarTitleText": "检索"
+			}
+		},{
+			"path": "pages/my/info",
+			"style": {
+				"navigationBarTitleText": "成员信息"
+			}
+		},{
+			"path": "pages/ping/scn",
+			"style": {
+				"navigationBarTitleText": "晒承诺"
+			}
+		},{
+			"path": "pages/ping/slz",
+			"style": {
+				"navigationBarTitleText": "晒履职"
+			}
+		},{
+			"path": "pages/ping/slh",
+			"style": {
+				"navigationBarTitleText": "晒联户"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "履职",
+		"navigationBarBackgroundColor": "#FAFAFA",
+		"backgroundColor": "#FAFAFA"
+	},
+	"tabBar": {
+		"color": "#646464",
+		"selectedColor": "#646464",
+		"fontSize":"26px",
+		"backgroundColor":"#FAFAFA",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/image/icon1.png",
+			"selectedIconPath": "static/image/icon1_1.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/ping/index",
+			"iconPath": "static/image/icon2.png",
+			"selectedIconPath": "static/image/icon2_1.png",
+			"text": "评一评"
+		}, {
+			"pagePath": "pages/my/index",
+			"iconPath": "static/image/icon3.png",
+			"selectedIconPath": "static/image/icon3_1.png",
+			"text": "我的"
+		}]
+	}
+}
