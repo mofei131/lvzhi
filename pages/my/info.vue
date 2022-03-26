@@ -38,7 +38,10 @@
 					<view>所属合作社</view>
 				</view>
 				<view class="inliright">
-					<input type="text" placeholder="请输入..." v-model="info.belong" placeholder-style="color: #eaeaea;" />
+					<!-- <input type="text" placeholder="请输入..." v-model="info.belong" placeholder-style="color: #eaeaea;" /> -->
+					<picker class="picker" @change="bindPickerChange" :value="index" :range="array">
+						<view class="uni-input">{{array[index]}}</view>
+					</picker>
 				</view>
 			</view>
 			<view class="infoli">
@@ -67,11 +70,16 @@
 					age:'',
 					sex:'',
 					belong:'',
-					mobile:''
-				}
+					mobile:'',
+				},
+				array: ['大虞合作社', '新城合作社', '大寨合作社', '大关合作社'],
+				index: 0,
 			}
 		},
 		methods:{
+			bindPickerChange(e){
+				this.index = e.target.value
+			},
 			upbtn(){
 				if(!this.info.name){
 					uni.showToast({
@@ -121,6 +129,10 @@
 </script>
 
 <style>
+	.uni-input{
+		color: #646464;
+		font-size: 32rpx;
+	}
 	.jbtn{
 		width: 261rpx;
 		height: 91rpx;
@@ -156,6 +168,17 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
+	}
+	.picker{
+		width: 497rpx;
+		height: 72rpx;
+		border-radius: 20rpx;
+		color: #646464;
+		border: 1rpx solid #464646;
+		padding: 0 28rpx 0 28rpx;
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
 	}
 	.inliright input{
 		width: 497rpx;

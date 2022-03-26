@@ -1,4 +1,18 @@
 
+.flexbox{
+	display: flex;
+	width: 600rpx;
+	align-items: center;
+	justify-content: space-between;
+	box-sizing: border-box;
+}
+.pickflex image{
+	margin-left: 20rpx;
+}
+.pickflex{
+	display: flex;
+	align-items: center;
+}
 .listf image{
 	width: 19rpx;
 	height: 34rpx;

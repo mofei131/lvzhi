@@ -189,6 +189,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -199,11 +202,16 @@ var _default =
         age: '',
         sex: '',
         belong: '',
-        mobile: '' } };
+        mobile: '' },
 
+      array: ['大虞合作社', '新城合作社', '大寨合作社', '大关合作社'],
+      index: 0 };
 
   },
   methods: {
+    bindPickerChange: function bindPickerChange(e) {
+      this.index = e.target.value;
+    },
     upbtn: function upbtn() {
       if (!this.info.name) {
         uni.showToast({

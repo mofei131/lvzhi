@@ -1,4 +1,8 @@
 
+.uni-input{
+	color: #646464;
+	font-size: 32rpx;
+}
 .jbtn{
 	width: 261rpx;
 	height: 91rpx;
@@ -34,6 +38,17 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+}
+.picker{
+	width: 497rpx;
+	height: 72rpx;
+	border-radius: 20rpx;
+	color: #646464;
+	border: 1rpx solid #464646;
+	padding: 0 28rpx 0 28rpx;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
 }
 .inliright input{
 	width: 497rpx;

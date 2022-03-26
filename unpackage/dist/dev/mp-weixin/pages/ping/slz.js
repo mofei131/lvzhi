@@ -139,21 +139,60 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
+    var currentDate = this.getDate({
+      format: true });
+
     return {
       list: [{
-        title: '选择年度月份' },
-      {
         title: '合作社履职' },
       {
         title: '包靠干部履职' },
       {
-        title: '成员履职' }] };
+        title: '成员履职' }],
 
+      date: currentDate };
 
-  } };exports.default = _default;
+  },
+  computed: {
+    startDate: function startDate() {
+      return this.getDate('start');
+    },
+    endDate: function endDate() {
+      return this.getDate('end');
+    } },
+
+  methods: {
+    bindDateChange: function bindDateChange(e) {
+      this.date = e.target.value;
+    },
+    getDate: function getDate(type) {
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+
+      if (type === 'start') {
+        year = year - 0;
+      } else if (type === 'end') {
+        year = year + 20;
+      }
+      month = month > 9 ? month : '0' + month;
+      day = day > 9 ? day : '0' + day;
+      // return `${year}-${month}-${day}`;
+      return "".concat(year, "-").concat(month);
+    } } };exports.default = _default;
 
 /***/ }),
 
