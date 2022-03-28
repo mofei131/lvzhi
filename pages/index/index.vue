@@ -1,6 +1,6 @@
 <template>
 	<view class="box">
-		<topimg :dats='dats' :banner='banner'></topimg>
+		<topimg :dats='dats'></topimg>
 		<view class="gonggao">
 			<view class="ggtit">公告</view>
 			<!-- <view class="ggcon">请各位及时上传所需资料，截止日期15天后</view> -->

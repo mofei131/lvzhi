@@ -11,25 +11,25 @@
 <script>
 	export default{
 		props: {
-				dats: {
-					default:false
-				},
+			dats:false
 		},
 		data(){
 			return{
-				banner:''
+				banner:[]
 			}
 		},
 		created() {
-			this.getbanner()
-		},
-		methods:{
-			getbanner(){
+			this.banner = this.$store.state.bannerlist
+			if(this.banner.length == 0){
 				this.api.banner({
 				},res=>{
 					this.banner = res.data
+					this.$store.state.bannerlist = res.data
 				})
 			}
+		},
+		methods:{
+			
 		}
 	}
 </script>

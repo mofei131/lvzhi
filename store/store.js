@@ -8,9 +8,12 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		bannerlist:[],
+		cou:1
 	},
 	mutations: {
-		
+		get(){
+			console.log(123)
+		}
 	}
 })
 export default store

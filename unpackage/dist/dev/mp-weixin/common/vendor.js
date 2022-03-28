@@ -2260,10 +2260,13 @@ _vue.default.use(_vuex.default);
 //实例store对象
 var store = new _vuex.default.Store({
   state: {
-    bannerlist: [] },
+    bannerlist: [],
+    cou: 1 },
 
-  mutations: {} });var _default =
-
+  mutations: {
+    get: function get() {
+      console.log(123);
+    } } });var _default =
 
 
 store;exports.default = _default;
