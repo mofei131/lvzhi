@@ -172,6 +172,7 @@ __webpack_require__.r(__webpack_exports__);
         uni.showModal({
           title: '提示',
           content: '您还没有登录，请先登录',
+          confirmText: '去登录',
           success: function success(res) {
             if (res.confirm) {
               uni.switchTab({

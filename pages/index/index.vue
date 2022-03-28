@@ -15,7 +15,20 @@
 		</view>
 		<view class="gonggao">
 			<view class="ggtit">公告</view>
-			<view class="ggcon">请各位及时上传所需资料，截止日期15天后</view>
+			<!-- <view class="ggcon">请各位及时上传所需资料，截止日期15天后</view> -->
+			<view class="ggcon">
+				<swiper class="swiper"  autoplay="true" interval=8000 vertical='true'>
+					<swiper-item>
+						<view class="swiper-item uni-bg-red">请各位及时上传所需资料，截止日期15天后请各位及时上传所需资料，截止日期45天后</view>
+					</swiper-item>
+					<swiper-item>
+						<view class="swiper-item uni-bg-green">请各位及时上传所需资料，截止日期30天后</view>
+					</swiper-item>
+					<swiper-item>
+						<view class="swiper-item uni-bg-blue">请各位及时上传所需资料，截止日期45天后</view>
+					</swiper-item>
+				</swiper>
+			</view>
 		</view>
 		<view class="iconfelx">
 			<view class="icinli" v-for="(item,index) in iconlist" :key='index'>
@@ -113,6 +126,7 @@
 					uni.showModal({
 						title: '提示',
 						content: '您还没有登录，请先登录',
+						confirmText:'去登录',
 						success: function (res) {
 							if (res.confirm) {
 								uni.switchTab({
@@ -130,6 +144,15 @@
 </script>
 
 <style>
+	.uni-bg-red{
+		white-space:nowrap;
+		overflow:hidden;
+		text-overflow:ellipsis;
+	}
+	.ggcon .swiper{
+		width: 560rpx;
+		height: 35rpx;
+	}
 	.tologin{
 		width: 100%;
 		height: 100%;
