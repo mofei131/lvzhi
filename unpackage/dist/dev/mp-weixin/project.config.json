@@ -8,23 +8,19 @@
   },
   "compileType": "miniprogram",
   "libVersion": "",
-  "appid": "wx3ed0ca6b298d128a",
+  "appid": "wx15fb8cd79f0a12b9",
   "projectname": "履职",
   "condition": {
     "search": {
-      "current": -1,
       "list": []
     },
     "conversation": {
-      "current": -1,
       "list": []
     },
     "game": {
-      "current": -1,
       "list": []
     },
     "miniprogram": {
-      "current": -1,
       "list": []
     }
   }

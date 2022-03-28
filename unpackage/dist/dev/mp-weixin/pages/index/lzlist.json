@@ -1,6 +1,4 @@
 {
   "navigationBarTitleText": "晒履职",
-  "usingComponents": {
-    "topimg": "/pages/components/topimg"
-  }
+  "usingComponents": {}
 }

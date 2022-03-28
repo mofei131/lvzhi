@@ -124,26 +124,28 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-//
-//
-//
-//
-//
 var _default =
 {
+  props: {
+    dats: {
+      default: false } },
+
+
   data: function data() {
     return {
       banner: '' };
 
   },
   created: function created() {
-    // this.api.banner({
-    // },res=>{
-    // 	this.banner = res.data
-    // })
+    this.getbanner();
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    getbanner: function getbanner() {var _this = this;
+      this.api.banner({},
+      function (res) {
+        _this.banner = res.data;
+      });
+    } } };exports.default = _default;
 
 /***/ }),
 

@@ -1,6 +1,4 @@
 {
   "navigationBarTitleText": "晒承诺",
-  "usingComponents": {
-    "topimg": "/pages/components/topimg"
-  }
+  "usingComponents": {}
 }

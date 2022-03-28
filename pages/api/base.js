@@ -1,7 +1,7 @@
 class Base {
 
   constructor() {
-    this.baseRestUrl = 'https://building.boyaokj.cn/api/';
+    this.baseRestUrl = 'https://lvzhi.boyaokj.cn/api/';
   }
 
   request(params, auth = true) {

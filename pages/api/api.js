@@ -2,12 +2,12 @@ import {
 	Base
 } from './base.js';
 let urlList = {
-	setMobile: 'Index/setMobile', // 获取手机号
+	banner:'index/banner'
 }
 class Api extends Base {
-	setMobile(param, callback) {
+	banner(param, callback) {
 		var param = {
-			url: urlList.setMobile,
+			url: urlList.banner,
 			type: "get",
 			data: param,
 			sCallback: function(data) {
@@ -18,6 +18,6 @@ class Api extends Base {
 	}
 }
 
-export {
+export{
 	Api
 };

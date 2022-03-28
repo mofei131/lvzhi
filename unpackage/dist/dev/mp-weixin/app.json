@@ -45,5 +45,7 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {
+    "topimg": "/pages/components/topimg"
+  }
 }

@@ -1,24 +1,12 @@
 <template>
 	<view class="box">
-		<view class="banner">
-			<swiper class="swiper" :autoplay="true" :interval="3000" indicator-dots indicator-color="#D3D3D3" indicator-active-color="#FF4646">
-					<swiper-item>
-							<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
-					</swiper-item>
-					<swiper-item>
-							<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
-					</swiper-item>
-					<swiper-item>
-							<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
-					</swiper-item>
-			</swiper>
-		</view>
+		<topimg :dats='dats' :banner='banner'></topimg>
 		<view class="gonggao">
 			<view class="ggtit">公告</view>
 			<!-- <view class="ggcon">请各位及时上传所需资料，截止日期15天后</view> -->
 			<view class="ggcon">
-				<swiper class="swiper"  autoplay="true" interval=8000 vertical='true'>
-					<swiper-item>
+				<swiper class="swiper"  :autoplay="true" :interval='8000' :vertical='true' :isable-touch='false'>
+					<swiper-item @touchmove.stop>
 						<view class="swiper-item uni-bg-red">请各位及时上传所需资料，截止日期15天后请各位及时上传所需资料，截止日期45天后</view>
 					</swiper-item>
 					<swiper-item>
@@ -104,7 +92,8 @@
 					tit:'晒联户',
 					iconurl:'../../static/image/indexicon3.png'
 				}],
-				login:false
+				login:false,
+				dats:true,//轮播是否显示分页器
 			}
 		},
 		onLoad() {
@@ -144,6 +133,9 @@
 </script>
 
 <style>
+	.banner{
+		margin-bottom: 20rpx;
+	}
 	.uni-bg-red{
 		white-space:nowrap;
 		overflow:hidden;
