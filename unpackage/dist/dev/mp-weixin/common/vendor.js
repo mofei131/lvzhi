@@ -8787,9 +8787,33 @@ var urlList = {
   getCoops: 'index/getCoops', // 获取合作社
   updateUser: 'index/updateUser', // 初次登录 更新用户信息
   banner: 'index/banner', // 获取轮播
-  members: 'index/members' // 成员列表
+  members: 'index/members', // 成员列表
+  JudgeCoop: 'Judge/coop', //合作社评价
+  JudgeList: 'Judge/list' //成员评价
 };var
-Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "banner", value: function banner(
+Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "JudgeList", value: function JudgeList(
+    param, callback) {
+      var param = {
+        url: urlList.JudgeList,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "JudgeCoop", value: function JudgeCoop(
+    param, callback) {
+      var param = {
+        url: urlList.JudgeCoop,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "banner", value: function banner(
     param, callback) {
       var param = {
         url: urlList.banner,

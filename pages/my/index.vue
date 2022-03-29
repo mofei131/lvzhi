@@ -43,7 +43,7 @@
 					id:4,
 					title:'关于我们'
 				}],
-				userInfo:{},//用户信息
+				userInfo:'',//用户信息
 				cooperative:'',//合作社
 				street:'',//街道
 			}
@@ -52,11 +52,14 @@
 		},
 		onShow() {
 			//赋值用户信息
-			this.userInfo = uni.getStorageSync('userInfo')
-			//获取街道名称
-			this.street = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item.id == this.userInfo.street_id)].street_name
-			//获取合作社名称
-			this.cooperative = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == this.userInfo.cooperative_id)].cooperative_name
+			if(uni.getStorageSync('userInfo')){
+				this.userInfo = uni.getStorageSync('userInfo')
+			}
+			//获取街道和合作社名称
+			if(uni.getStorageSync('streetList')&&uni.getStorageSync('streetList')){
+				this.street = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item.id == this.userInfo.street_id)].street_name
+				this.cooperative = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == this.userInfo.cooperative_id)].cooperative_name
+			}
 		},
 		methods:{
 			//去登录
@@ -66,13 +69,18 @@
 				})
 			},
 			//提示登录
-			topage(){
+			topage(e){
 				if(!uni.getStorageSync('userInfo')){
 					uni.showToast({
 						title:'请先登录',
 						icon:'none'
 					})
 					return
+				}
+				if(e == 1){
+					uni.navigateTo({
+						url:''
+					})
 				}
 			}
 		}

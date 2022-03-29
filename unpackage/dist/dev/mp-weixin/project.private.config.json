@@ -71,6 +71,18 @@
           "pathName": "pages/ping/slh",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "评价",
+          "pathName": "pages/ping/ping",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "成员列表",
+          "pathName": "pages/ping/meList",
+          "query": "",
+          "scene": null
         }
       ]
     }

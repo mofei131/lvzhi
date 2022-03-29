@@ -1,0 +1,1 @@
+<view class="box"><block wx:for="{{cnlist}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="cncard"><view class="cnctop"><view class="cnctright"><view class="cnctrli2"><view>{{"时间："+item.create_time}}</view></view></view></view><view class="cncbot"><view>{{item.judge}}</view></view></view></block></view>

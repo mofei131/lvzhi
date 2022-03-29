@@ -11,7 +11,9 @@
     "pages/my/info",
     "pages/ping/scn",
     "pages/ping/slz",
-    "pages/ping/slh"
+    "pages/ping/slh",
+    "pages/ping/ping",
+    "pages/ping/meList"
   ],
   "subPackages": [],
   "window": {

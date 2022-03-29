@@ -8,8 +8,32 @@ let urlList = {
 	updateUser: 'index/updateUser', // 初次登录 更新用户信息
 	banner: 'index/banner', // 获取轮播
 	members: 'index/members', // 成员列表
+	JudgeCoop:'Judge/coop',//合作社评价
+	JudgeList:'Judge/list',//成员评价
 }
 class Api extends Base {
+	JudgeList(param, callback) {
+		var param = {
+			url: urlList.JudgeList,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	JudgeCoop(param, callback) {
+		var param = {
+			url: urlList.JudgeCoop,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
 	banner(param, callback) {
 		var param = {
 			url: urlList.banner,

@@ -60,6 +60,18 @@
 			"style": {
 				"navigationBarTitleText": "晒联户"
 			}
+		}, {
+			"path": "pages/ping/ping",
+			"style": {
+				"navigationBarTitleText": "评价",
+				"enablePullDownRefresh": true
+			}
+		},{
+			"path": "pages/ping/meList",
+			"style": {
+				"navigationBarTitleText": "成员列表",
+				"enablePullDownRefresh": true
+			}
 		}
 	],
 	"globalStyle": {
