@@ -186,7 +186,7 @@ var _default =
         var code = this.role == 1 ? -3 : this.role == 2 ? -1 : -2;
         console.log(code);
         uni.reLaunch({
-          url: './ping?coop_id=' + uni.getStorageSync('userInfo').cooperative_id + '&type=' + code });
+          url: './ping?coop_id=' + uni.getStorageSync('userInfo').cooperative_id + '&type=' + code + '&part=1' });
 
       }
     },
@@ -212,7 +212,7 @@ var _default =
 
         } else {
           uni.navigateTo({
-            url: './ping?coop_id=' + this.coop_id + '&type=' + e.id });
+            url: './ping?coop_id=' + this.coop_id + '&type=' + e.id + '&part=0' });
 
         }
       }

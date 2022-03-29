@@ -25,9 +25,11 @@
 				coop_id:'',//合作社id
 				type:'',//区分合作社或包靠干部或成员
 				uid:'',//成员id
+				part:'',//判断走合作社还是成员接口
 			}
 		},
 		onLoad(p) {
+			this.part = p.part
 			this.coop_id = p.coop_id
 			this.type = p.type
 			if(p.uid){
@@ -52,7 +54,8 @@
 		methods:{
 			//获取评价
 			getPing(){
-				if(!this.coop_id){
+				console.log(this.part)
+				if(this.part == 1){
 					this.api.JudgeList({
 						uid:this.uid,
 						page:this.page,

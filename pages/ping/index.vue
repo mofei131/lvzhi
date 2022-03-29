@@ -4,7 +4,7 @@
 		<view class="listf" v-for="(item,index) in showList" :key="index" @click="topage(item)">
 			<view v-if="role == 4">{{item.street_name}}</view>
 			<view v-if="role == 3">{{item.cooperative_name}}</view>
-			<view v-if="role == 2 || 5">{{item.title}}</view>
+			<view v-if="role == 2">{{item.title}}</view>
 			<image src="../../static/image/righticon.png"></image>
 		</view>
 		<view class="tologin" v-if="login" @click="tologin"></view>
@@ -54,7 +54,7 @@
 					let code = this.role == 1?-3:this.role == 2?-1:-2
 					console.log(code)
 					uni.reLaunch({
-						url:'./ping?coop_id='+uni.getStorageSync('userInfo').cooperative_id+'&type='+code
+						url:'./ping?coop_id='+uni.getStorageSync('userInfo').cooperative_id+'&type='+code+'&part=1'
 					})
 				}
 			},
@@ -80,7 +80,7 @@
 						})
 					}else{
 						uni.navigateTo({
-							url:'./ping?coop_id='+this.coop_id+'&type='+e.id
+							url:'./ping?coop_id='+this.coop_id+'&type='+e.id+'&part=0'
 						})
 					}
 				}

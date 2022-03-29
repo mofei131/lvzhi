@@ -185,7 +185,7 @@ var _default =
     //去评价列表
     topage: function topage(e) {
       uni.navigateTo({
-        url: './ping?uid=' + e.id });
+        url: './ping?uid=' + e.id + '&part=1' + '&coop_id=' + e.cooperative_id });
 
     },
     //获取成员列表
