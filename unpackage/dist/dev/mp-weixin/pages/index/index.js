@@ -193,22 +193,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default =
 {
   data: function data() {
@@ -248,8 +232,9 @@ var _default =
         tit: '晒联户',
         iconurl: '../../static/image/indexicon3.png' }],
 
-      login: false };
-
+      login: false,
+      dats: true //轮播是否显示分页器
+    };
   },
   onLoad: function onLoad() {
     // 修改顶部标题

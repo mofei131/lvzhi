@@ -1,4 +1,7 @@
 
+.banner {
+	margin-bottom: 20rpx;
+}
 .uni-bg-red {
 	white-space: nowrap;
 	overflow: hidden;

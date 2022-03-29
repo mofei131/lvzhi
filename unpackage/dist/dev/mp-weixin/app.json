@@ -46,6 +46,7 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {
+    "topimg": "/pages/components/topimg"
+  }
 }

@@ -130,23 +130,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var topimg = function topimg() {__webpack_require__.e(/*! require.ensure | pages/components/topimg */ "pages/components/topimg").then((function () {return resolve(__webpack_require__(/*! ../components/topimg.vue */ 110));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default =
 {
-  components: {
-    topimg: topimg },
-
   data: function data() {
     return {
       list: [{

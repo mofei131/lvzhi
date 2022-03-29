@@ -124,24 +124,25 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-//
-//
-//
-//
-//
 var _default =
 {
+  props: {
+    dats: false },
+
   data: function data() {
     return {
-      banner: '' };
+      banner: [] };
 
   },
-  created: function created() {
-    // this.api.banner({
-    // },res=>{
-    // 	this.banner = res.data
-    // })
+  created: function created() {var _this = this;
+    this.banner = this.$store.state.bannerlist;
+    if (this.banner.length == 0) {
+      this.api.banner({},
+      function (res) {
+        _this.banner = res.data;
+        _this.$store.state.bannerlist = res.data;
+      });
+    }
   },
   methods: {} };exports.default = _default;
 

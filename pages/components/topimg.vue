@@ -1,14 +1,8 @@
 <template>
 	<view class="banner">
-		<swiper class="swiper" :autoplay="true" :interval="3000" >
-				<swiper-item>
-						<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
-				</swiper-item>
-				<swiper-item>
-						<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
-				</swiper-item>
-				<swiper-item>
-						<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
+		<swiper class="swiper" :autoplay="true" :interval="3000" :indicator-dots='dats' indicator-color="#D3D3D3" indicator-active-color="#FF4646">
+				<swiper-item v-for="(item,index) in banner" :key='index'>
+						<image class="hddetimg" :src="item.pic"></image>
 				</swiper-item>
 		</swiper>
 	</view>
@@ -16,16 +10,23 @@
 
 <script>
 	export default{
+		props: {
+			dats:false
+		},
 		data(){
 			return{
-				banner:''
+				banner:[]
 			}
 		},
 		created() {
-			// this.api.banner({
-			// },res=>{
-			// 	this.banner = res.data
-			// })
+			this.banner = this.$store.state.bannerlist
+			if(this.banner.length == 0){
+				this.api.banner({
+				},res=>{
+					this.banner = res.data
+					this.$store.state.bannerlist = res.data
+				})
+			}
 		},
 		methods:{
 			

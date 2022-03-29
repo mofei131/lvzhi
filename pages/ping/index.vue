@@ -10,11 +10,7 @@
 </template>
 
 <script>
-	import topimg from '../components/topimg.vue'
 	export default{
-		components:{
-			topimg
-		},
 		data(){
 			return{
 				list:[{

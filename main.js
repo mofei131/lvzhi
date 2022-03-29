@@ -1,14 +1,18 @@
 import App from './App'
 import {Api} from 'pages/api/api.js'
+import store from 'store/store.js'
+import topimg from 'pages/components/topimg.vue'
 
 Vue.prototype.api = new Api()
+Vue.component('topimg',topimg)
 
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
 App.mpType = 'app'
 const app = new Vue({
-    ...App
+    ...App,
+		store
 })
 app.$mount()
 // #endif
