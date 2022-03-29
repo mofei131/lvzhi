@@ -1,17 +1,17 @@
 
-.banner{
+.banner {
 	margin-bottom: 20rpx;
 }
-.uni-bg-red{
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis;
+.uni-bg-red {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-.ggcon .swiper{
+.ggcon .swiper {
 	width: 560rpx;
 	height: 35rpx;
 }
-.tologin{
+.tologin {
 	width: 100%;
 	height: 100%;
 	position: fixed;
@@ -19,56 +19,56 @@
 	left: 0;
 	z-index: 99;
 }
-.melir3 view:nth-child(2){
+.melir3 view:nth-child(2) {
 	color: #969696;
 	font-size: 26rpx;
 }
-.melir3 view:nth-child(1){
+.melir3 view:nth-child(1) {
 	color: #646464;
 	font-size: 26rpx;
 }
-.melir3{
+.melir3 {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
-.melir2{
+.melir2 {
 	margin-bottom: 18rpx;
 }
-.melir2 view{
+.melir2 view {
 	color: #969696;
 	font-size: 26rpx;
 }
-.melir1 view:nth-child(3){
+.melir1 view:nth-child(3) {
 	color: #969696;
 	font-size: 26rpx;
 }
-.melir1 view:nth-child(2){
+.melir1 view:nth-child(2) {
 	color: #969696;
 	font-size: 26rpx;
 }
-.melir1 view:nth-child(1){
+.melir1 view:nth-child(1) {
 	color: #646464;
 	font-size: 26rpx;
 	font-weight: bold;
 	width: 100rpx;
 }
-.melir1{
+.melir1 {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 18rpx;
 }
-.meliright{
+.meliright {
 	width: 450rpx;
 	box-sizing: border-box;
 }
-.melileft image{
+.melileft image {
 	width: 144rpx;
 	height: 144rpx;
 	border-radius: 22rpx;
 }
-.meli{
+.meli {
 	width: 620rpx;
 	margin: auto;
 	margin-bottom: 57rpx;
@@ -76,7 +76,7 @@
 	align-items: center;
 	justify-content: space-between;
 }
-.imtopse{
+.imtopse {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -85,18 +85,18 @@
 	border-bottom: 1rpx solid #E6E6E6;
 	margin-bottom: 46rpx;
 }
-.imtopse image{
+.imtopse image {
 	width: 34rpx;
 	height: 34rpx;
 }
-.imtopse input{
+.imtopse input {
 	height: 106rpx;
 	width: 450rpx;
 	color: #646464;
 	font-size: 34rpx;
 	font-weight: bold;
 }
-.inme{
+.inme {
 	width: 680rpx;
 	margin: auto;
 	background-color: #fff;
@@ -106,18 +106,18 @@
 	margin-bottom: 76rpx;
 	box-shadow: 5px 10px 20px 0px rgba(147, 147, 147, 0.2);
 }
-.icinli view{
+.icinli view {
 	font-size: 28rpx;
 	color: #646464;
 	font-weight: bold;
 	text-align: center;
 }
-.icinli image{
+.icinli image {
 	width: 100rpx;
-	height:100rpx;
+	height: 100rpx;
 	margin-bottom: 26rpx;
 }
-.iconfelx{
+.iconfelx {
 	width: 680rpx;
 	margin: auto;
 	padding-top: 46rpx;
@@ -126,17 +126,17 @@
 	justify-content: space-around;
 	margin-bottom: 55rpx;
 }
-.ggcon{
+.ggcon {
 	font-size: 24rpx;
 	color: #787878;
 }
-.ggtit{
+.ggtit {
 	font-size: 24rpx;
 	color: #646464;
 	margin-right: 24rpx;
 	font-weight: bold;
 }
-.gonggao{
+.gonggao {
 	display: flex;
 	align-items: center;
 	width: 680rpx;
@@ -148,16 +148,16 @@
 	position: relative;
 	bottom: 10rpx;
 }
-.hddetimg{
+.hddetimg {
 	width: 680rpx;
 	height: 366rpx;
 }
-.swiper{
+.swiper {
 	width: 680rpx;
 	height: 444rpx;
 	margin: auto;
 }
-.box{
+.box {
 	padding-top: 44rpx;
 }
 

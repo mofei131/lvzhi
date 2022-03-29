@@ -260,8 +260,8 @@ var _default =
           confirmText: '去登录',
           success: function success(res) {
             if (res.confirm) {
-              uni.switchTab({
-                url: '../my/index' });
+              uni.redirectTo({
+                url: './register' });
 
             } else if (res.cancel) {
               console.log('用户点击取消');
