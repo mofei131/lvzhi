@@ -25,26 +25,63 @@
 			</view>
 		</view>
 		<view class="inme">
-			<view class="imtopse">
-				<input type="text" value="" placeholder="成员列表" />
+			<view class="imtopse" @click="toPage">
+				<input type="text" disabled="true" :placeholder="placeholder" />
 				<image src="../../static/image/search.png" mode="aspectFit"></image>
 			</view>
-			<view class="meli" v-for="(item,index) in melist" :key='index'>
+			<view class="meli" v-for="(item,index) in melist" :key='index'
+				v-if="userInfo.role == 1 || userInfo.role == 2 || userInfo.role == 5">
 				<view class="melileft">
-					<image :src="item.imgurl" mode="aspectFit"></image>
+					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
 				<view class="meliright"><strong><strong></strong></strong>
 					<view class="melir1">
-						<view>{{item.name}}</view>
-						<view>{{item.sex}}</view>
-						<view>{{item.age}}</view>
+						<view>{{item.realname}}</view>
+						<view>{{item.sex==1?'男':item.sex==2?'女':'未知'}}</view>
+						<view>{{item.age?item.age:'未知'}}</view>
 					</view>
 					<view class="melir2">
-						<view>{{item.mobile}}</view>
+						<view>{{item.mobile?item.mobile:'暂无号码'}}</view>
 					</view>
 					<view class="melir3">
-						<view>{{item.shqu}}</view>
-						<view>{{item.shenfen}}</view>
+						<view>{{item.coop_name}}</view>
+						<view v-if="item.role == 1">成员</view>
+					</view>
+				</view>
+			</view>
+
+			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 3">
+				<view class="melileft">
+					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
+				</view>
+				<view class="meliright"><strong><strong></strong></strong>
+					<view class="melir1">
+						<view style="white-space: nowrap;">{{item.cooperative_name}}</view>
+						<view>{{item.total_user}}人</view>
+					</view>
+					<view class="melir2">
+						<view>{{item.mobile?item.mobile:'暂无号码'}}</view>
+					</view>
+					<view class="melir3">
+						<view>{{item.address?item.address:'暂无地址'}}</view>
+					</view>
+				</view>
+			</view>
+
+			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 4">
+				<view class="melileft">
+					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
+				</view>
+				<view class="meliright"><strong><strong></strong></strong>
+					<view class="melir1">
+						<view style="white-space: nowrap;">{{item.street_name}}</view>
+						<view>{{item.total_user}}人</view>
+					</view>
+					<view class="melir2">
+						<view>{{item.mobile?item.mobile:'暂无号码'}}</view>
+					</view>
+					<view class="melir3">
+						<view>{{item.address?item.address:'暂无地址'}}</view>
 					</view>
 				</view>
 			</view>
@@ -57,31 +94,9 @@
 	export default {
 		data() {
 			return {
-				melist: [{
-					name: '张某某',
-					sex: '男',
-					age: '43',
-					mobile: '17653689913',
-					shqu: '大虞合作社',
-					shenfen: '成员',
-					imgurl: 'http://hlstore.yimetal.cn/13.jpg'
-				}, {
-					name: '张某某',
-					sex: '男',
-					age: '43',
-					mobile: '17653689913',
-					shqu: '大虞合作社',
-					shenfen: '成员',
-					imgurl: 'http://hlstore.yimetal.cn/11.png'
-				}, {
-					name: '张某某',
-					sex: '男',
-					age: '43',
-					mobile: '17653689913',
-					shqu: '大虞合作社',
-					shenfen: '成员',
-					imgurl: 'http://hlstore.yimetal.cn/11.png'
-				}],
+				melist: [],
+				page: 1,
+
 				iconlist: [{
 					tit: '晒承诺',
 					iconurl: '../../static/image/indexicon1.png'
@@ -92,8 +107,11 @@
 					tit: '晒联户',
 					iconurl: '../../static/image/indexicon3.png'
 				}],
+
 				login: false,
 				dats: true, //轮播是否显示分页器
+				userInfo: {},
+				placeholder: ''
 			}
 		},
 		onLoad() {
@@ -103,10 +121,22 @@
 			})
 		},
 		onShow() {
+			this.userInfo = uni.getStorageSync('userInfo')
 			if (!uni.getStorageSync('userInfo')) {
 				this.login = true
 			} else {
 				this.login = false
+				if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni
+					.getStorageSync('userInfo').role == 5) {
+					this.placeholder = '成员列表'
+					this.huoquMembers()
+				} else if (uni.getStorageSync('userInfo').role == 3) {
+					this.placeholder = '合作社列表'
+					this.huoquCoops()
+				} else if (uni.getStorageSync('userInfo').role == 4) {
+					this.placeholder = '街道列表'
+					this.huoquStreets()
+				}
 			}
 		},
 		methods: {
@@ -127,6 +157,45 @@
 						}
 					});
 				}
+			},
+
+			// 获取成员数据
+			huoquMembers() {
+				this.api.members({
+					coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
+					street_id: uni.getStorageSync('userInfo').street_id, //街道ID
+					page: this.page,
+					limit: 10,
+					keywords: ''
+				}, res => {
+					console.log(res)
+					this.melist = res.data
+				})
+			},
+
+			// 获取合作社
+			huoquCoops() {
+				this.api.getCoops({
+					street_id: uni.getStorageSync('userInfo').street_id
+				}, res => {
+					console.log(res)
+					this.melist = res.data
+				})
+			},
+
+			// 获取街道
+			huoquStreets() {
+				this.api.getStreets({}, res => {
+					console.log(res)
+					this.melist = res.data
+				})
+			},
+			
+			// 页面跳转
+			toPage(){
+				uni.navigateTo({
+					url: './search'
+				})
 			}
 		}
 	}
