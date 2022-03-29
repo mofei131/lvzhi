@@ -195,34 +195,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
-      melist: [{
-        name: '张某某',
-        sex: '男',
-        age: '43',
-        mobile: '17653689913',
-        shqu: '大虞合作社',
-        shenfen: '成员',
-        imgurl: 'http://hlstore.yimetal.cn/13.jpg' },
-      {
-        name: '张某某',
-        sex: '男',
-        age: '43',
-        mobile: '17653689913',
-        shqu: '大虞合作社',
-        shenfen: '成员',
-        imgurl: 'http://hlstore.yimetal.cn/11.png' },
-      {
-        name: '张某某',
-        sex: '男',
-        age: '43',
-        mobile: '17653689913',
-        shqu: '大虞合作社',
-        shenfen: '成员',
-        imgurl: 'http://hlstore.yimetal.cn/11.png' }],
+      melist: [],
+      page: 1,
 
       iconlist: [{
         tit: '晒承诺',
@@ -234,9 +249,12 @@ var _default =
         tit: '晒联户',
         iconurl: '../../static/image/indexicon3.png' }],
 
+
       login: false,
-      dats: true //轮播是否显示分页器
-    };
+      dats: true, //轮播是否显示分页器
+      userInfo: {},
+      placeholder: '' };
+
   },
   onLoad: function onLoad() {
     // 修改顶部标题
@@ -245,10 +263,22 @@ var _default =
 
   },
   onShow: function onShow() {
+    this.userInfo = uni.getStorageSync('userInfo');
     if (!uni.getStorageSync('userInfo')) {
       this.login = true;
     } else {
       this.login = false;
+      if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni.
+      getStorageSync('userInfo').role == 5) {
+        this.placeholder = '成员列表';
+        this.huoquMembers();
+      } else if (uni.getStorageSync('userInfo').role == 3) {
+        this.placeholder = '合作社列表';
+        this.huoquCoops();
+      } else if (uni.getStorageSync('userInfo').role == 4) {
+        this.placeholder = '街道列表';
+        this.huoquStreets();
+      }
     }
   },
   methods: {
@@ -269,6 +299,45 @@ var _default =
           } });
 
       }
+    },
+
+    // 获取成员数据
+    huoquMembers: function huoquMembers() {var _this = this;
+      this.api.members({
+        coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
+        street_id: uni.getStorageSync('userInfo').street_id, //街道ID
+        page: this.page,
+        limit: 10,
+        keywords: '' },
+      function (res) {
+        console.log(res);
+        _this.melist = res.data;
+      });
+    },
+
+    // 获取合作社
+    huoquCoops: function huoquCoops() {var _this2 = this;
+      this.api.getCoops({
+        street_id: uni.getStorageSync('userInfo').street_id },
+      function (res) {
+        console.log(res);
+        _this2.melist = res.data;
+      });
+    },
+
+    // 获取街道
+    huoquStreets: function huoquStreets() {var _this3 = this;
+      this.api.getStreets({}, function (res) {
+        console.log(res);
+        _this3.melist = res.data;
+      });
+    },
+
+    // 页面跳转
+    toPage: function toPage() {
+      uni.navigateTo({
+        url: './search' });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

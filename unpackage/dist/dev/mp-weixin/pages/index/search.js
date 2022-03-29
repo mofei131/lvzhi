@@ -130,7 +130,13 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -169,18 +175,26 @@ var _default =
 {
   data: function data() {
     return {
-      melist: [{
-        name: '张某某',
-        sex: '男',
-        age: '43',
-        mobile: '17653689913',
-        shqu: '大虞合作社',
-        shenfen: '成员',
-        imgurl: 'http://hlstore.yimetal.cn/13.jpg' }] };
-
+      melist: [],
+      page: 1,
+      keywords: '' };
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    sousuo: function sousuo(e) {var _this = this;
+      this.keywords = e.detail.value;
+      this.api.members({
+        coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
+        street_id: uni.getStorageSync('userInfo').street_id, //街道ID
+        page: this.page,
+        limit: 10,
+        keywords: e.detail.value ? e.detail.value : '' },
+      function (res) {
+        console.log(res);
+        _this.melist = res.data;
+      });
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

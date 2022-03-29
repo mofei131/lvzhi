@@ -1,54 +1,54 @@
 
-.melir3 view:nth-child(2){
+.melir3 view:nth-child(2) {
 	color: #969696;
 	font-size: 26rpx;
 }
-.melir3 view:nth-child(1){
+.melir3 view:nth-child(1) {
 	color: #646464;
 	font-size: 26rpx;
 }
-.melir3{
+.melir3 {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
-.melir2{
+.melir2 {
 	margin-bottom: 18rpx;
 }
-.melir2 view{
+.melir2 view {
 	color: #969696;
 	font-size: 26rpx;
 }
-.melir1 view:nth-child(3){
+.melir1 view:nth-child(3) {
 	color: #969696;
 	font-size: 26rpx;
 }
-.melir1 view:nth-child(2){
+.melir1 view:nth-child(2) {
 	color: #969696;
 	font-size: 26rpx;
 }
-.melir1 view:nth-child(1){
+.melir1 view:nth-child(1) {
 	color: #646464;
 	font-size: 26rpx;
 	font-weight: bold;
 	width: 100rpx;
 }
-.melir1{
+.melir1 {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 18rpx;
 }
-.meliright{
+.meliright {
 	width: 450rpx;
 	box-sizing: border-box;
 }
-.melileft image{
+.melileft image {
 	width: 144rpx;
 	height: 144rpx;
 	border-radius: 22rpx;
 }
-.meli{
+.meli {
 	width: 620rpx;
 	margin: auto;
 	margin-bottom: 57rpx;
@@ -56,7 +56,7 @@
 	align-items: center;
 	justify-content: space-between;
 }
-.imtopse{
+.imtopse {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -65,18 +65,18 @@
 	border-bottom: 1rpx solid #E6E6E6;
 	margin-bottom: 46rpx;
 }
-.imtopse image{
+.imtopse image {
 	width: 34rpx;
 	height: 34rpx;
 }
-.imtopse input{
+.imtopse input {
 	height: 106rpx;
 	width: 450rpx;
 	color: #ff4646;
 	font-size: 34rpx;
 	font-weight: bold;
 }
-.inme{
+.inme {
 	width: 680rpx;
 	margin: auto;
 	background-color: #fff;
@@ -86,18 +86,18 @@
 	margin-bottom: 76rpx;
 	box-shadow: 5px 10px 20px 0px rgba(147, 147, 147, 0.2);
 }
-.input image{
+.input image {
 	width: 55rpx;
 	height: 57rpx;
 	position: absolute;
 	top: 17rpx;
 	right: 50rpx;
 }
-.input{
+.input {
 	position: relative;
 	margin-bottom: 65rpx;
 }
-.input input{
+.input input {
 	height: 90rpx;
 	width: 680rpx;
 	margin: auto;
@@ -108,7 +108,16 @@
 	padding: 0 70rpx 0 40rpx;
 	box-sizing: border-box;
 }
-.box{
+.box {
 	padding-top: 20rpx;
+}
+.p404 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: 24rpx;
+	color: #999999;
+	line-height: 100rpx;
 }
 
