@@ -2,16 +2,17 @@
 	<view class="box">
 		<view class="myinfo">
 			<view class="mileft">
-				<image src="http://hlstore.yimetal.cn/12.png"></image>
+				<image :src="userInfo.avater"></image>
 			</view>
 			<view class="miright">
 				<view class="mirli1">
-					<view>点击登录</view>
-					<view>成员</view>
+					<view @click="tologin" v-if="userInfo.length == 0">点击登录</view>
+					<view v-else>{{userInfo.realname}}</view>
+					<view>{{userInfo.post}}</view>
 				</view>
 				<view class="mirli2">
-					<view>大虞街道</view>
-					<view>大虞合作社</view>
+					<view>{{street}}</view>
+					<view>{{cooperative}}</view>
 				</view>
 			</view>
 		</view>
@@ -42,10 +43,29 @@
 					id:4,
 					title:'关于我们'
 				}],
-				info:[]
+				userInfo:{},//用户信息
+				cooperative:'',//合作社
+				street:'',//街道
 			}
 		},
+		onLoad() {
+		},
+		onShow() {
+			//赋值用户信息
+			this.userInfo = uni.getStorageSync('userInfo')
+			//获取街道名称
+			this.street = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item.id == this.userInfo.street_id)].street_name
+			//获取合作社名称
+			this.cooperative = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == this.userInfo.cooperative_id)].cooperative_name
+		},
 		methods:{
+			//去登录
+			tologin(){
+				uni.redirectTo({
+					url: '../index/register'
+				})
+			},
+			//提示登录
 			topage(){
 				if(!uni.getStorageSync('userInfo')){
 					uni.showToast({

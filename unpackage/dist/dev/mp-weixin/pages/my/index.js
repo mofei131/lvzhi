@@ -154,6 +154,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
@@ -174,10 +175,29 @@ var _default =
         id: 4,
         title: '关于我们' }],
 
-      info: [] };
-
+      userInfo: {}, //用户信息
+      cooperative: '', //合作社
+      street: '' //街道
+    };
+  },
+  onLoad: function onLoad() {
+  },
+  onShow: function onShow() {var _this = this;
+    //赋值用户信息
+    this.userInfo = uni.getStorageSync('userInfo');
+    //获取街道名称
+    this.street = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(function (item) {return item.id == _this.userInfo.street_id;})].street_name;
+    //获取合作社名称
+    this.cooperative = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(function (item) {return item.id == _this.userInfo.cooperative_id;})].cooperative_name;
   },
   methods: {
+    //去登录
+    tologin: function tologin() {
+      uni.redirectTo({
+        url: '../index/register' });
+
+    },
+    //提示登录
     topage: function topage() {
       if (!uni.getStorageSync('userInfo')) {
         uni.showToast({

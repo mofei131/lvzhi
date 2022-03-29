@@ -253,6 +253,7 @@ var _default =
         }
         _this.arrayList = res.data;
         _this.huoquHezuoshe(res.data[0].id);
+        uni.setStorageSync('streetList', res.data);
       });
     },
     bindPickerChange2: function bindPickerChange2(e) {
@@ -272,6 +273,7 @@ var _default =
         }
         _this2.$set(_this2.array, 1, data);
         _this2.arrayList2 = res.data;
+        uni.setStorageSync('cooperativeList', res.data);
       });
     },
     bindPickerChange: function bindPickerChange(e) {
