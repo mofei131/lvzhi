@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/index/register",
     "pages/ping/index",
     "pages/my/index",
     "pages/index/cnlist",
@@ -22,7 +23,7 @@
   "tabBar": {
     "color": "#646464",
     "selectedColor": "#646464",
-    "fontSize": "26px",
+    "fontSize": "26rpx",
     "backgroundColor": "#FAFAFA",
     "list": [
       {
@@ -45,5 +46,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

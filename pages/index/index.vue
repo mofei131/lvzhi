@@ -1,23 +1,27 @@
 <template>
 	<view class="box">
 		<view class="banner">
-			<swiper class="swiper" :autoplay="true" :interval="3000" indicator-dots indicator-color="#D3D3D3" indicator-active-color="#FF4646">
-					<swiper-item>
-							<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
-					</swiper-item>
-					<swiper-item>
-							<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
-					</swiper-item>
-					<swiper-item>
-							<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png"></image>
-					</swiper-item>
+			<swiper class="swiper" :autoplay="true" :interval="3000" indicator-dots indicator-color="#D3D3D3"
+				indicator-active-color="#FF4646">
+				<swiper-item>
+					<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png" mode="aspectFit">
+					</image>
+				</swiper-item>
+				<swiper-item>
+					<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png" mode="aspectFit">
+					</image>
+				</swiper-item>
+				<swiper-item>
+					<image class="hddetimg" src="http://hlstore.yimetal.cn/images/global/swiper.png" mode="aspectFit">
+					</image>
+				</swiper-item>
 			</swiper>
 		</view>
 		<view class="gonggao">
 			<view class="ggtit">公告</view>
 			<!-- <view class="ggcon">请各位及时上传所需资料，截止日期15天后</view> -->
 			<view class="ggcon">
-				<swiper class="swiper"  autoplay="true" interval=8000 vertical='true'>
+				<swiper class="swiper" autoplay="true" interval=8000 vertical='true'>
 					<swiper-item>
 						<view class="swiper-item uni-bg-red">请各位及时上传所需资料，截止日期15天后请各位及时上传所需资料，截止日期45天后</view>
 					</swiper-item>
@@ -32,18 +36,18 @@
 		</view>
 		<view class="iconfelx">
 			<view class="icinli" v-for="(item,index) in iconlist" :key='index'>
-				<image :src="item.iconurl"></image>
+				<image :src="item.iconurl" mode="aspectFit"></image>
 				<view>{{item.tit}}</view>
 			</view>
 		</view>
 		<view class="inme">
 			<view class="imtopse">
 				<input type="text" value="" placeholder="成员列表" />
-				<image src="../../static/image/search.png" mode=""></image>
+				<image src="../../static/image/search.png" mode="aspectFit"></image>
 			</view>
 			<view class="meli" v-for="(item,index) in melist" :key='index'>
 				<view class="melileft">
-					<image :src="item.imgurl"></image>
+					<image :src="item.imgurl" mode="aspectFit"></image>
 				</view>
 				<view class="meliright">
 					<view class="melir1">
@@ -69,68 +73,68 @@
 	export default {
 		data() {
 			return {
-				melist:[{
-					name:'张某某',
-					sex:'男',
-					age:'43',
-					mobile:'17653689913',
-					shqu:'大虞合作社',
-					shenfen:'成员',
-					imgurl:'http://hlstore.yimetal.cn/13.jpg'
-				},{
-					name:'张某某',
-					sex:'男',
-					age:'43',
-					mobile:'17653689913',
-					shqu:'大虞合作社',
-					shenfen:'成员',
-					imgurl:'http://hlstore.yimetal.cn/11.png'
-				},{
-					name:'张某某',
-					sex:'男',
-					age:'43',
-					mobile:'17653689913',
-					shqu:'大虞合作社',
-					shenfen:'成员',
-					imgurl:'http://hlstore.yimetal.cn/11.png'
+				melist: [{
+					name: '张某某',
+					sex: '男',
+					age: '43',
+					mobile: '17653689913',
+					shqu: '大虞合作社',
+					shenfen: '成员',
+					imgurl: 'http://hlstore.yimetal.cn/13.jpg'
+				}, {
+					name: '张某某',
+					sex: '男',
+					age: '43',
+					mobile: '17653689913',
+					shqu: '大虞合作社',
+					shenfen: '成员',
+					imgurl: 'http://hlstore.yimetal.cn/11.png'
+				}, {
+					name: '张某某',
+					sex: '男',
+					age: '43',
+					mobile: '17653689913',
+					shqu: '大虞合作社',
+					shenfen: '成员',
+					imgurl: 'http://hlstore.yimetal.cn/11.png'
 				}],
-				iconlist:[{
-					tit:'晒承诺',
-					iconurl:'../../static/image/indexicon1.png'
-				},{
-					tit:'晒履职',
-					iconurl:'../../static/image/indexicon2.png'
-				},{
-					tit:'晒联户',
-					iconurl:'../../static/image/indexicon3.png'
+				iconlist: [{
+					tit: '晒承诺',
+					iconurl: '../../static/image/indexicon1.png'
+				}, {
+					tit: '晒履职',
+					iconurl: '../../static/image/indexicon2.png'
+				}, {
+					tit: '晒联户',
+					iconurl: '../../static/image/indexicon3.png'
 				}],
-				login:false
+				login: false
 			}
 		},
 		onLoad() {
 			// 修改顶部标题
 			uni.setNavigationBarTitle({
-				title:'大虞合社区'
+				title: '大虞合社区'
 			})
 		},
 		onShow() {
-			if(!uni.getStorageSync('userInfo')){
+			if (!uni.getStorageSync('userInfo')) {
 				this.login = true
-			}else{
+			} else {
 				this.login = false
 			}
 		},
 		methods: {
-			tologin(){
-				if(!uni.getStorageSync('userInfo')){
+			tologin() {
+				if (!uni.getStorageSync('userInfo')) {
 					uni.showModal({
 						title: '提示',
 						content: '您还没有登录，请先登录',
-						confirmText:'去登录',
-						success: function (res) {
+						confirmText: '去登录',
+						success: function(res) {
 							if (res.confirm) {
-								uni.switchTab({
-									url:'../my/index'
+								uni.redirectTo({
+									url: './register'
 								})
 							} else if (res.cancel) {
 								console.log('用户点击取消');
@@ -144,16 +148,18 @@
 </script>
 
 <style>
-	.uni-bg-red{
-		white-space:nowrap;
-		overflow:hidden;
-		text-overflow:ellipsis;
+	.uni-bg-red {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
-	.ggcon .swiper{
+
+	.ggcon .swiper {
 		width: 560rpx;
 		height: 35rpx;
 	}
-	.tologin{
+
+	.tologin {
 		width: 100%;
 		height: 100%;
 		position: fixed;
@@ -161,56 +167,68 @@
 		left: 0;
 		z-index: 99;
 	}
-	.melir3 view:nth-child(2){
+
+	.melir3 view:nth-child(2) {
 		color: #969696;
 		font-size: 26rpx;
 	}
-	.melir3 view:nth-child(1){
+
+	.melir3 view:nth-child(1) {
 		color: #646464;
 		font-size: 26rpx;
 	}
-	.melir3{
+
+	.melir3 {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 	}
-	.melir2{
+
+	.melir2 {
 		margin-bottom: 18rpx;
 	}
-	.melir2 view{
+
+	.melir2 view {
 		color: #969696;
 		font-size: 26rpx;
 	}
-	.melir1 view:nth-child(3){
+
+	.melir1 view:nth-child(3) {
 		color: #969696;
 		font-size: 26rpx;
 	}
-	.melir1 view:nth-child(2){
+
+	.melir1 view:nth-child(2) {
 		color: #969696;
 		font-size: 26rpx;
 	}
-	.melir1 view:nth-child(1){
+
+	.melir1 view:nth-child(1) {
 		color: #646464;
 		font-size: 26rpx;
 		font-weight: bold;
 		width: 100rpx;
 	}
-	.melir1{
+
+	.melir1 {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		margin-bottom: 18rpx;
 	}
-	.meliright{
+
+	.meliright {
 		width: 450rpx;
 		box-sizing: border-box;
 	}
-	.melileft image{
+
+	.melileft image {
 		width: 144rpx;
 		height: 144rpx;
 		border-radius: 22rpx;
 	}
-	.meli{
+
+	.meli {
 		width: 620rpx;
 		margin: auto;
 		margin-bottom: 57rpx;
@@ -218,7 +236,8 @@
 		align-items: center;
 		justify-content: space-between;
 	}
-	.imtopse{
+
+	.imtopse {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -227,18 +246,21 @@
 		border-bottom: 1rpx solid #E6E6E6;
 		margin-bottom: 46rpx;
 	}
-	.imtopse image{
+
+	.imtopse image {
 		width: 34rpx;
 		height: 34rpx;
 	}
-	.imtopse input{
+
+	.imtopse input {
 		height: 106rpx;
 		width: 450rpx;
 		color: #646464;
 		font-size: 34rpx;
 		font-weight: bold;
 	}
-	.inme{
+
+	.inme {
 		width: 680rpx;
 		margin: auto;
 		background-color: #fff;
@@ -248,18 +270,21 @@
 		margin-bottom: 76rpx;
 		box-shadow: 5px 10px 20px 0px rgba(147, 147, 147, 0.2);
 	}
-	.icinli view{
+
+	.icinli view {
 		font-size: 28rpx;
 		color: #646464;
 		font-weight: bold;
 		text-align: center;
 	}
-	.icinli image{
+
+	.icinli image {
 		width: 100rpx;
-		height:100rpx;
+		height: 100rpx;
 		margin-bottom: 26rpx;
 	}
-	.iconfelx{
+
+	.iconfelx {
 		width: 680rpx;
 		margin: auto;
 		padding-top: 46rpx;
@@ -268,17 +293,20 @@
 		justify-content: space-around;
 		margin-bottom: 55rpx;
 	}
-	.ggcon{
+
+	.ggcon {
 		font-size: 24rpx;
 		color: #787878;
 	}
-	.ggtit{
+
+	.ggtit {
 		font-size: 24rpx;
 		color: #646464;
 		margin-right: 24rpx;
 		font-weight: bold;
 	}
-	.gonggao{
+
+	.gonggao {
 		display: flex;
 		align-items: center;
 		width: 680rpx;
@@ -286,20 +314,24 @@
 		padding-left: 24rpx;
 		box-sizing: border-box;
 	}
+
 	.wx-swiper-dot {
 		position: relative;
 		bottom: 10rpx;
 	}
-	.hddetimg{
+
+	.hddetimg {
 		width: 680rpx;
 		height: 366rpx;
 	}
-	.swiper{
+
+	.swiper {
 		width: 680rpx;
 		height: 444rpx;
 		margin: auto;
 	}
-	.box{
+
+	.box {
 		padding-top: 44rpx;
 	}
 </style>
