@@ -2,7 +2,7 @@
 	<view class="banner">
 		<swiper class="swiper" :autoplay="true" :interval="3000" :indicator-dots='dats' indicator-color="#D3D3D3" indicator-active-color="#FF4646">
 				<swiper-item v-for="(item,index) in banner" :key='index'>
-						<image class="hddetimg" :src="item.pic"></image>
+						<image class="hddetimg" :src="item.pic" mode="aspectFit"></image>
 				</swiper-item>
 		</swiper>
 	</view>

@@ -8786,8 +8786,9 @@ var urlList = {
   getStreets: 'index/getStreets', // 获取街道
   getCoops: 'index/getCoops', // 获取合作社
   updateUser: 'index/updateUser', // 初次登录 更新用户信息
-  banner: 'index/banner' };var
-
+  banner: 'index/banner', // 获取轮播
+  members: 'index/members' // 成员列表
+};var
 Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "banner", value: function banner(
     param, callback) {
       var param = {
@@ -8841,6 +8842,18 @@ Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createS
       var param = {
         url: urlList.updateUser,
         type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "members", value: function members(
+
+    param, callback) {
+      var param = {
+        url: urlList.members,
+        type: "get",
         data: param,
         sCallback: function sCallback(data) {
           callback && callback(data);
@@ -8950,9 +8963,7 @@ _vue.default.use(_vuex.default);
 //实例store对象
 var store = new _vuex.default.Store({
   state: {
-    bannerlist: [], //轮播列表
-    cooperativeList: '', //合作社列表
-    street_id: '' //街道列表
+    bannerlist: [] //轮播列表
   },
   mutations: {} });var _default =
 

@@ -8,8 +8,6 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		bannerlist:[],//轮播列表
-		cooperativeList:'',//合作社列表
-		street_id:'',//街道列表
 	},
 	mutations: {
 	}

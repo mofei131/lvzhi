@@ -20,20 +20,20 @@
 		</view>
 		<view class="iconfelx">
 			<view class="icinli" v-for="(item,index) in iconlist" :key='index'>
-				<image :src="item.iconurl"></image>
+				<image :src="item.iconurl" mode="aspectFit"></image>
 				<view>{{item.tit}}</view>
 			</view>
 		</view>
 		<view class="inme">
 			<view class="imtopse">
 				<input type="text" value="" placeholder="成员列表" />
-				<image src="../../static/image/search.png" mode=""></image>
+				<image src="../../static/image/search.png" mode="aspectFit"></image>
 			</view>
 			<view class="meli" v-for="(item,index) in melist" :key='index'>
 				<view class="melileft">
-					<image :src="item.imgurl"></image>
+					<image :src="item.imgurl" mode="aspectFit"></image>
 				</view>
-				<view class="meliright">
+				<view class="meliright"><strong><strong></strong></strong>
 					<view class="melir1">
 						<view>{{item.name}}</view>
 						<view>{{item.sex}}</view>
