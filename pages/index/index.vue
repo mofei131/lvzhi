@@ -6,14 +6,8 @@
 			<!-- <view class="ggcon">请各位及时上传所需资料，截止日期15天后</view> -->
 			<view class="ggcon">
 				<swiper class="swiper" :autoplay="true" :interval='8000' :vertical='true' :isable-touch='false'>
-					<swiper-item @touchmove.stop>
-						<view class="swiper-item uni-bg-red">请各位及时上传所需资料，截止日期15天后请各位及时上传所需资料，截止日期45天后</view>
-					</swiper-item>
-					<swiper-item>
-						<view class="swiper-item uni-bg-green">请各位及时上传所需资料，截止日期30天后</view>
-					</swiper-item>
-					<swiper-item>
-						<view class="swiper-item uni-bg-blue">请各位及时上传所需资料，截止日期45天后</view>
+					<swiper-item @touchmove.stop v-for="(item,index) in noticeList" :key='index'>
+						<view class="swiper-item uni-bg-red">{{item.name}}</view>
 					</swiper-item>
 				</swiper>
 			</view>
@@ -96,7 +90,6 @@
 			return {
 				melist: [],
 				page: 1,
-
 				iconlist: [{
 					tit: '晒承诺',
 					iconurl: '../../static/image/indexicon1.png'
@@ -111,7 +104,8 @@
 				login: false,
 				dats: true, //轮播是否显示分页器
 				userInfo: {},
-				placeholder: ''
+				placeholder: '',
+				noticeList:[],//公告列表
 			}
 		},
 		onLoad() {
@@ -138,8 +132,24 @@
 					this.huoquStreets()
 				}
 			}
+			this.getNotice()
 		},
 		methods: {
+			//获取公告列表
+			getNotice(){
+				this.api.notice({
+					
+				},res=>{
+					if(res.code == 200){
+						this.noticeList = res.data
+					}else{
+						uni.showToast({
+							title:res.message,
+							icon:'none'
+						})
+					}
+				})
+			},
 			tologin() {
 				if (!uni.getStorageSync('userInfo')) {
 					uni.showModal({
@@ -214,7 +224,7 @@
 
 	.ggcon .swiper {
 		width: 560rpx;
-		height: 35rpx;
+		height: 30rpx;
 	}
 
 	.tologin {

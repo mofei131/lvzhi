@@ -10,8 +10,20 @@ let urlList = {
 	members: 'index/members', // 成员列表
 	JudgeCoop:'Judge/coop',//合作社评价
 	JudgeList:'Judge/list',//成员评价
+	notice:'index/notice',//首页公告
 }
 class Api extends Base {
+	notice(param, callback) {
+		var param = {
+			url: urlList.notice,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
 	JudgeList(param, callback) {
 		var param = {
 			url: urlList.JudgeList,
