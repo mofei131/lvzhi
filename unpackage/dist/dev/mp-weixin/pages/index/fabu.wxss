@@ -1,4 +1,23 @@
 
+.blank view{
+	color: #969696;
+	font-size: 26rpx;
+	margin-bottom: 20rpx;
+}
+.blank input{
+	width: 200rpx;
+	border: 1rpx solid #e6e6e6;
+	border-radius: 5rpx;
+	text-align: center;
+	margin: 0 10rpx 20rpx 10rpx;
+}
+.blank{
+	width: 680rpx;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	margin: auto;
+}
 .fbback{
 	width: 576rpx;
 	height: 81rpx;

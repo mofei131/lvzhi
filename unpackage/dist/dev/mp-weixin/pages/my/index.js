@@ -178,45 +178,6 @@ var _default =
 
   },
   methods: {
-    getLogin: function getLogin() {
-      // uni.showLoading({title: '加载中',mask:true});
-      // uni.hideLoading();
-      var that = this;
-      // 弹出授权框（每次执行都会弹出）
-      uni.getUserProfile({
-        desc: '登录授权', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-        success: function success(res) {
-          console.log("获取用户授权信息：", res);
-          // let data = res.userInfo
-          // uni.request({
-          // 	url:'https://layer.boyaokj.cn/api/wechat/setUserinfo',
-          // 	method:'GET',
-          // 	data:{
-          // 		nickname:data.nickName,
-          // 		avater:data.avatarUrl,
-          // 		country:data.country,
-          // 		gender:data.gender,
-          // 		province:data.province,
-          // 		city:data.city,
-          // 		user_id:uni.getStorageSync('userInfo').id,
-          // 	},
-          // 	success(red) {
-          // 		console.log(red.data.data)
-          // 		console.log(data.nickName)
-          // 		that.user.name = data.nickName
-          // 		that.user.headimg = data.avatarUrl
-          // 	}
-          // })
-        },
-        fail: function fail(res) {
-          uni.showToast({
-            title: "拒绝授权，将无法使用部分功能",
-            duration: 1000,
-            icon: 'none' });
-
-        } });
-
-    },
     topage: function topage() {
       if (!uni.getStorageSync('userInfo')) {
         uni.showToast({

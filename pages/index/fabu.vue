@@ -1,5 +1,16 @@
 <template>
 	<view class="box">
+		<view class="blank">
+			<view>合作社共有</view>
+			<input type="number" />
+			<view>股民，本人今年包联</view>
+			<input type="number" />
+			<view>户，目前已走访</view>
+			<input type="number" />
+			<view>户，今日走访</view>
+			<input type="number" />
+			<view>户</view>
+		</view>
 		<textarea class="textarea" placeholder="请输入要发布的内容..." placeholder-style="color: #eaeaea;" auto-height="true" maxlength=-1></textarea>
 		<view class="picebox">
 			<view class="uppice" v-for="(item,index) in picelist" :key='index'>
@@ -69,6 +80,25 @@
 </script>
 
 <style>
+	.blank view{
+		color: #969696;
+		font-size: 26rpx;
+		margin-bottom: 20rpx;
+	}
+	.blank input{
+		width: 200rpx;
+		border: 1rpx solid #e6e6e6;
+		border-radius: 5rpx;
+		text-align: center;
+		margin: 0 10rpx 20rpx 10rpx;
+	}
+	.blank{
+		width: 680rpx;
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		margin: auto;
+	}
 	.fbback{
 		width: 576rpx;
 		height: 81rpx;

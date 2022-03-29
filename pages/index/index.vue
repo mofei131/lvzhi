@@ -33,7 +33,7 @@
 				<view class="melileft">
 					<image :src="item.imgurl" mode="aspectFit"></image>
 				</view>
-				<view class="meliright">
+				<view class="meliright"><strong><strong></strong></strong>
 					<view class="melir1">
 						<view>{{item.name}}</view>
 						<view>{{item.sex}}</view>
