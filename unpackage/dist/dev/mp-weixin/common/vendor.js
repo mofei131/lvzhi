@@ -8950,8 +8950,10 @@ _vue.default.use(_vuex.default);
 //实例store对象
 var store = new _vuex.default.Store({
   state: {
-    bannerlist: [] },
-
+    bannerlist: [], //轮播列表
+    cooperativeList: '', //合作社列表
+    street_id: '' //街道列表
+  },
   mutations: {} });var _default =
 
 

@@ -2,12 +2,12 @@
 	<view class="box">
 		<view class="myinfo">
 			<view class="mileft">
-				<image src="http://hlstore.yimetal.cn/12.png"></image>
+				<image :src="userInfo.avater"></image>
 			</view>
 			<view class="miright">
 				<view class="mirli1">
-					<view>点击登录</view>
-					<view>成员</view>
+					<view>{{userInfo.realname}}</view>
+					<view>{{userInfo.post}}</view>
 				</view>
 				<view class="mirli2">
 					<view>大虞街道</view>
@@ -42,8 +42,11 @@
 					id:4,
 					title:'关于我们'
 				}],
-				info:[]
+				userInfo:{},//用户信息
 			}
+		},
+		onShow() {
+			this.userInfo = uni.getStorageSync('userInfo')
 		},
 		methods:{
 			topage(){

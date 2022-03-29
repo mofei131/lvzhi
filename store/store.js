@@ -7,7 +7,9 @@ Vue.use(Vuex)
 //实例store对象
 const store = new Vuex.Store({
 	state: {
-		bannerlist:[],
+		bannerlist:[],//轮播列表
+		cooperativeList:'',//合作社列表
+		street_id:'',//街道列表
 	},
 	mutations: {
 	}

@@ -174,8 +174,11 @@ var _default =
         id: 4,
         title: '关于我们' }],
 
-      info: [] };
-
+      userInfo: {} //用户信息
+    };
+  },
+  onShow: function onShow() {
+    this.userInfo = uni.getStorageSync('userInfo');
   },
   methods: {
     topage: function topage() {
