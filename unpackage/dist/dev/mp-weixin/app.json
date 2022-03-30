@@ -13,7 +13,8 @@
     "pages/ping/slz",
     "pages/ping/slh",
     "pages/ping/ping",
-    "pages/ping/meList"
+    "pages/ping/meList",
+    "pages/ping/lhList"
   ],
   "subPackages": [],
   "window": {

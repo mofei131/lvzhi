@@ -72,6 +72,12 @@
 				"navigationBarTitleText": "成员列表",
 				"enablePullDownRefresh": true
 			}
+		},{
+			"path": "pages/ping/lhList",
+			"style": {
+				"navigationBarTitleText": "晒联户",
+				"enablePullDownRefresh": true
+			}
 		}
 	],
 	"globalStyle": {
