@@ -6,26 +6,20 @@
 			<!-- <view class="ggcon">请各位及时上传所需资料，截止日期15天后</view> -->
 			<view class="ggcon">
 				<swiper class="swiper" :autoplay="true" :interval='8000' :vertical='true' :isable-touch='false'>
-					<swiper-item @touchmove.stop>
-						<view class="swiper-item uni-bg-red">请各位及时上传所需资料，截止日期15天后请各位及时上传所需资料，截止日期45天后</view>
-					</swiper-item>
-					<swiper-item>
-						<view class="swiper-item uni-bg-green">请各位及时上传所需资料，截止日期30天后</view>
-					</swiper-item>
-					<swiper-item>
-						<view class="swiper-item uni-bg-blue">请各位及时上传所需资料，截止日期45天后</view>
+					<swiper-item v-for="(item,index) in notice">
+						<view class="swiper-item uni-bg-red">{{item.name}}</view>
 					</swiper-item>
 				</swiper>
 			</view>
 		</view>
 		<view class="iconfelx">
-			<view class="icinli" v-for="(item,index) in iconlist" :key='index'>
+			<view class="icinli" v-for="(item,index) in iconlist" :key='index' @click="toPage(item.url)">
 				<image :src="item.iconurl" mode="aspectFit"></image>
 				<view>{{item.tit}}</view>
 			</view>
 		</view>
 		<view class="inme">
-			<view class="imtopse" @click="toPage">
+			<view class="imtopse" @click="toPage('./search')">
 				<input type="text" disabled="true" :placeholder="placeholder" />
 				<image src="../../static/image/search.png" mode="aspectFit"></image>
 			</view>
@@ -94,18 +88,22 @@
 	export default {
 		data() {
 			return {
+				notice: [],
 				melist: [],
 				page: 1,
 
 				iconlist: [{
 					tit: '晒承诺',
-					iconurl: '../../static/image/indexicon1.png'
+					iconurl: '../../static/image/indexicon1.png',
+					url: '../ping/scn'
 				}, {
 					tit: '晒履职',
-					iconurl: '../../static/image/indexicon2.png'
+					iconurl: '../../static/image/indexicon2.png',
+					url: '../ping/slz'
 				}, {
 					tit: '晒联户',
-					iconurl: '../../static/image/indexicon3.png'
+					iconurl: '../../static/image/indexicon3.png',
+					url: '../ping/slh'
 				}],
 
 				login: false,
@@ -120,12 +118,14 @@
 				title: '大虞合社区'
 			})
 		},
+
 		onShow() {
 			this.userInfo = uni.getStorageSync('userInfo')
 			if (!uni.getStorageSync('userInfo')) {
 				this.login = true
 			} else {
 				this.login = false
+				this.huoquNotice()
 				if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni
 					.getStorageSync('userInfo').role == 5) {
 					this.placeholder = '成员列表'
@@ -139,6 +139,12 @@
 				}
 			}
 		},
+
+		onReachBottom: function() {
+			this.page = this.page + 1
+			this.huoquMembers()
+		},
+
 		methods: {
 			tologin() {
 				if (!uni.getStorageSync('userInfo')) {
@@ -159,8 +165,16 @@
 				}
 			},
 
+			// 获取公告
+			huoquNotice() {
+				this.api.notice({}, res => {
+					this.notice = res.data
+				})
+			},
+
 			// 获取成员数据
 			huoquMembers() {
+				var melist = this.page == 1 ? [] : this.melist
 				this.api.members({
 					coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
 					street_id: uni.getStorageSync('userInfo').street_id, //街道ID
@@ -168,8 +182,7 @@
 					limit: 10,
 					keywords: ''
 				}, res => {
-					console.log(res)
-					this.melist = res.data
+					this.melist = melist.concat(res.data)
 				})
 			},
 
@@ -178,7 +191,6 @@
 				this.api.getCoops({
 					street_id: uni.getStorageSync('userInfo').street_id
 				}, res => {
-					console.log(res)
 					this.melist = res.data
 				})
 			},
@@ -186,15 +198,14 @@
 			// 获取街道
 			huoquStreets() {
 				this.api.getStreets({}, res => {
-					console.log(res)
 					this.melist = res.data
 				})
 			},
-			
+
 			// 页面跳转
-			toPage(){
+			toPage(url) {
 				uni.navigateTo({
-					url: './search'
+					url: url
 				})
 			}
 		}

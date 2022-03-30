@@ -1,28 +1,28 @@
 
-.flexbox{
+.flexbox {
 	display: flex;
 	width: 600rpx;
 	align-items: center;
 	justify-content: space-between;
 	box-sizing: border-box;
 }
-.pickflex image{
+.pickflex image {
 	margin-left: 20rpx;
 }
-.pickflex{
+.pickflex {
 	display: flex;
 	align-items: center;
 }
-.listf image{
+.listf image {
 	width: 19rpx;
 	height: 34rpx;
 }
-.listf view{
+.listf view {
 	color: #646464;
 	font-size: 34rpx;
 	font-weight: bold;
 }
-.listf{
+.listf {
 	width: 680rpx;
 	height: 100rpx;
 	background-color: #EAEAEA;
@@ -35,7 +35,7 @@
 	border-radius: 20rpx;
 	margin-bottom: 30rpx;
 }
-.box{
+.box {
 	padding-top: 20rpx;
 }
 

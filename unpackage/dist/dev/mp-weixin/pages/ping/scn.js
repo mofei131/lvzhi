@@ -130,7 +130,25 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -155,12 +173,26 @@ var _default =
       format: true });
 
     return {
+      streets: [], // 街道
+      coops: [], // 合作社
+      coop_id: '', // 合作社id
       list: [{
-        title: '合作社承诺' },
+        title: '合作社承诺',
+        type: 1,
+        type2: 1 },
       {
-        title: '包靠干部承诺' },
+        title: '包靠干部承诺',
+        type: 1,
+        type2: 2 },
       {
-        title: '成员承诺' }],
+        title: '成员承诺',
+        type: 2,
+        type2: 3 }],
+
+
+      zuzhibu: false,
+      jiedao: false,
+      hezuoshe: false,
 
       date: currentDate };
 
@@ -173,7 +205,47 @@ var _default =
       return this.getDate('end');
     } },
 
+
+  onLoad: function onLoad(e) {
+    if (uni.getStorageSync('userInfo').role == 4) {
+      this.zuzhibu = true;
+    } else if (uni.getStorageSync('userInfo').role == 3) {
+      this.jiedao = true;
+    } else {
+      this.hezuoshe = true;
+    }
+  },
+
+  onShow: function onShow() {
+    this.huoquStreets();
+  },
+
   methods: {
+    // 获取街道
+    huoquStreets: function huoquStreets() {var _this = this;
+      this.api.getStreets({}, function (res) {
+        _this.streets = res.data;
+      });
+    },
+
+    // 获取社区
+    huoquCoops: function huoquCoops(id) {var _this2 = this;
+      this.api.getCoops({
+        street_id: id },
+      function (res) {
+        _this2.coops = res.data;
+        _this2.zuzhibu = false;
+        _this2.jiedao = true;
+      });
+    },
+
+    // 获取合作社
+    huoquHezuoshe: function huoquHezuoshe(id) {
+      this.jiedao = false;
+      this.hezuoshe = true;
+      this.coop_id = id;
+    },
+
     bindDateChange: function bindDateChange(e) {
       this.date = e.target.value;
     },
@@ -192,7 +264,15 @@ var _default =
       day = day > 9 ? day : '0' + day;
       // return `${year}-${month}-${day}`;
       return "".concat(year);
+    },
+
+    // 页面跳转
+    toPage: function toPage(type2) {
+      uni.navigateTo({
+        url: '../index/cnlist?coop_id=' + this.coop_id + '&type2=' + type2 + '&year=' + this.date });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

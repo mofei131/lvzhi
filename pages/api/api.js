@@ -8,6 +8,10 @@ let urlList = {
 	updateUser: 'index/updateUser', // 初次登录 更新用户信息
 	banner: 'index/banner', // 获取轮播
 	members: 'index/members', // 成员列表
+	notice: 'index/notice', // 公告
+	promiseCoop: 'Promise/coop', //合作社承诺
+	coopInfo: 'index/coopInfo', //合作社详情
+	promiseList: 'Promise/list', //合作社成员
 }
 class Api extends Base {
 	banner(param, callback) {
@@ -73,6 +77,54 @@ class Api extends Base {
 	members(param, callback) {
 		var param = {
 			url: urlList.members,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	notice(param, callback) {
+		var param = {
+			url: urlList.notice,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	promiseCoop(param, callback) {
+		var param = {
+			url: urlList.promiseCoop,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	coopInfo(param, callback) {
+		var param = {
+			url: urlList.coopInfo,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	promiseList(param, callback) {
+		var param = {
+			url: urlList.promiseList,
 			type: "get",
 			data: param,
 			sCallback: function(data) {
