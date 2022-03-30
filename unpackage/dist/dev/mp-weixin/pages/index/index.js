@@ -233,7 +233,6 @@ var _default =
       notice: [],
       melist: [],
       page: 1,
-
       iconlist: [{
         tit: '晒承诺',
         iconurl: '../../static/image/indexicon1.png',
@@ -251,8 +250,9 @@ var _default =
       login: false,
       dats: true, //轮播是否显示分页器
       userInfo: {},
-      placeholder: '' };
-
+      placeholder: '',
+      noticeList: [] //公告列表
+    };
   },
   onLoad: function onLoad() {
     // 修改顶部标题
@@ -280,6 +280,7 @@ var _default =
         this.huoquStreets();
       }
     }
+    this.getNotice();
   },
 
   onReachBottom: function onReachBottom() {
@@ -288,6 +289,21 @@ var _default =
   },
 
   methods: {
+    //获取公告列表
+    getNotice: function getNotice() {var _this = this;
+      this.api.notice({},
+
+      function (res) {
+        if (res.code == 200) {
+          _this.noticeList = res.data;
+        } else {
+          uni.showToast({
+            title: res.message,
+            icon: 'none' });
+
+        }
+      });
+    },
     tologin: function tologin() {
       if (!uni.getStorageSync('userInfo')) {
         uni.showModal({
@@ -308,14 +324,14 @@ var _default =
     },
 
     // 获取公告
-    huoquNotice: function huoquNotice() {var _this = this;
+    huoquNotice: function huoquNotice() {var _this2 = this;
       this.api.notice({}, function (res) {
-        _this.notice = res.data;
+        _this2.notice = res.data;
       });
     },
 
     // 获取成员数据
-    huoquMembers: function huoquMembers() {var _this2 = this;
+    huoquMembers: function huoquMembers() {var _this3 = this;
       var melist = this.page == 1 ? [] : this.melist;
       this.api.members({
         coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
@@ -324,23 +340,23 @@ var _default =
         limit: 10,
         keywords: '' },
       function (res) {
-        _this2.melist = melist.concat(res.data);
+        _this3.melist = melist.concat(res.data);
       });
     },
 
     // 获取合作社
-    huoquCoops: function huoquCoops() {var _this3 = this;
+    huoquCoops: function huoquCoops() {var _this4 = this;
       this.api.getCoops({
         street_id: uni.getStorageSync('userInfo').street_id },
       function (res) {
-        _this3.melist = res.data;
+        _this4.melist = res.data;
       });
     },
 
     // 获取街道
-    huoquStreets: function huoquStreets() {var _this4 = this;
+    huoquStreets: function huoquStreets() {var _this5 = this;
       this.api.getStreets({}, function (res) {
-        _this4.melist = res.data;
+        _this5.melist = res.data;
       });
     },
 

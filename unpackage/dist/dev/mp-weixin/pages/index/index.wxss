@@ -9,7 +9,7 @@
 }
 .ggcon .swiper {
 	width: 560rpx;
-	height: 35rpx;
+	height: 30rpx;
 }
 .tologin {
 	width: 100%;

@@ -12,8 +12,43 @@ let urlList = {
 	promiseCoop: 'Promise/coop', //合作社承诺
 	coopInfo: 'index/coopInfo', //合作社详情
 	promiseList: 'Promise/list', //合作社成员
+	JudgeCoop:'Judge/coop',//合作社评价
+	JudgeList:'Judge/list',//成员评价
 }
 class Api extends Base {
+	notice(param, callback) {
+		var param = {
+			url: urlList.notice,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	JudgeList(param, callback) {
+		var param = {
+			url: urlList.JudgeList,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	JudgeCoop(param, callback) {
+		var param = {
+			url: urlList.JudgeCoop,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
 	banner(param, callback) {
 		var param = {
 			url: urlList.banner,

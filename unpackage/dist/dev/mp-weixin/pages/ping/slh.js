@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -150,10 +150,35 @@ var _default =
       {
         title: '某某街道' },
       {
-        title: '某某街道' }] };
+        title: '某某街道' }],
 
+      hzList: [{
+        id: -1,
+        title: '包靠干部联户' },
+      {
+        id: -2,
+        title: '成员联户' }],
 
-  } };exports.default = _default;
+      userInfo: '' };
+
+  },
+  onShow: function onShow() {
+    this.userInfo = uni.getStorageSync('userInfo');
+  },
+  methods: {
+    //判断角色展示列表
+    showList: function showList() {
+      if (this.userInfo.role == 4) {
+        this.list = uni.getStorageSync('streetList');
+      } else if (this.userInfo == 3) {
+        this.list = uni.getStorageSync('cooperativeList');
+      } else if (this.userInfo == 2) {
+        this.list = this.hzList;
+      } else {
+
+      }
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

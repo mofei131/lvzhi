@@ -19,8 +19,33 @@
 					title:'某某街道'
 				},{
 					title:'某某街道'
-				}]
+				}],
+				hzList:[{
+					id:-1,
+					title:'包靠干部联户'
+				},{
+					id:-2,
+					title:'成员联户'
+				}],
+				userInfo:'',
 			}
+		},
+		onShow() {
+			this.userInfo = uni.getStorageSync('userInfo')
+		},
+		methods:{
+			//判断角色展示列表
+			showList(){
+				if(this.userInfo.role == 4){
+					this.list = uni.getStorageSync('streetList')
+				}else if(this.userInfo == 3){
+					this.list = uni.getStorageSync('cooperativeList')
+				}else if(this.userInfo == 2){
+					this.list = this.hzList
+				}else{
+					
+				}
+			},
 		}
 	}
 </script>

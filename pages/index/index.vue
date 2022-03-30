@@ -6,7 +6,7 @@
 			<!-- <view class="ggcon">请各位及时上传所需资料，截止日期15天后</view> -->
 			<view class="ggcon">
 				<swiper class="swiper" :autoplay="true" :interval='8000' :vertical='true' :isable-touch='false'>
-					<swiper-item v-for="(item,index) in notice">
+					<swiper-item @touchmove.stop v-for="(item,index) in noticeList" :key='index'>
 						<view class="swiper-item uni-bg-red">{{item.name}}</view>
 					</swiper-item>
 				</swiper>
@@ -91,7 +91,6 @@
 				notice: [],
 				melist: [],
 				page: 1,
-
 				iconlist: [{
 					tit: '晒承诺',
 					iconurl: '../../static/image/indexicon1.png',
@@ -109,7 +108,8 @@
 				login: false,
 				dats: true, //轮播是否显示分页器
 				userInfo: {},
-				placeholder: ''
+				placeholder: '',
+				noticeList:[],//公告列表
 			}
 		},
 		onLoad() {
@@ -138,6 +138,7 @@
 					this.huoquStreets()
 				}
 			}
+			this.getNotice()
 		},
 
 		onReachBottom: function() {
@@ -146,6 +147,21 @@
 		},
 
 		methods: {
+			//获取公告列表
+			getNotice(){
+				this.api.notice({
+					
+				},res=>{
+					if(res.code == 200){
+						this.noticeList = res.data
+					}else{
+						uni.showToast({
+							title:res.message,
+							icon:'none'
+						})
+					}
+				})
+			},
 			tologin() {
 				if (!uni.getStorageSync('userInfo')) {
 					uni.showModal({
@@ -225,7 +241,7 @@
 
 	.ggcon .swiper {
 		width: 560rpx;
-		height: 35rpx;
+		height: 30rpx;
 	}
 
 	.tologin {
