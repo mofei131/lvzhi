@@ -18,6 +18,8 @@ let urlList = {
 	LvzhiCoop: 'Lvzhi/coop', //合作社履职
 	LvzhiList: 'Lvzhi/list', //合作社成员履职
 	LvzhiAdd: 'Lvzhi/add', //添加履职
+	ShaiList: 'Shai/list', //晒连户
+	ShaiAdd: 'Shai/add', //晒连户 发布
 }
 class Api extends Base {
 	notice(param, callback) {
@@ -220,7 +222,30 @@ class Api extends Base {
 		};
 		this.request(param);
 	}
-
+	
+	ShaiList(param, callback) {
+		var param = {
+			url: urlList.ShaiList,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	ShaiAdd(param, callback) {
+		var param = {
+			url: urlList.ShaiAdd,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
 }
 
 export {

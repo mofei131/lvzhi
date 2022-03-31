@@ -2,13 +2,13 @@
 	<view class="box">
 		<view class="blank" v-if="type == 'shailianhu'">
 			<view>合作社共有</view>
-			<input type="number" />
+			<input type="number" v-model="total" />
 			<view>股民，本人今年包联</view>
-			<input type="number" />
+			<input type="number" v-model="baolian" />
 			<view>户，目前已走访</view>
-			<input type="number" />
+			<input type="number" v-model="total_zoufang" />
 			<view>户，今日走访</view>
-			<input type="number" />
+			<input type="number" v-model="today_zoufang" />
 			<view>户</view>
 		</view>
 		<textarea class="textarea" placeholder="请输入要发布的内容..." auto-height="true" maxlength=-1
@@ -58,7 +58,12 @@
 				picelist: [],
 				intro: '',
 
-				type: ''
+				type: '',
+
+				total: '',
+				baolian: '',
+				total_zoufang: '',
+				today_zoufang: '',
 			}
 		},
 
@@ -104,13 +109,45 @@
 			},
 
 			queding() {
-				if (this.intro == '') {
-					uni.showToast({
-						title: '请输入要发布的内容',
-						icon: 'none'
-					})
-				} else {
+				if (this.type == 'shailianhu') {
+					if (this.total == '') {
+						uni.showToast({
+							title: '请输入共有多少股民',
+							icon: 'none'
+						})
+						return
+					}
+					if (this.baolian == '') {
+						uni.showToast({
+							title: '请输入包联多少',
+							icon: 'none'
+						})
+						return
+					}
+					if (this.total_zoufang == '') {
+						uni.showToast({
+							title: '请输入目前已走访多少',
+							icon: 'none'
+						})
+						return
+					}
+					if (this.today_zoufang == '') {
+						uni.showToast({
+							title: '请输入今日已走访多少',
+							icon: 'none'
+						})
+						return
+					}
 					this.fabu_tc = true
+				} else {
+					if (this.intro == '') {
+						uni.showToast({
+							title: '请输入要发布的内容',
+							icon: 'none'
+						})
+					} else {
+						this.fabu_tc = true
+					}
 				}
 			},
 
@@ -137,8 +174,22 @@
 							this.fabu_tc2 = true
 						}
 					})
+				} else if (this.type == 'shailianhu') {
+					this.api.ShaiAdd({
+						uid: uni.getStorageSync('userInfo').id,
+						pics: this.picelist.join('|'),
+						total: this.total,
+						baolian: this.baolian,
+						total_zoufang: this.total_zoufang,
+						today_zoufang: this.today_zoufang,
+						intro: this.intro
+					}, res => {
+						if (res.code == 200) {
+							this.fabu_tc = false
+							this.fabu_tc2 = true
+						}
+					})
 				}
-
 			}
 		}
 	}
