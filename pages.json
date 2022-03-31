@@ -78,6 +78,12 @@
 				"navigationBarTitleText": "晒联户",
 				"enablePullDownRefresh": true
 			}
+		},{
+			"path": "pages/my/infoDet",
+			"style": {
+				"navigationBarTitleText": "成员信息",
+				"enablePullDownRefresh": true
+			}
 		}
 	],
 	"globalStyle": {

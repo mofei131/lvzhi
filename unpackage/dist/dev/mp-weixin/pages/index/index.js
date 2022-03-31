@@ -289,6 +289,12 @@ var _default =
   },
 
   methods: {
+    //跳转成员详情
+    toDet: function toDet(e) {
+      uni.navigateTo({
+        url: '../my/infoDet?uid=' + e.id });
+
+    },
     //获取公告列表
     getNotice: function getNotice() {var _this = this;
       this.api.notice({},

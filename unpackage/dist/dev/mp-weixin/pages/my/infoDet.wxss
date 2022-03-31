@@ -1,0 +1,82 @@
+
+.uni-input{
+	color: #646464;
+	font-size: 32rpx;
+}
+.jbtn{
+	width: 261rpx;
+	height: 91rpx;
+	border-radius: 20rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #FFFFFF;
+	font-size: 34rpx;
+	font-weight: bold;
+	background-color: #ff4646;
+}
+.qbtn{
+	width: 261rpx;
+	height: 91rpx;
+	border-radius: 20rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #ff4646;
+	font-size: 34rpx;
+	font-weight: bold;
+	background-color: #FADCDC;
+}
+.btnbox{
+	height: 140rpx;
+	width: 750rpx;
+	margin: auto;
+	padding-bottom: 50rpx;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.picker{
+	width: 497rpx;
+	height: 72rpx;
+	border-radius: 20rpx;
+	color: #646464;
+	border: 1rpx solid #464646;
+	padding: 0 28rpx 0 28rpx;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+}
+.inliright input{
+	width: 497rpx;
+	height: 72rpx;
+	border-radius: 20rpx;
+	color: #646464;
+	border: 1rpx solid #464646;
+	padding: 0 28rpx 0 28rpx;
+	box-sizing: border-box;
+}
+.inlileft view{
+	width: 160rpx;
+	color: #646464;
+	font-size: 32rpx;
+	font-weight: bold;
+}
+.infoli{
+	display: flex;
+	margin-bottom: 38rpx;
+	align-items: center;
+	justify-content: space-between;
+}
+.infoul{
+	width: 680rpx;
+	margin: auto;
+}
+.box{
+	padding-top: 20rpx;
+	padding-bottom: 200rpx;
+}
+

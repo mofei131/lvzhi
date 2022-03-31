@@ -8799,9 +8799,21 @@ var urlList = {
   LvzhiList: 'Lvzhi/list', //合作社成员履职
   LvzhiAdd: 'Lvzhi/add', //添加履职
   ShaiList: 'Shai/list', //晒连户
-  ShaiAdd: 'Shai/add' //晒连户 发布
+  ShaiAdd: 'Shai/add', //晒连户 发布
+  getUserInfo: 'index/getUserInfo' //查看用户详情
 };var
-Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "notice", value: function notice(
+Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "getUserInfo", value: function getUserInfo(
+    param, callback) {
+      var param = {
+        url: urlList.getUserInfo,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "notice", value: function notice(
     param, callback) {
       var param = {
         url: urlList.notice,

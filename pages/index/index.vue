@@ -24,7 +24,7 @@
 				<image src="../../static/image/search.png" mode="aspectFit"></image>
 			</view>
 			<view class="meli" v-for="(item,index) in melist" :key='index'
-				v-if="userInfo.role == 1 || userInfo.role == 2 || userInfo.role == 5">
+				v-if="userInfo.role == 1 || userInfo.role == 2 || userInfo.role == 5" @click="toDet(item)">
 				<view class="melileft">
 					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
@@ -147,6 +147,12 @@
 		},
 
 		methods: {
+			//跳转成员详情
+			toDet(e){
+				uni.navigateTo({
+					url:'../my/infoDet?uid='+e.id
+				})
+			},
 			//获取公告列表
 			getNotice(){
 				this.api.notice({
