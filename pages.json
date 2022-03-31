@@ -99,6 +99,11 @@
 				"navigationBarTitleText": "成员信息",
 				"enablePullDownRefresh": true
 			}
+		},{
+			"path": "pages/my/aboutUs",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
 		}
 	],
 	"globalStyle": {
