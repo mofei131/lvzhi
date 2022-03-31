@@ -145,115 +145,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default =
 {
   data: function data() {
     return {
-      info: {
-        name: '',
-        post: '',
-        age: '',
-        sex: '',
-        belong: '',
-        mobile: '' },
+      info: [{
+        id: 0,
+        title: '姓名',
+        value: '' },
+      {
+        id: 1,
+        title: '职务',
+        value: '' },
+      {
+        id: 2,
+        title: '年龄',
+        value: '' },
+      {
+        id: 3,
+        title: '性别',
+        value: '' },
+      {
+        id: 4,
+        title: '所属合作社',
+        value: '' },
+      {
+        id: 5,
+        title: '联系方式',
+        value: '' }],
 
-      array: ['大虞合作社', '新城合作社', '大寨合作社', '大关合作社'],
-      index: 0 };
+      userInfo: '' };
 
   },
+  onShow: function onShow() {
+    this.userInfo = uni.getStorageSync('userInfo');
+    this.showInfo();
+  },
   methods: {
-    bindPickerChange: function bindPickerChange(e) {
-      this.index = e.target.value;
-    },
-    upbtn: function upbtn() {
-      if (!this.info.name) {
-        uni.showToast({
-          title: '请输入姓名',
-          icon: 'none' });
-
-        return;
-      }
-      if (!this.info.post) {
-        uni.showToast({
-          title: '请输入职务',
-          icon: 'none' });
-
-        return;
-      }
-      if (!this.info.age) {
-        uni.showToast({
-          title: '请输入年龄',
-          icon: 'none' });
-
-        return;
-      }
-      if (!this.info.age) {
-        uni.showToast({
-          title: '请输入性别',
-          icon: 'none' });
-
-        return;
-      }
-      if (!this.info.belong) {
-        uni.showToast({
-          title: '请输入合作社',
-          icon: 'none' });
-
-        return;
-      }
-      if (!this.info.mobile) {
-        uni.showToast({
-          title: '请输入联系方式',
-          icon: 'none' });
-
-        return;
+    //根据角色判断显示内容
+    showInfo: function showInfo() {var _this = this;
+      if (this.userInfo.role == 4 || this.userInfo.role == 3) {
+        this.info.splice(this.info.findIndex(function (item) {return item.id == 1;}), 1);
+        this.info.splice(this.info.findIndex(function (item) {return item.id == 2;}), 1);
+        this.info.splice(this.info.findIndex(function (item) {return item.id == 3;}), 1);
+        this.info.splice(this.info.findIndex(function (item) {return item.id == 4;}), 1);
+        this.info[this.info.findIndex(function (item) {return item.id == 0;})].value = this.userInfo.realname;
+        this.info[this.info.findIndex(function (item) {return item.id == 5;})].value = this.userInfo.mobile;
+      } else if (this.userInfo.role == 2) {
+        this.info.splice(this.info.findIndex(function (item) {return item.id == 1;}), 1);
+        this.info.splice(this.info.findIndex(function (item) {return item.id == 2;}), 1);
+        this.info.splice(this.info.findIndex(function (item) {return item.id == 3;}), 1);
+        this.info[this.info.findIndex(function (item) {return item.id == 4;})].title = '所属街道';
+        this.info[this.info.findIndex(function (item) {return item.id == 0;})].value = this.userInfo.realname;
+        this.info[this.info.findIndex(function (item) {return item.id == 5;})].value = this.userInfo.mobile;
+        this.info[this.info.findIndex(function (item) {return item.id == 4;})].value = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(function (item) {return item.id == _this.userInfo.street_id;})].street_name;
+      } else if (this.userInfo.role == 1 || this.userInfo.role == 5) {
+        this.info[this.info.findIndex(function (item) {return item.id == 0;})].value = this.userInfo.realname;
+        this.info[this.info.findIndex(function (item) {return item.id == 1;})].value = this.userInfo.post;
+        this.info[this.info.findIndex(function (item) {return item.id == 2;})].value = this.userInfo.age;
+        this.info[this.info.findIndex(function (item) {return item.id == 3;})].value = this.userInfo.sex == 1 ? '男' : '女';
+        this.info[this.info.findIndex(function (item) {return item.id == 4;})].value = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(function (item) {return item.id == _this.userInfo.cooperative_id;})].cooperative_name;
+        this.info[this.info.findIndex(function (item) {return item.id == 5;})].value = this.userInfo.mobile;
       }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

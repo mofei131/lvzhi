@@ -16,9 +16,11 @@
 				</view>
 			</view>
 		</view>
-		<view class="listf" v-for="(item,index) in list" :key="index" @click="topage(item.id)">
-			<view>{{item.title}}</view>
-			<image src="../../static/image/righticon.png"></image>
+		<view class="mtlibox">
+			<view class="listf" v-for="(item,index) in list" :key="index" @click="topage(item.id)">
+				<view>{{item.title}}</view>
+				<image src="../../static/image/righticon.png"></image>
+			</view>
 		</view>
 	</view>
 </template>
@@ -60,8 +62,19 @@
 				this.street = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item.id == this.userInfo.street_id)].street_name
 				this.cooperative = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == this.userInfo.cooperative_id)].cooperative_name
 			}
+			this.showlist()
 		},
 		methods:{
+			//根据角色删除显示数组
+			showlist(){
+				if(this.userInfo.role == 4 || this.userInfo.role == 3){
+					this.list.splice(this.list.findIndex(item => item.id == 1),1)
+					this.list.splice(this.list.findIndex(item => item.id == 2),1)
+					this.list.splice(this.list.findIndex(item => item.id == 3),1)
+				}else if(this.userInfo.role == 2){
+					this.list.splice(this.list.findIndex(item => item.id == 3),1)
+				}
+			},
 			//去登录
 			tologin(){
 				uni.redirectTo({
@@ -77,9 +90,9 @@
 					})
 					return
 				}
-				if(e == 1){
+				if(e == 0){
 					uni.navigateTo({
-						url:''
+						url:'./info'
 					})
 				}
 			}

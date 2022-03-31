@@ -1,61 +1,14 @@
 <template>
 	<view class="box">
 		<view class="infoul">
-			<view class="infoli">
+			<view class="infoli" v-for="(item,index) in info" :key='index'>
 				<view class="inlileft">
-					<view>姓名</view>
+					<view>{{item.title}}</view>
 				</view>
 				<view class="inliright">
-					<input type="text" placeholder="请输入..." v-model="info.name" placeholder-style="color: #eaeaea;" />
+					<input type="text" v-model="item.value" :disabled="true" />
 				</view>
 			</view>
-			<view class="infoli">
-				<view class="inlileft">
-					<view>职务</view>
-				</view>
-				<view class="inliright">
-					<input type="text" placeholder="请输入..." v-model="info.post" placeholder-style="color: #eaeaea;" />
-				</view>
-			</view>
-			<view class="infoli">
-				<view class="inlileft">
-					<view>年龄</view>
-				</view>
-				<view class="inliright">
-					<input type="number" placeholder="请输入..." v-model="info.age" placeholder-style="color: #eaeaea;" />
-				</view>
-			</view>
-			<view class="infoli">
-				<view class="inlileft">
-					<view>性别</view>
-				</view>
-				<view class="inliright">
-					<input type="text" placeholder="请输入..." v-model="info.age" placeholder-style="color: #eaeaea;" />
-				</view>
-			</view>
-			<view class="infoli">
-				<view class="inlileft">
-					<view>所属合作社</view>
-				</view>
-				<view class="inliright">
-					<!-- <input type="text" placeholder="请输入..." v-model="info.belong" placeholder-style="color: #eaeaea;" /> -->
-					<picker class="picker" @change="bindPickerChange" :value="index" :range="array">
-						<view class="uni-input">{{array[index]}}</view>
-					</picker>
-				</view>
-			</view>
-			<view class="infoli">
-				<view class="inlileft">
-					<view>联系方式</view>
-				</view>
-				<view class="inliright">
-					<input type="number" maxlength="11" placeholder="请输入..." v-model="info.mobile" placeholder-style="color: #eaeaea;" />
-				</view>
-			</view>
-		</view>
-		<view class="btnbox">
-			<view class="qbtn">履职情况</view>
-			<view class="jbtn">工作承诺</view>
 		</view>
 	</view>
 </template>
@@ -64,64 +17,63 @@
 	export default{
 		data(){
 			return{
-				info:{
-					name:'',
-					post:'',
-					age:'',
-					sex:'',
-					belong:'',
-					mobile:'',
-				},
-				array: ['大虞合作社', '新城合作社', '大寨合作社', '大关合作社'],
-				index: 0,
+				info:[{
+					id:0,
+					title:'姓名',
+					value:''
+				},{
+					id:1,
+					title:'职务',
+					value:''
+				},{
+					id:2,
+					title:'年龄',
+					value:''
+				},{
+					id:3,
+					title:'性别',
+					value:''
+				},{
+					id:4,
+					title:'所属合作社',
+					value:''
+				},{
+					id:5,
+					title:'联系方式',
+					value:''
+				}],
+				userInfo:''
 			}
 		},
+		onShow() {
+			this.userInfo = uni.getStorageSync('userInfo')
+			this.showInfo()
+		},
 		methods:{
-			bindPickerChange(e){
-				this.index = e.target.value
-			},
-			upbtn(){
-				if(!this.info.name){
-					uni.showToast({
-						title:'请输入姓名',
-						icon:'none'
-					})
-					return
-				}
-				if(!this.info.post){
-					uni.showToast({
-						title:'请输入职务',
-						icon:'none'
-					})
-					return
-				}
-				if(!this.info.age){
-					uni.showToast({
-						title:'请输入年龄',
-						icon:'none'
-					})
-					return
-				}
-				if(!this.info.age){
-					uni.showToast({
-						title:'请输入性别',
-						icon:'none'
-					})
-					return
-				}
-				if(!this.info.belong){
-					uni.showToast({
-						title:'请输入合作社',
-						icon:'none'
-					})
-					return
-				}
-				if(!this.info.mobile){
-					uni.showToast({
-						title:'请输入联系方式',
-						icon:'none'
-					})
-					return
+			//根据角色判断显示内容
+			showInfo(){
+				if(this.userInfo.role == 4 || this.userInfo.role == 3){
+					this.info.splice(this.info.findIndex(item => item.id == 1),1)
+					this.info.splice(this.info.findIndex(item => item.id == 2),1)
+					this.info.splice(this.info.findIndex(item => item.id == 3),1)
+					this.info.splice(this.info.findIndex(item => item.id == 4),1)
+					this.info[this.info.findIndex(item => item.id == 0)].value = this.userInfo.realname
+					this.info[this.info.findIndex(item => item.id == 5)].value = this.userInfo.mobile
+				}else if(this.userInfo.role == 2){
+					this.info.splice(this.info.findIndex(item => item.id == 1),1)
+					this.info.splice(this.info.findIndex(item => item.id == 2),1)
+					this.info.splice(this.info.findIndex(item => item.id == 3),1)
+					this.info[this.info.findIndex(item => item.id == 4)].title = '所属街道'
+					this.info[this.info.findIndex(item => item.id == 0)].value = this.userInfo.realname
+					this.info[this.info.findIndex(item => item.id == 5)].value = this.userInfo.mobile
+					this.info[this.info.findIndex(item => item.id == 4)].value = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item.id == this.userInfo.street_id)].street_name
+				}else if(this.userInfo.role == 1 || this.userInfo.role == 5){
+					this.info[this.info.findIndex(item => item.id == 0)].value = this.userInfo.realname
+					this.info[this.info.findIndex(item => item.id == 1)].value = this.userInfo.post
+					this.info[this.info.findIndex(item => item.id == 2)].value = this.userInfo.age
+					this.info[this.info.findIndex(item => item.id == 3)].value = this.userInfo.sex == 1?'男':'女'
+					this.info[this.info.findIndex(item => item.id == 4)].value = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == this.userInfo.cooperative_id)].cooperative_name
+					this.info[this.info.findIndex(item => item.id == 5)].value = this.userInfo.mobile
 				}
 			}
 		}

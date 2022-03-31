@@ -155,6 +155,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var _default =
 {
   data: function data() {
@@ -192,8 +194,19 @@ var _default =
       this.street = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(function (item) {return item.id == _this.userInfo.street_id;})].street_name;
       this.cooperative = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(function (item) {return item.id == _this.userInfo.cooperative_id;})].cooperative_name;
     }
+    this.showlist();
   },
   methods: {
+    //根据角色删除显示数组
+    showlist: function showlist() {
+      if (this.userInfo.role == 4 || this.userInfo.role == 3) {
+        this.list.splice(this.list.findIndex(function (item) {return item.id == 1;}), 1);
+        this.list.splice(this.list.findIndex(function (item) {return item.id == 2;}), 1);
+        this.list.splice(this.list.findIndex(function (item) {return item.id == 3;}), 1);
+      } else if (this.userInfo.role == 2) {
+        this.list.splice(this.list.findIndex(function (item) {return item.id == 3;}), 1);
+      }
+    },
     //去登录
     tologin: function tologin() {
       uni.redirectTo({
@@ -209,9 +222,9 @@ var _default =
 
         return;
       }
-      if (e == 1) {
+      if (e == 0) {
         uni.navigateTo({
-          url: '' });
+          url: './info' });
 
       }
     } } };exports.default = _default;
