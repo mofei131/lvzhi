@@ -26,7 +26,7 @@
 					</view>
 				</view>
 			</picker>
-			<view class="listf" v-for="(item,index) in list" :key="index" @click="toPage(item.type2)">
+			<view class="listf" v-for="(item,index) in list" :key="index" @click="toPage(item.type)">
 				<view>{{item.title}}</view>
 				<image src="../../static/image/righticon.png" mode="aspectFit"></image>
 			</view>
@@ -44,18 +44,16 @@
 				streets: [], // 街道
 				coops: [], // 合作社
 				coop_id: '', // 合作社id
+				
 				list: [{
 					title: '合作社承诺',
 					type: 1,
-					type2: 1
 				}, {
 					title: '包靠干部承诺',
-					type: 1,
-					type2: 2
+					type: 2,
 				}, {
 					title: '成员承诺',
-					type: 2,
-					type2: 3
+					type: 3,
 				}],
 
 				zuzhibu: false,
@@ -75,17 +73,26 @@
 		},
 
 		onLoad(e) {
-			if (uni.getStorageSync('userInfo').role == 4) {
-				this.zuzhibu = true
-			} else if (uni.getStorageSync('userInfo').role == 3) {
-				this.jiedao = true
-			} else {
-				this.hezuoshe = true
-			}
+
 		},
 
 		onShow() {
-			this.huoquStreets()
+			if (uni.getStorageSync('userInfo').role == 4) {
+				this.zuzhibu = true
+				this.jiedao = false
+				this.hezuoshe = false
+				this.huoquStreets()
+			} else if (uni.getStorageSync('userInfo').role == 3) {
+				this.jiedao = true
+				this.zuzhibu = false
+				this.hezuoshe = false
+				this.huoquCoops()
+			} else {
+				this.hezuoshe = true
+				this.zuzhibu = false
+				this.jiedao = false
+				this.huoquHezuoshe()
+			}
 		},
 
 		methods: {
@@ -99,7 +106,7 @@
 			// 获取社区
 			huoquCoops(id) {
 				this.api.getCoops({
-					street_id: id
+					street_id: id ? id : uni.getStorageSync('userInfo').street_id
 				}, res => {
 					this.coops = res.data
 					this.zuzhibu = false
@@ -111,7 +118,7 @@
 			huoquHezuoshe(id) {
 				this.jiedao = false
 				this.hezuoshe = true
-				this.coop_id = id
+				this.coop_id = id ? id: uni.getStorageSync('userInfo').cooperative_id
 			},
 
 			bindDateChange: function(e) {
@@ -135,9 +142,9 @@
 			},
 
 			// 页面跳转
-			toPage(type2) {
+			toPage(type) {
 				uni.navigateTo({
-					url: '../index/cnlist?coop_id=' + this.coop_id + '&type2=' + type2 + '&year=' + this.date
+					url: '../index/cnlist?coop_id=' + this.coop_id + '&type=' + type + '&year=' + this.date
 				})
 			}
 		}

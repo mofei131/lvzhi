@@ -1,17 +1,17 @@
 <template>
 	<view class="box">
-		<view v-if="type2 == 1 || type2 == 2">
+		<view v-if="type == 1 || type == 2">
 			<view class="topimg">
 				<topimg></topimg>
 			</view>
 			<view class="coon-info">
 				<view class="cooperative_name">{{coopInfo.cooperative_name}}</view>
-				<view class="intro">时间：{{info.intro}}</view>
-				<view class="create_time">{{info.create_time}}</view>
+				<view class="intro" v-if="info">时间：{{info.intro}}</view>
+				<view class="create_time" v-if="info">{{info.create_time}}</view>
 			</view>
 		</view>
-		<view v-if="type2 == 3">
-			<view class="cncard" v-for="(item,index) in cnlist" :key="index">
+		<view v-if="type == 3">
+			<view class="cncard" v-for="(item,index) in cnlist" :key="index" v-if="item">
 				<view class="cnctop">
 					<view class="cnctleft">
 						<image :src="item.imgurl" mode="aspectFit"></image>
@@ -30,7 +30,7 @@
 					<view>{{item.chcon}}</view>
 				</view>
 			</view>
-			<view class="btnbox">
+			<view class="btnbox" @click="toPage" v-if="user.role == 1 || user.role == 5">
 				<view class="btn">立即发布</view>
 			</view>
 		</view>
@@ -41,13 +41,14 @@
 	export default {
 		data() {
 			return {
-				type: '', // 1合作社id
-				type2: '', // 1合作社承诺 2包靠干部承诺 3成员
+				type: '', // 1合作社承诺 2包靠干部承诺 3成员
+				coop_id: '', // 1合作社id
 				year: '',
 
 				info: {},
+				user: {},
 				coopInfo: {},
-				
+
 				cnlist: [],
 				page: 1
 			}
@@ -55,20 +56,19 @@
 
 		onLoad(e) {
 			this.type = e.coop_id
-			this.type2 = e.type2
+			this.type = e.type
 			this.year = e.year
 		},
 
 		onShow() {
-			if (this.type2 == 1) {
+			this.user = uni.getStorageSync('userInfo')
+			if (this.type == 1 || this.type == 2) {
 				this.huoquData()
-			} else if (this.type2 == 2) {
-				this.huoquData()
-			} else if (this.type2 == 3) {
+			} else if (this.type == 3) {
 				this.huoquData2()
 			}
 		},
-		
+
 		onReachBottom: function() {
 			this.page = this.page + 1
 			this.huoquData2()
@@ -79,12 +79,12 @@
 			huoquData() {
 				this.api.promiseCoop({
 					year: this.year,
-					coop_id: this.type,
-					type: this.type2 //1:合作社, 2:包靠干部
+					coop_id: this.coop_id ? this.coop_id : uni.getStorageSync('userInfo').cooperative_id,
+					type: this.type //1:合作社, 2:包靠干部
 				}, res => {
 					this.info = res.data
 					this.api.coopInfo({
-						id: this.type
+						id: this.coop_id ? this.coop_id : uni.getStorageSync('userInfo').cooperative_id,
 					}, ress => {
 						this.coopInfo = ress.data
 					})
@@ -96,11 +96,18 @@
 				var cnlist = this.page == 1 ? [] : this.cnlist
 				this.api.promiseList({
 					year: this.year,
-					coop_id: this.type,
+					coop_id: this.coop_id ? this.coop_id : uni.getStorageSync('userInfo').cooperative_id,
 					page: this.page,
 					limit: 10
 				}, res => {
 					this.cnlist = cnlist.concat(res.data)
+				})
+			},
+
+			// 立即发布
+			toPage() {
+				uni.navigateTo({
+					url: './fabu?type=shaichengnuo'
 				})
 			}
 		}

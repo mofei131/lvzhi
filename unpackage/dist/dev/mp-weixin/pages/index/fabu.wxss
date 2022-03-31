@@ -1,24 +1,24 @@
 
-.blank view{
+.blank view {
 	color: #969696;
 	font-size: 26rpx;
 	margin-bottom: 20rpx;
 }
-.blank input{
+.blank input {
 	width: 200rpx;
 	border: 1rpx solid #e6e6e6;
 	border-radius: 5rpx;
 	text-align: center;
 	margin: 0 10rpx 20rpx 10rpx;
 }
-.blank{
+.blank {
 	width: 680rpx;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 	margin: auto;
 }
-.fbback{
+.fbback {
 	width: 576rpx;
 	height: 81rpx;
 	border-radius: 20rpx;
@@ -30,14 +30,14 @@
 	background-color: #FF4646;
 	margin: auto;
 }
-.fbfont{
+.fbfont {
 	color: #ff4646;
 	font-size: 54rpx;
 	font-weight: bold;
 	text-align: center;
 	margin-bottom: 85rpx;
 }
-.tsbtnright{
+.tsbtnright {
 	width: 233rpx;
 	height: 81rpx;
 	border-radius: 20rpx;
@@ -49,7 +49,7 @@
 	background-color: #ff4646;
 	font-weight: bold;
 }
-.tsbtnleft{
+.tsbtnleft {
 	width: 233rpx;
 	height: 81rpx;
 	border-radius: 20rpx;
@@ -61,12 +61,12 @@
 	background-color: #FADCDC;
 	font-weight: bold;
 }
-.tsbtn{
+.tsbtn {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
 }
-.tscon{
+.tscon {
 	width: 541rpx;
 	line-height: 54rpx;
 	color: #646464;
@@ -75,7 +75,7 @@
 	margin: auto;
 	margin-bottom: 70rpx;
 }
-.tsbox{
+.tsbox {
 	width: 681rpx;
 	height: 409rpx;
 	border-radius: 20rpx;
@@ -85,16 +85,16 @@
 	margin: auto;
 	margin-top: 58%;
 }
-.tsshbox{
+.tsshbox {
 	width: 750rpx;
 	height: 100%;
 	margin: auto;
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: rgba(0,0,0,.3);
+	background-color: rgba(0, 0, 0, .3);
 }
-.jbtn{
+.jbtn {
 	width: 261rpx;
 	height: 91rpx;
 	border-radius: 20rpx;
@@ -106,7 +106,7 @@
 	font-weight: bold;
 	background-color: #ff4646;
 }
-.qbtn{
+.qbtn {
 	width: 261rpx;
 	height: 91rpx;
 	border-radius: 20rpx;
@@ -118,7 +118,7 @@
 	font-weight: bold;
 	background-color: #FADCDC;
 }
-.btnbox{
+.btnbox {
 	height: 140rpx;
 	width: 750rpx;
 	margin: auto;
@@ -130,23 +130,23 @@
 	align-items: center;
 	justify-content: space-around;
 }
-.delpice image{
+.delpice image {
 	width: 211rpx;
 	height: 43rpx;
 }
-.delpice{
+.delpice {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	width: 211rpx;
 	height: 43rpx;
 }
-.pice image{
+.pice image {
 	width: 211rpx;
 	height: 211rpx;
 	border-radius: 20rpx;
 }
-.uppice{
+.uppice {
 	width: 211rpx;
 	height: 211rpx;
 	position: relative;
@@ -154,23 +154,23 @@
 	margin-right: 30rpx;
 	margin-bottom: 20rpx;
 }
-.addpice image{
+.addpice image {
 	width: 211rpx;
 	height: 211rpx;
 }
-.picebox{
+.picebox {
 	width: 720rpx;
 	margin: auto;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
 }
-.textarea{
+.textarea {
 	min-height: 186rpx;
 	width: 680rpx;
 	margin: auto;
 }
-.box{
+.box {
 	padding-top: 65rpx;
 }
 

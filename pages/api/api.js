@@ -12,8 +12,12 @@ let urlList = {
 	promiseCoop: 'Promise/coop', //合作社承诺
 	coopInfo: 'index/coopInfo', //合作社详情
 	promiseList: 'Promise/list', //合作社成员
-	JudgeCoop:'Judge/coop',//合作社评价
-	JudgeList:'Judge/list',//成员评价
+	JudgeCoop: 'Judge/coop', //合作社评价
+	JudgeList: 'Judge/list', //成员评价
+	promiseAdd: 'Promise/add', //发布承诺
+	LvzhiCoop: 'Lvzhi/coop', //合作社履职
+	LvzhiList: 'Lvzhi/list', //合作社成员履职
+	LvzhiAdd: 'Lvzhi/add', //添加履职
 }
 class Api extends Base {
 	notice(param, callback) {
@@ -108,7 +112,7 @@ class Api extends Base {
 		};
 		this.request(param);
 	}
-	
+
 	members(param, callback) {
 		var param = {
 			url: urlList.members,
@@ -120,7 +124,7 @@ class Api extends Base {
 		};
 		this.request(param);
 	}
-	
+
 	notice(param, callback) {
 		var param = {
 			url: urlList.notice,
@@ -132,7 +136,7 @@ class Api extends Base {
 		};
 		this.request(param);
 	}
-	
+
 	promiseCoop(param, callback) {
 		var param = {
 			url: urlList.promiseCoop,
@@ -144,7 +148,7 @@ class Api extends Base {
 		};
 		this.request(param);
 	}
-	
+
 	coopInfo(param, callback) {
 		var param = {
 			url: urlList.coopInfo,
@@ -156,7 +160,7 @@ class Api extends Base {
 		};
 		this.request(param);
 	}
-	
+
 	promiseList(param, callback) {
 		var param = {
 			url: urlList.promiseList,
@@ -168,6 +172,55 @@ class Api extends Base {
 		};
 		this.request(param);
 	}
+
+	promiseAdd(param, callback) {
+		var param = {
+			url: urlList.promiseAdd,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+
+	LvzhiCoop(param, callback) {
+		var param = {
+			url: urlList.LvzhiCoop,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+
+	LvzhiList(param, callback) {
+		var param = {
+			url: urlList.LvzhiList,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+
+	LvzhiAdd(param, callback) {
+		var param = {
+			url: urlList.LvzhiAdd,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+
 }
 
 export {
