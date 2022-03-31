@@ -195,6 +195,7 @@ var _default =
         uid: this.uid },
       function (res) {
         if (res.code == 200) {
+          _this.userInfo = res.data;
           _this.info[_this.info.findIndex(function (item) {return item.id == 0;})].value = res.data.realname;
           _this.info[_this.info.findIndex(function (item) {return item.id == 1;})].value = res.data.post;
           _this.info[_this.info.findIndex(function (item) {return item.id == 2;})].value = res.data.age;

@@ -256,9 +256,20 @@ var _default =
   },
   onLoad: function onLoad() {
     // 修改顶部标题
-    uni.setNavigationBarTitle({
-      title: '大虞合社区' });
+    var info = uni.getStorageSync('userInfo');
+    if (info.role == 4) {
+      uni.setNavigationBarTitle({
+        title: '组织部' });
 
+    } else if (info.role == 3) {
+      uni.setNavigationBarTitle({
+        title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(function (item) {return item.id == info.street_id;})].street_name });
+
+    } else if (info.role == 2 || info.role == 1 || info.role == 5) {
+      uni.setNavigationBarTitle({
+        title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(function (item) {return item.id == info.cooperative_id;})].cooperative_name });
+
+    }
   },
 
   onShow: function onShow() {

@@ -63,6 +63,7 @@
 					uid:this.uid
 				},res=>{
 					if(res.code == 200){
+						this.userInfo = res.data
 						this.info[this.info.findIndex(item => item.id == 0)].value = res.data.realname
 						this.info[this.info.findIndex(item => item.id == 1)].value = res.data.post
 						this.info[this.info.findIndex(item => item.id == 2)].value = res.data.age
