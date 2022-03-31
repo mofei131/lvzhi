@@ -238,7 +238,7 @@ var _default =
 
       } else if (e == 3) {
         uni.navigateTo({
-          url: '../ping/lhList' });
+          url: './mylhlist' });
 
       } else if (e == 4) {
         uni.navigateTo({

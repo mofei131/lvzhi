@@ -22,8 +22,22 @@ let urlList = {
 	ShaiAdd: 'Shai/add', //晒连户 发布
 	PromiseMyList: 'Promise/myList', //我的承诺
 	getUserInfo:'index/getUserInfo',//查看用户详情
+	indexSetting:'index/setting',//关于我们
+	ShaiMyList: 'Shai/myList', //我的晒连户
+	ShaiDel: 'Shai/del', //删除晒连户
 }
 class Api extends Base {
+	indexSetting(param, callback) {
+		var param = {
+			url: urlList.indexSetting,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
 	getUserInfo(param, callback) {
 		var param = {
 			url: urlList.getUserInfo,
@@ -263,6 +277,30 @@ class Api extends Base {
 	PromiseMyList(param, callback) {
 		var param = {
 			url: urlList.PromiseMyList,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	ShaiMyList(param, callback) {
+		var param = {
+			url: urlList.ShaiMyList,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	ShaiDel(param, callback) {
+		var param = {
+			url: urlList.ShaiDel,
 			type: "post",
 			data: param,
 			sCallback: function(data) {

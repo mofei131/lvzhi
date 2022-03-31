@@ -21,10 +21,16 @@
 	left: 0;
 	padding-bottom: 51rpx;
 }
-.lzcrli4 view {
-	color: #969696;
-	font-size: 18rpx;
-	font-weight: 400;
+.lzcrli4 {
+	display: flex;
+	align-items: center;
+}
+.create_time {
+	font-size: 26rpx !important;
+	font-weight: 500 !important;
+}
+.shanchu {
+	margin-left: 20rpx;
 }
 .lzcrli3 image {
 	margin-right: 8rpx;
@@ -84,31 +90,8 @@
 	box-sizing: border-box;
 	box-shadow: 5px 10px 20px 0px rgba(147, 147, 147, 0.2);
 }
-.topimg {
-	margin-bottom: 48rpx;
-}
 .box {
 	padding-top: 20rpx;
 	padding-bottom: 200rpx;
-}
-.coon-info {
-	margin: 0 40rpx;
-}
-.cooperative_name {
-	font-size: 36rpx;
-}
-.intro {
-	font-size: 26rpx;
-	margin: 40rpx 0;
-}
-.p404 {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-size: 24rpx;
-	color: #999999;
-	line-height: 100rpx;
-	margin-top: 200rpx;
 }
 

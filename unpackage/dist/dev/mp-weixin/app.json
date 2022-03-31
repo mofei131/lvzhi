@@ -17,7 +17,9 @@
     "pages/ping/lhList",
     "pages/my/mycnlist",
     "pages/my/mylzlist",
-    "pages/my/infoDet"
+    "pages/my/infoDet",
+    "pages/my/aboutUs",
+    "pages/my/mylhlist"
   ],
   "subPackages": [],
   "window": {

@@ -22,6 +22,10 @@
 					</view>
 				</view>
 			</view>
+			<view v-if="lzlist.length <= 0" class="p404">
+				<image src="../../static/image/404.png" mode="aspectFit"></image>
+				<text>暂无承诺</text>
+			</view>
 			<view class="btnbox" v-if="user.role == 1 || user.role == 5">
 				<view class="btn" @click="toPage">立即发布</view>
 			</view>
@@ -212,5 +216,16 @@
 	.intro {
 		font-size: 26rpx;
 		margin: 40rpx 0;
+	}
+	
+	.p404 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 100rpx;
+		margin-top: 200rpx;
 	}
 </style>

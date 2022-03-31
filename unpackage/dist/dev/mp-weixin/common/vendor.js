@@ -8808,9 +8808,23 @@ var urlList = {
   ShaiList: 'Shai/list', //晒连户
   ShaiAdd: 'Shai/add', //晒连户 发布
   PromiseMyList: 'Promise/myList', //我的承诺
-  getUserInfo: 'index/getUserInfo' //查看用户详情
+  getUserInfo: 'index/getUserInfo', //查看用户详情
+  indexSetting: 'index/setting', //关于我们
+  ShaiMyList: 'Shai/myList', //我的晒连户
+  ShaiDel: 'Shai/del' //删除晒连户
 };var
-Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "getUserInfo", value: function getUserInfo(
+Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "indexSetting", value: function indexSetting(
+    param, callback) {
+      var param = {
+        url: urlList.indexSetting,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "getUserInfo", value: function getUserInfo(
     param, callback) {
       var param = {
         url: urlList.getUserInfo,
@@ -9050,6 +9064,30 @@ Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createS
     param, callback) {
       var param = {
         url: urlList.PromiseMyList,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "ShaiMyList", value: function ShaiMyList(
+
+    param, callback) {
+      var param = {
+        url: urlList.ShaiMyList,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "ShaiDel", value: function ShaiDel(
+
+    param, callback) {
+      var param = {
+        url: urlList.ShaiDel,
         type: "post",
         data: param,
         sCallback: function sCallback(data) {
