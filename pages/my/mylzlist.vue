@@ -1,6 +1,5 @@
 <template>
 	<view class="box">
-
 		<view>
 			<view class="lzcard" v-for="(item,index) in lzlist" :key="index">
 				<view class="lzcleft">
