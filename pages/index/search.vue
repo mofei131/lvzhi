@@ -8,7 +8,7 @@
 			<view class="imtopse">
 				<input type="text" value="搜索列表" disabled='true' />
 			</view>
-			<view v-if="melist.length > 0" class="meli" v-for="(item,index) in melist" :key='index'>
+			<view v-if="melist.length > 0" class="meli" v-for="(item,index) in melist" :key='index' @click="toDet(item)">
 				<view class="melileft">
 					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
@@ -49,6 +49,12 @@
 			}
 		},
 		methods: {
+			//跳转成员详情
+			toDet(e){
+				uni.navigateTo({
+					url:'../my/infoDet?uid='+e.id
+				})
+			},
 			sousuo(e) {
 				this.keywords = e.detail.value
 				this.api.members({

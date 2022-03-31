@@ -181,6 +181,12 @@ var _default =
 
   },
   methods: {
+    //跳转成员详情
+    toDet: function toDet(e) {
+      uni.navigateTo({
+        url: '../my/infoDet?uid=' + e.id });
+
+    },
     sousuo: function sousuo(e) {var _this = this;
       this.keywords = e.detail.value;
       this.api.members({
