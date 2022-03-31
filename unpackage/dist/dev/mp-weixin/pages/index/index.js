@@ -230,17 +230,21 @@ var _default =
 {
   data: function data() {
     return {
+      notice: [],
       melist: [],
       page: 1,
       iconlist: [{
         tit: '晒承诺',
-        iconurl: '../../static/image/indexicon1.png' },
+        iconurl: '../../static/image/indexicon1.png',
+        url: '../ping/scn' },
       {
         tit: '晒履职',
-        iconurl: '../../static/image/indexicon2.png' },
+        iconurl: '../../static/image/indexicon2.png',
+        url: '../ping/slz' },
       {
         tit: '晒联户',
-        iconurl: '../../static/image/indexicon3.png' }],
+        iconurl: '../../static/image/indexicon3.png',
+        url: '../ping/slh' }],
 
 
       login: false,
@@ -256,12 +260,14 @@ var _default =
       title: '大虞合社区' });
 
   },
+
   onShow: function onShow() {
     this.userInfo = uni.getStorageSync('userInfo');
     if (!uni.getStorageSync('userInfo')) {
       this.login = true;
     } else {
       this.login = false;
+      this.huoquNotice();
       if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni.
       getStorageSync('userInfo').role == 5) {
         this.placeholder = '成员列表';
@@ -276,6 +282,12 @@ var _default =
     }
     this.getNotice();
   },
+
+  onReachBottom: function onReachBottom() {
+    this.page = this.page + 1;
+    this.huoquMembers();
+  },
+
   methods: {
     //获取公告列表
     getNotice: function getNotice() {var _this = this;
@@ -311,8 +323,16 @@ var _default =
       }
     },
 
+    // 获取公告
+    huoquNotice: function huoquNotice() {var _this2 = this;
+      this.api.notice({}, function (res) {
+        _this2.notice = res.data;
+      });
+    },
+
     // 获取成员数据
-    huoquMembers: function huoquMembers() {var _this2 = this;
+    huoquMembers: function huoquMembers() {var _this3 = this;
+      var melist = this.page == 1 ? [] : this.melist;
       this.api.members({
         coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
         street_id: uni.getStorageSync('userInfo').street_id, //街道ID
@@ -320,33 +340,30 @@ var _default =
         limit: 10,
         keywords: '' },
       function (res) {
-        console.log(res);
-        _this2.melist = res.data;
+        _this3.melist = melist.concat(res.data);
       });
     },
 
     // 获取合作社
-    huoquCoops: function huoquCoops() {var _this3 = this;
+    huoquCoops: function huoquCoops() {var _this4 = this;
       this.api.getCoops({
         street_id: uni.getStorageSync('userInfo').street_id },
       function (res) {
-        console.log(res);
-        _this3.melist = res.data;
-      });
-    },
-
-    // 获取街道
-    huoquStreets: function huoquStreets() {var _this4 = this;
-      this.api.getStreets({}, function (res) {
-        console.log(res);
         _this4.melist = res.data;
       });
     },
 
+    // 获取街道
+    huoquStreets: function huoquStreets() {var _this5 = this;
+      this.api.getStreets({}, function (res) {
+        _this5.melist = res.data;
+      });
+    },
+
     // 页面跳转
-    toPage: function toPage() {
+    toPage: function toPage(url) {
       uni.navigateTo({
-        url: './search' });
+        url: url });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

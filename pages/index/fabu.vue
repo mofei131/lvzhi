@@ -1,6 +1,6 @@
 <template>
 	<view class="box">
-		<view class="blank">
+		<view class="blank" v-if="type == 'shailianhu'">
 			<view>合作社共有</view>
 			<input type="number" />
 			<view>股民，本人今年包联</view>
@@ -11,8 +11,9 @@
 			<input type="number" />
 			<view>户</view>
 		</view>
-		<textarea class="textarea" placeholder="请输入要发布的内容..." placeholder-style="color: #eaeaea;" auto-height="true" maxlength=-1></textarea>
-		<view class="picebox">
+		<textarea class="textarea" placeholder="请输入要发布的内容..." auto-height="true" maxlength=-1
+			v-model="intro"></textarea>
+		<view class="picebox" v-if="type == 'shailvzhi' || type == 'shailianhu'">
 			<view class="uppice" v-for="(item,index) in picelist" :key='index'>
 				<view class="pice">
 					<image :src="item"></image>
@@ -26,80 +27,147 @@
 			</view>
 		</view>
 		<view class="btnbox">
-			<view class="qbtn">取消发布</view>
-			<view class="jbtn">立即发布</view>
+			<view class="qbtn" @click="quxiao">取消发布</view>
+			<view class="jbtn" @click="queding">立即发布</view>
 		</view>
-		<view class="tsshbox" v-if="false">
+		<view class="tsshbox" v-if="fabu_tc">
 			<view class="tsbox">
 				<view class="tscon">请检查您要发布的信息，确认无误后点击确认发布按钮上传信息</view>
 				<view class="tsbtn">
-					<view class="tsbtnleft">取消发布</view>
-					<view class="tsbtnright">确认发布</view>
+					<view class="tsbtnleft" @click="fabu_tc=false;fabu_tc2=false">取消发布</view>
+					<view class="tsbtnright" @click="fabu">确认发布</view>
 				</view>
 			</view>
 		</view>
-		<view class="tsshbox" v-if="false">
+		<view class="tsshbox" v-if="fabu_tc2">
 			<view class="tsbox">
 				<view class="fbfont">发布成功</view>
-				<view class="fbback">返回</view>
+				<view class="fbback" @click="quxiao">返回</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	export default{
-		data(){
-			return{
-				picelist:[]
+	export default {
+		data() {
+			return {
+				fabu_tc: false,
+				fabu_tc2: false,
+
+				picelist: [],
+				intro: '',
+
+				type: ''
 			}
 		},
-		methods:{
+
+		onLoad(e) {
+			this.type = e.type
+		},
+
+		methods: {
 			// 删除图片
-			del(e){
-				this.picelist.splice(e,1)
+			del(e) {
+				this.picelist.splice(e, 1)
 			},
 			// 拍摄,选取图片图片
-			getimg(){
+			getimg() {
 				let that = this
 				uni.chooseImage({
-						count: 6,           // 最多可以选择的图片张数，默认9
-						sizeType: ['original', 'compressed'],              //original 原图，compressed 压缩图，默认二者都有
-						sourceType: ['album', 'camera'],             //album 从相册选图，camera 使用相机，默认二者都有。如需直接开相机或直接选相册，请只使用一个选项
-						success: function (res) {
-						if(res.tempFilePaths.length > 0){
-							for(let i in res.tempFilePaths){
-								that.picelist.push(res.tempFilePaths[i])
+					count: 9, // 最多可以选择的图片张数，默认9
+					sizeType: ['original', 'compressed'], //original 原图，compressed 压缩图，默认二者都有
+					sourceType: ['album', 'camera'], //album 从相册选图，camera 使用相机，默认二者都有。如需直接开相机或直接选相册，请只使用一个选项
+					success: function(res) {
+						var tempFilePaths = res.tempFilePaths
+						if (tempFilePaths.length > 0) {
+							for (var i = 0; i < tempFilePaths.length; i++) {
+								uni.uploadFile({
+									url: 'https://lvzhi.boyaokj.cn/api/index/upload',
+									filePath: tempFilePaths[i],
+									name: 'file',
+									success: function(resImg) {
+										var img = JSON.parse(resImg.data).data.url
+										that.picelist.push(img)
+									}
+								})
 							}
 						}
-						}
+					}
 				});
+			},
+
+			quxiao() {
+				uni.navigateBack({
+					delta: 1
+				})
+			},
+
+			queding() {
+				if (this.intro == '') {
+					uni.showToast({
+						title: '请输入要发布的内容',
+						icon: 'none'
+					})
+				} else {
+					this.fabu_tc = true
+				}
+			},
+
+			// 提交发布
+			fabu() {
+				if (this.type == 'shaichengnuo') {
+					this.api.promiseAdd({
+						uid: uni.getStorageSync('userInfo').id,
+						intro: this.intro
+					}, res => {
+						if (res.code == 200) {
+							this.fabu_tc = false
+							this.fabu_tc2 = true
+						}
+					})
+				} else if (this.type == 'shailvzhi') {
+					this.api.LvzhiAdd({
+						uid: uni.getStorageSync('userInfo').id,
+						intro: this.intro,
+						pics: this.picelist.join('|')
+					}, res => {
+						if (res.code == 200) {
+							this.fabu_tc = false
+							this.fabu_tc2 = true
+						}
+					})
+				}
+
 			}
 		}
 	}
 </script>
 
 <style>
-	.blank view{
+	.blank view {
 		color: #969696;
 		font-size: 26rpx;
 		margin-bottom: 20rpx;
 	}
-	.blank input{
+
+	.blank input {
 		width: 200rpx;
 		border: 1rpx solid #e6e6e6;
 		border-radius: 5rpx;
 		text-align: center;
 		margin: 0 10rpx 20rpx 10rpx;
 	}
-	.blank{
+
+	.blank {
 		width: 680rpx;
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
 		margin: auto;
 	}
-	.fbback{
+
+	.fbback {
 		width: 576rpx;
 		height: 81rpx;
 		border-radius: 20rpx;
@@ -111,14 +179,16 @@
 		background-color: #FF4646;
 		margin: auto;
 	}
-	.fbfont{
+
+	.fbfont {
 		color: #ff4646;
 		font-size: 54rpx;
 		font-weight: bold;
 		text-align: center;
 		margin-bottom: 85rpx;
 	}
-	.tsbtnright{
+
+	.tsbtnright {
 		width: 233rpx;
 		height: 81rpx;
 		border-radius: 20rpx;
@@ -130,7 +200,8 @@
 		background-color: #ff4646;
 		font-weight: bold;
 	}
-	.tsbtnleft{
+
+	.tsbtnleft {
 		width: 233rpx;
 		height: 81rpx;
 		border-radius: 20rpx;
@@ -142,12 +213,14 @@
 		background-color: #FADCDC;
 		font-weight: bold;
 	}
-	.tsbtn{
+
+	.tsbtn {
 		display: flex;
 		align-items: center;
 		justify-content: space-around;
 	}
-	.tscon{
+
+	.tscon {
 		width: 541rpx;
 		line-height: 54rpx;
 		color: #646464;
@@ -156,7 +229,8 @@
 		margin: auto;
 		margin-bottom: 70rpx;
 	}
-	.tsbox{
+
+	.tsbox {
 		width: 681rpx;
 		height: 409rpx;
 		border-radius: 20rpx;
@@ -166,16 +240,18 @@
 		margin: auto;
 		margin-top: 58%;
 	}
-	.tsshbox{
+
+	.tsshbox {
 		width: 750rpx;
 		height: 100%;
 		margin: auto;
 		position: fixed;
 		top: 0;
 		left: 0;
-		background-color: rgba(0,0,0,.3);
+		background-color: rgba(0, 0, 0, .3);
 	}
-	.jbtn{
+
+	.jbtn {
 		width: 261rpx;
 		height: 91rpx;
 		border-radius: 20rpx;
@@ -187,7 +263,8 @@
 		font-weight: bold;
 		background-color: #ff4646;
 	}
-	.qbtn{
+
+	.qbtn {
 		width: 261rpx;
 		height: 91rpx;
 		border-radius: 20rpx;
@@ -199,7 +276,8 @@
 		font-weight: bold;
 		background-color: #FADCDC;
 	}
-	.btnbox{
+
+	.btnbox {
 		height: 140rpx;
 		width: 750rpx;
 		margin: auto;
@@ -211,23 +289,27 @@
 		align-items: center;
 		justify-content: space-around;
 	}
-	.delpice image{
+
+	.delpice image {
 		width: 211rpx;
 		height: 43rpx;
 	}
-	.delpice{
+
+	.delpice {
 		position: absolute;
 		bottom: 0;
 		left: 0;
 		width: 211rpx;
 		height: 43rpx;
 	}
-	.pice image{
+
+	.pice image {
 		width: 211rpx;
 		height: 211rpx;
 		border-radius: 20rpx;
 	}
-	.uppice{
+
+	.uppice {
 		width: 211rpx;
 		height: 211rpx;
 		position: relative;
@@ -235,23 +317,27 @@
 		margin-right: 30rpx;
 		margin-bottom: 20rpx;
 	}
-	.addpice image{
+
+	.addpice image {
 		width: 211rpx;
 		height: 211rpx;
 	}
-	.picebox{
+
+	.picebox {
 		width: 720rpx;
 		margin: auto;
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
 	}
-	.textarea{
+
+	.textarea {
 		min-height: 186rpx;
 		width: 680rpx;
 		margin: auto;
 	}
-	.box{
+
+	.box {
 		padding-top: 65rpx;
 	}
 </style>

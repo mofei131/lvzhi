@@ -97,6 +97,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.fabu_tc = false
+      _vm.fabu_tc2 = false
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -179,13 +185,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var _default =
 {
   data: function data() {
     return {
-      picelist: [] };
+      fabu_tc: false,
+      fabu_tc2: false,
+
+      picelist: [],
+      intro: '',
+
+      type: '' };
 
   },
+
+  onLoad: function onLoad(e) {
+    this.type = e.type;
+  },
+
   methods: {
     // 删除图片
     del: function del(e) {
@@ -195,16 +213,69 @@ var _default =
     getimg: function getimg() {
       var that = this;
       uni.chooseImage({
-        count: 6, // 最多可以选择的图片张数，默认9
+        count: 9, // 最多可以选择的图片张数，默认9
         sizeType: ['original', 'compressed'], //original 原图，compressed 压缩图，默认二者都有
         sourceType: ['album', 'camera'], //album 从相册选图，camera 使用相机，默认二者都有。如需直接开相机或直接选相册，请只使用一个选项
         success: function success(res) {
-          if (res.tempFilePaths.length > 0) {
-            for (var i in res.tempFilePaths) {
-              that.picelist.push(res.tempFilePaths[i]);
+          var tempFilePaths = res.tempFilePaths;
+          if (tempFilePaths.length > 0) {
+            for (var i = 0; i < tempFilePaths.length; i++) {
+              uni.uploadFile({
+                url: 'https://lvzhi.boyaokj.cn/api/index/upload',
+                filePath: tempFilePaths[i],
+                name: 'file',
+                success: function success(resImg) {
+                  var img = JSON.parse(resImg.data).data.url;
+                  that.picelist.push(img);
+                } });
+
             }
           }
         } });
+
+    },
+
+    quxiao: function quxiao() {
+      uni.navigateBack({
+        delta: 1 });
+
+    },
+
+    queding: function queding() {
+      if (this.intro == '') {
+        uni.showToast({
+          title: '请输入要发布的内容',
+          icon: 'none' });
+
+      } else {
+        this.fabu_tc = true;
+      }
+    },
+
+    // 提交发布
+    fabu: function fabu() {var _this = this;
+      if (this.type == 'shaichengnuo') {
+        this.api.promiseAdd({
+          uid: uni.getStorageSync('userInfo').id,
+          intro: this.intro },
+        function (res) {
+          if (res.code == 200) {
+            _this.fabu_tc = false;
+            _this.fabu_tc2 = true;
+          }
+        });
+      } else if (this.type == 'shailvzhi') {
+        this.api.LvzhiAdd({
+          uid: uni.getStorageSync('userInfo').id,
+          intro: this.intro,
+          pics: this.picelist.join('|') },
+        function (res) {
+          if (res.code == 200) {
+            _this.fabu_tc = false;
+            _this.fabu_tc2 = true;
+          }
+        });
+      }
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

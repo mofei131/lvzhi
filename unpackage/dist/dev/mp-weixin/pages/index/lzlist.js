@@ -130,7 +130,18 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -165,24 +176,74 @@ var _default =
 {
   data: function data() {
     return {
-      lzlist: [{
-        url: 'http://hlstore.yimetal.cn/13.jpg',
-        name: '赵钱孙李',
-        she: '大虞合作社',
-        mark: '我承诺今年服务2000个家庭，为他们提供帮助，使他们脱贫致富承诺今年服务2000个家庭。',
-        time: '2022-03-10 17.21',
-        imgurl: ['http://hlstore.yimetal.cn/13.jpg', 'http://hlstore.yimetal.cn/13.jpg', 'http://hlstore.yimetal.cn/13.jpg', 'http://hlstore.yimetal.cn/13.jpg', 'http://hlstore.yimetal.cn/13.jpg'] },
-      {
-        url: 'http://hlstore.yimetal.cn/13.jpg',
-        name: '赵钱孙李',
-        she: '大虞合作社',
-        mark: '我承诺今年服务2000个家庭，为他们提供帮助，使他们脱贫致富承诺今年服务2000个家庭。',
-        time: '2022-03-10 17.21',
-        imgurl: ['http://hlstore.yimetal.cn/13.jpg', 'http://hlstore.yimetal.cn/13.jpg', 'http://hlstore.yimetal.cn/13.jpg', 'http://hlstore.yimetal.cn/13.jpg', 'http://hlstore.yimetal.cn/13.jpg'] }] };
+      type: '',
+      date: '',
+      coop_id: '',
+      page: 1,
 
+      info: {},
+      coopInfo: {},
+
+      lzlist: [] };
 
   },
-  methods: {} };exports.default = _default;
+
+  onLoad: function onLoad(e) {
+    this.type = e.type;
+    this.date = e.date;
+    this.coop_id = e.coop_id;
+  },
+
+  onShow: function onShow() {
+    this.user = uni.getStorageSync('userInfo');
+    if (this.type == 1 || this.type == 2) {
+      this.huoquLvzhiCoop();
+    } else if (this.type == 3) {
+      this.huoquLvzhiList();
+    }
+  },
+
+  onReachBottom: function onReachBottom() {
+    this.page = this.page + 1;
+    this.huoquData2();
+  },
+
+  methods: {
+    // 获取 1:合作社, 2:包靠干部 履职
+    huoquLvzhiCoop: function huoquLvzhiCoop() {var _this = this;
+      this.api.LvzhiCoop({
+        yearMonth: this.date,
+        coop_id: this.coop_id ? this.coop_id : uni.getStorageSync('userInfo').cooperative_id,
+        type: this.type //1:合作社, 2:包靠干部
+      }, function (res) {
+        _this.info = res.data;
+        _this.api.coopInfo({
+          id: _this.coop_id ? _this.coop_id : uni.getStorageSync('userInfo').cooperative_id },
+        function (ress) {
+          _this.coopInfo = ress.data;
+        });
+      });
+    },
+
+    // 获取成员 履职
+    huoquLvzhiList: function huoquLvzhiList() {var _this2 = this;
+      var lzlist = this.page == 1 ? [] : this.lzlist;
+      this.api.LvzhiList({
+        yearMonth: this.date,
+        coop_id: this.coop_id ? this.coop_id : uni.getStorageSync('userInfo').cooperative_id,
+        limit: 10,
+        page: this.page },
+      function (res) {
+        _this2.lzlist = lzlist.concat(res.data);
+      });
+    },
+
+    toPage: function toPage() {
+      uni.navigateTo({
+        url: './fabu?type=shailvzhi' });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

@@ -130,7 +130,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -164,21 +173,76 @@ var _default =
 {
   data: function data() {
     return {
-      cnlist: [{
-        name: '张某某',
-        hzs: '大虞合作社',
-        time: '2022-03-09 19:08',
-        imgurl: 'http://hlstore.yimetal.cn/13.jpg',
-        chcon: '我承诺今年服务2000个家庭，为他们提供帮助，使他们脱贫致富承诺今年服务2000个家庭，为他们提供帮助，使他们脱贫致富承诺今年服务2000个家庭，为他们提供帮助，使他们脱贫致富承诺今年服务2000个家庭。' },
-      {
-        name: '张某某',
-        hzs: '大虞合作社',
-        time: '2022-03-09 19:08',
-        imgurl: 'http://hlstore.yimetal.cn/13.jpg',
-        chcon: '我承诺今年服务2000个家庭，为他们提供帮助，使他们脱贫致富承诺今年服务2000个家庭，为他们提供帮助，使他们脱贫致富承诺今年服务2000个家庭，为他们提供帮助，使他们脱贫致富承诺今年服务2000个家庭。' }] };
+      type: '', // 1合作社承诺 2包靠干部承诺 3成员
+      coop_id: '', // 1合作社id
+      year: '',
 
+      info: {},
+      user: {},
+      coopInfo: {},
 
-  } };exports.default = _default;
+      cnlist: [],
+      page: 1 };
+
+  },
+
+  onLoad: function onLoad(e) {
+    this.type = e.coop_id;
+    this.type = e.type;
+    this.year = e.year;
+  },
+
+  onShow: function onShow() {
+    this.user = uni.getStorageSync('userInfo');
+    if (this.type == 1 || this.type == 2) {
+      this.huoquData();
+    } else if (this.type == 3) {
+      this.huoquData2();
+    }
+  },
+
+  onReachBottom: function onReachBottom() {
+    this.page = this.page + 1;
+    this.huoquData2();
+  },
+
+  methods: {
+    // 获取合作社 包靠干部承诺数据
+    huoquData: function huoquData() {var _this = this;
+      this.api.promiseCoop({
+        year: this.year,
+        coop_id: this.coop_id ? this.coop_id : uni.getStorageSync('userInfo').cooperative_id,
+        type: this.type //1:合作社, 2:包靠干部
+      }, function (res) {
+        _this.info = res.data;
+        _this.api.coopInfo({
+          id: _this.coop_id ? _this.coop_id : uni.getStorageSync('userInfo').cooperative_id },
+        function (ress) {
+          _this.coopInfo = ress.data;
+        });
+      });
+    },
+
+    // 获取成员承诺数据
+    huoquData2: function huoquData2() {var _this2 = this;
+      var cnlist = this.page == 1 ? [] : this.cnlist;
+      this.api.promiseList({
+        year: this.year,
+        coop_id: this.coop_id ? this.coop_id : uni.getStorageSync('userInfo').cooperative_id,
+        page: this.page,
+        limit: 10 },
+      function (res) {
+        _this2.cnlist = cnlist.concat(res.data);
+      });
+    },
+
+    // 立即发布
+    toPage: function toPage() {
+      uni.navigateTo({
+        url: './fabu?type=shaichengnuo' });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
