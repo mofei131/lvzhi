@@ -94,6 +94,18 @@
 					uni.navigateTo({
 						url:'./info'
 					})
+				}else if(e == 1){
+					uni.navigateTo({
+						url:'../index/cnlist'
+					})
+				}else if(e == 2){
+					uni.navigateTo({
+						url:'../index/lzlist'
+					})
+				}else if(e == 3){
+					uni.navigateTo({
+						url:'../ping/lhList'
+					})
 				}
 			}
 		}

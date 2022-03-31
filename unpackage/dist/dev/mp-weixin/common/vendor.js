@@ -805,15 +805,9 @@ var customize = cached(function (str) {
 
 function initTriggerEvent(mpInstance) {
   var oldTriggerEvent = mpInstance.triggerEvent;
-  var newTriggerEvent = function newTriggerEvent(event) {for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
+  mpInstance.triggerEvent = function (event) {for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
     return oldTriggerEvent.apply(mpInstance, [customize(event)].concat(args));
   };
-  try {
-    // 京东小程序 triggerEvent 为只读
-    mpInstance.triggerEvent = newTriggerEvent;
-  } catch (error) {
-    mpInstance._triggerEvent = newTriggerEvent;
-  }
 }
 
 function initHook(name, options, isComponent) {
@@ -1987,17 +1981,17 @@ function createPlugin(vm) {
   var appOptions = parseApp(vm);
   if (isFn(appOptions.onShow) && wx.onAppShow) {
     wx.onAppShow(function () {for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {args[_key7] = arguments[_key7];}
-      vm.__call_hook('onShow', args);
+      appOptions.onShow.apply(vm, args);
     });
   }
   if (isFn(appOptions.onHide) && wx.onAppHide) {
     wx.onAppHide(function () {for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {args[_key8] = arguments[_key8];}
-      vm.__call_hook('onHide', args);
+      appOptions.onHide.apply(vm, args);
     });
   }
   if (isFn(appOptions.onLaunch)) {
     var args = wx.getLaunchOptionsSync && wx.getLaunchOptionsSync();
-    vm.__call_hook('onLaunch', args);
+    appOptions.onLaunch.call(vm, args);
   }
   return vm;
 }
@@ -7947,10 +7941,9 @@ function internalMixin(Vue) {
 
   Vue.prototype.$emit = function(event) {
     if (this.$scope && event) {
-      (this.$scope['_triggerEvent'] || this.$scope['triggerEvent'])
-        .call(this.$scope, event, {
-          __args__: toArray(arguments, 1)
-        })
+      this.$scope['triggerEvent'](event, {
+        __args__: toArray(arguments, 1)
+      });
     }
     return oldEmit.apply(this, arguments)
   };
@@ -8635,9 +8628,9 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 /* 5 */
-/*!***************************!*\
-  !*** D:/lvzhi/pages.json ***!
-  \***************************/
+/*!**************************************!*\
+  !*** G:/mofei/item/lvzhi/pages.json ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8778,9 +8771,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 12 */
-/*!*********************************!*\
-  !*** D:/lvzhi/pages/api/api.js ***!
-  \*********************************/
+/*!********************************************!*\
+  !*** G:/mofei/item/lvzhi/pages/api/api.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9036,9 +9029,9 @@ Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createS
 
 /***/ }),
 /* 13 */
-/*!**********************************!*\
-  !*** D:/lvzhi/pages/api/base.js ***!
-  \**********************************/
+/*!*********************************************!*\
+  !*** G:/mofei/item/lvzhi/pages/api/base.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9119,9 +9112,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.Base = voi
 
 /***/ }),
 /* 14 */
-/*!*******************************!*\
-  !*** D:/lvzhi/store/store.js ***!
-  \*******************************/
+/*!******************************************!*\
+  !*** G:/mofei/item/lvzhi/store/store.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
