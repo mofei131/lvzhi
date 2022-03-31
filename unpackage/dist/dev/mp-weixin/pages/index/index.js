@@ -300,6 +300,18 @@ var _default =
   },
 
   methods: {
+    //切换列表
+    hrole: function hrole(e) {
+      if (e == 4) {
+        this.placeholder = '合作社列表';
+        this.huoquCoops();
+        this.userInfo.role = 3;
+      } else if (e == 3) {
+        this.placeholder = '成员列表';
+        this.huoquMembers();
+        this.userInfo.role = 2;
+      }
+    },
     //跳转成员详情
     toDet: function toDet(e) {
       uni.navigateTo({

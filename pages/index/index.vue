@@ -44,7 +44,7 @@
 				</view>
 			</view>
 
-			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 3">
+			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 3" @click="hrole(3)">
 				<view class="melileft">
 					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
@@ -62,7 +62,7 @@
 				</view>
 			</view>
 
-			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 4">
+			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 4" @click="hrole(4)">
 				<view class="melileft">
 					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
@@ -158,6 +158,18 @@
 		},
 
 		methods: {
+			//切换列表
+			hrole(e){
+				if(e == 4){
+					this.placeholder = '合作社列表'
+					this.huoquCoops()
+					this.userInfo.role = 3
+				}else if(e == 3){
+					this.placeholder = '成员列表'
+					this.huoquMembers()
+					this.userInfo.role = 2
+				}
+			},
 			//跳转成员详情
 			toDet(e){
 				uni.navigateTo({
