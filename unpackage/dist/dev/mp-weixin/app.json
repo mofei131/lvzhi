@@ -16,7 +16,8 @@
     "pages/ping/meList",
     "pages/ping/lhList",
     "pages/my/mycnlist",
-    "pages/my/mylzlist"
+    "pages/my/mylzlist",
+    "pages/my/infoDet"
   ],
   "subPackages": [],
   "window": {

@@ -21,8 +21,20 @@ let urlList = {
 	ShaiList: 'Shai/list', //晒连户
 	ShaiAdd: 'Shai/add', //晒连户 发布
 	PromiseMyList: 'Promise/myList', //我的承诺
+	getUserInfo:'index/getUserInfo',//查看用户详情
 }
 class Api extends Base {
+	getUserInfo(param, callback) {
+		var param = {
+			url: urlList.getUserInfo,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
 	notice(param, callback) {
 		var param = {
 			url: urlList.notice,
