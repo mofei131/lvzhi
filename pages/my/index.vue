@@ -100,7 +100,7 @@
 					})
 				}else if(e == 2){
 					uni.navigateTo({
-						url:'../index/lzlist'
+						url:'mylzlist'
 					})
 				}else if(e == 3){
 					uni.navigateTo({
