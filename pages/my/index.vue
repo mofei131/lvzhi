@@ -96,7 +96,7 @@
 					})
 				}else if(e == 1){
 					uni.navigateTo({
-						url:'../index/cnlist'
+						url:'./mycnlist'
 					})
 				}else if(e == 2){
 					uni.navigateTo({

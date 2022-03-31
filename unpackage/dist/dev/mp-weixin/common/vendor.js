@@ -805,9 +805,15 @@ var customize = cached(function (str) {
 
 function initTriggerEvent(mpInstance) {
   var oldTriggerEvent = mpInstance.triggerEvent;
-  mpInstance.triggerEvent = function (event) {for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
+  var newTriggerEvent = function newTriggerEvent(event) {for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
     return oldTriggerEvent.apply(mpInstance, [customize(event)].concat(args));
   };
+  try {
+    // 京东小程序 triggerEvent 为只读
+    mpInstance.triggerEvent = newTriggerEvent;
+  } catch (error) {
+    mpInstance._triggerEvent = newTriggerEvent;
+  }
 }
 
 function initHook(name, options, isComponent) {
@@ -1981,17 +1987,17 @@ function createPlugin(vm) {
   var appOptions = parseApp(vm);
   if (isFn(appOptions.onShow) && wx.onAppShow) {
     wx.onAppShow(function () {for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {args[_key7] = arguments[_key7];}
-      appOptions.onShow.apply(vm, args);
+      vm.__call_hook('onShow', args);
     });
   }
   if (isFn(appOptions.onHide) && wx.onAppHide) {
     wx.onAppHide(function () {for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {args[_key8] = arguments[_key8];}
-      appOptions.onHide.apply(vm, args);
+      vm.__call_hook('onHide', args);
     });
   }
   if (isFn(appOptions.onLaunch)) {
     var args = wx.getLaunchOptionsSync && wx.getLaunchOptionsSync();
-    appOptions.onLaunch.call(vm, args);
+    vm.__call_hook('onLaunch', args);
   }
   return vm;
 }
@@ -7941,9 +7947,10 @@ function internalMixin(Vue) {
 
   Vue.prototype.$emit = function(event) {
     if (this.$scope && event) {
-      this.$scope['triggerEvent'](event, {
-        __args__: toArray(arguments, 1)
-      });
+      (this.$scope['_triggerEvent'] || this.$scope['triggerEvent'])
+        .call(this.$scope, event, {
+          __args__: toArray(arguments, 1)
+        })
     }
     return oldEmit.apply(this, arguments)
   };
@@ -8628,9 +8635,9 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 /* 5 */
-/*!**************************************!*\
-  !*** G:/mofei/item/lvzhi/pages.json ***!
-  \**************************************/
+/*!***************************!*\
+  !*** D:/lvzhi/pages.json ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8771,9 +8778,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 12 */
-/*!********************************************!*\
-  !*** G:/mofei/item/lvzhi/pages/api/api.js ***!
-  \********************************************/
+/*!*********************************!*\
+  !*** D:/lvzhi/pages/api/api.js ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8799,7 +8806,8 @@ var urlList = {
   LvzhiList: 'Lvzhi/list', //合作社成员履职
   LvzhiAdd: 'Lvzhi/add', //添加履职
   ShaiList: 'Shai/list', //晒连户
-  ShaiAdd: 'Shai/add' //晒连户 发布
+  ShaiAdd: 'Shai/add', //晒连户 发布
+  PromiseMyList: 'Promise/myList' //我的承诺
 };var
 Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "notice", value: function notice(
     param, callback) {
@@ -9025,13 +9033,25 @@ Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createS
         } };
 
       this.request(param);
+    } }, { key: "PromiseMyList", value: function PromiseMyList(
+
+    param, callback) {
+      var param = {
+        url: urlList.PromiseMyList,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
     } }]);return Api;}(_base.Base);exports.Api = Api;
 
 /***/ }),
 /* 13 */
-/*!*********************************************!*\
-  !*** G:/mofei/item/lvzhi/pages/api/base.js ***!
-  \*********************************************/
+/*!**********************************!*\
+  !*** D:/lvzhi/pages/api/base.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9112,9 +9132,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.Base = voi
 
 /***/ }),
 /* 14 */
-/*!******************************************!*\
-  !*** G:/mofei/item/lvzhi/store/store.js ***!
-  \******************************************/
+/*!*******************************!*\
+  !*** D:/lvzhi/store/store.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
