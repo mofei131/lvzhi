@@ -66,19 +66,34 @@
 				"navigationBarTitleText": "评价",
 				"enablePullDownRefresh": true
 			}
-		},{
+		}, {
 			"path": "pages/ping/meList",
 			"style": {
 				"navigationBarTitleText": "成员列表",
 				"enablePullDownRefresh": true
 			}
-		},{
+		}, {
 			"path": "pages/ping/lhList",
 			"style": {
 				"navigationBarTitleText": "晒联户",
 				"enablePullDownRefresh": true
 			}
-		},{
+		},
+		{
+			"path": "pages/my/mycnlist",
+			"style": {
+				"navigationBarTitleText": "我的承诺",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/my/mylzlist",
+			"style": {
+				"navigationBarTitleText": "我的履职",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
 			"path": "pages/my/infoDet",
 			"style": {
 				"navigationBarTitleText": "成员信息",

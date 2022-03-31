@@ -299,6 +299,11 @@ var _default =
           if (res.code == 200) {
             _this.fabu_tc = false;
             _this.fabu_tc2 = true;
+          } else {
+            uni.showToast({
+              title: res.message,
+              icon: 'none' });
+
           }
         });
       } else if (this.type == 'shailvzhi') {

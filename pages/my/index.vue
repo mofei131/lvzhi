@@ -51,18 +51,18 @@
 			}
 		},
 		onLoad() {
-		},
-		onShow() {
 			//赋值用户信息
 			if(uni.getStorageSync('userInfo')){
 				this.userInfo = uni.getStorageSync('userInfo')
 			}
+			this.showlist()
+		},
+		onShow() {
 			//获取街道和合作社名称
 			if(uni.getStorageSync('streetList')&&uni.getStorageSync('streetList')){
 				this.street = uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item.id == this.userInfo.street_id)].street_name
 				this.cooperative = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == this.userInfo.cooperative_id)].cooperative_name
 			}
-			this.showlist()
 		},
 		methods:{
 			//根据角色删除显示数组
@@ -96,7 +96,7 @@
 					})
 				}else if(e == 1){
 					uni.navigateTo({
-						url:'../index/cnlist'
+						url:'./mycnlist'
 					})
 				}else if(e == 2){
 					uni.navigateTo({

@@ -8800,6 +8800,7 @@ var urlList = {
   LvzhiAdd: 'Lvzhi/add', //添加履职
   ShaiList: 'Shai/list', //晒连户
   ShaiAdd: 'Shai/add', //晒连户 发布
+  PromiseMyList: 'Promise/myList', //我的承诺
   getUserInfo: 'index/getUserInfo' //查看用户详情
 };var
 Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "getUserInfo", value: function getUserInfo(
@@ -9030,6 +9031,18 @@ Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createS
     param, callback) {
       var param = {
         url: urlList.ShaiAdd,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "PromiseMyList", value: function PromiseMyList(
+
+    param, callback) {
+      var param = {
+        url: urlList.PromiseMyList,
         type: "post",
         data: param,
         sCallback: function sCallback(data) {

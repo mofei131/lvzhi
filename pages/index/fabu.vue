@@ -161,6 +161,11 @@
 						if (res.code == 200) {
 							this.fabu_tc = false
 							this.fabu_tc2 = true
+						}else{
+							uni.showToast({
+								title: res.message,
+								icon: 'none'
+							})
 						}
 					})
 				} else if (this.type == 'shailvzhi') {

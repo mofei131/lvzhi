@@ -20,6 +20,7 @@ let urlList = {
 	LvzhiAdd: 'Lvzhi/add', //添加履职
 	ShaiList: 'Shai/list', //晒连户
 	ShaiAdd: 'Shai/add', //晒连户 发布
+	PromiseMyList: 'Promise/myList', //我的承诺
 	getUserInfo:'index/getUserInfo',//查看用户详情
 }
 class Api extends Base {
@@ -250,6 +251,18 @@ class Api extends Base {
 	ShaiAdd(param, callback) {
 		var param = {
 			url: urlList.ShaiAdd,
+			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	PromiseMyList(param, callback) {
+		var param = {
+			url: urlList.PromiseMyList,
 			type: "post",
 			data: param,
 			sCallback: function(data) {
