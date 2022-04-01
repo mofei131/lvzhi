@@ -161,7 +161,8 @@ var _default =
       role: '', //角色字段
       cooperativeList: [], //合作社列表
       showList: [], //展示列表
-      coop_id: '' //合作社id
+      coop_id: '', //合作社id
+      street_id: '' //街道id
     };
   },
   onShow: function onShow() {
@@ -194,6 +195,7 @@ var _default =
     topage: function topage(e) {var _this = this;
       //角色为组织部时
       if (this.role == 4) {
+        this.street_id = e.id;
         this.api.getCoops({
           street_id: e.id },
         function (res) {
@@ -208,7 +210,7 @@ var _default =
       } else if (this.role == 2) {
         if (e.id == -3) {
           uni.navigateTo({
-            url: 'meList?coop_id=' + this.coop_id });
+            url: 'meList?coop_id=' + this.coop_id + '&street_id=' + this.street_id });
 
         } else {
           uni.navigateTo({

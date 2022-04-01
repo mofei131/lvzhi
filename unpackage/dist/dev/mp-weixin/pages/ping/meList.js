@@ -163,8 +163,16 @@ var _default =
       melist: [],
       userInfo: '',
       page: 1,
-      limit: 10 };
+      limit: 10,
+      street_id: '',
+      coop_id: '' };
 
+  },
+  onLoad: function onLoad(p) {
+    if (p.coop_id || p.street_id) {
+      this.street_id = p.street_id;
+      this.coop_id = p.coop_id;
+    }
   },
   onShow: function onShow() {
     this.page = 1;
@@ -191,8 +199,8 @@ var _default =
     //获取成员列表
     getMeList: function getMeList() {var _this = this;
       this.api.members({
-        coop_id: this.userInfo.cooperative_id,
-        street_id: this.userInfo.street_id,
+        coop_id: this.userInfo.role == 4 || this.userInfo.role == 3 ? this.coop_id : this.userInfo.cooperative_id,
+        street_id: this.userInfo.role == 4 ? this.street_id : this.userInfo.street_id,
         page: this.page,
         limit: this.limit,
         keywords: '' },
@@ -205,7 +213,7 @@ var _default =
           } else {
             uni.showToast({
               title: '到底了',
-              icon: 'noen' });
+              icon: 'none' });
 
           }
         } else {
