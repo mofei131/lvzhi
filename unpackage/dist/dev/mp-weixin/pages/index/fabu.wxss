@@ -164,6 +164,7 @@
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
+	padding-bottom: 190rpx;
 }
 .textarea {
 	min-height: 186rpx;

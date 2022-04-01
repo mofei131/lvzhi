@@ -6,28 +6,30 @@
 			</view>
 			<view class="coon-info">
 				<view class="cooperative_name">{{coopInfo.cooperative_name}}</view>
-				<view class="intro" v-if="info">时间：{{info.intro}}</view>
-				<view class="create_time" v-if="info">{{info.create_time}}</view>
+				<view class="intro" v-if="info">时间：{{info.create_time}}</view>
+				<view class="create_time" v-if="info">
+					<mp-html class="title" :content="info.intro" />
+				</view>
 			</view>
 		</view>
 		<view v-if="type == 3">
 			<view class="cncard" v-for="(item,index) in cnlist" :key="index" v-if="item">
 				<view class="cnctop">
 					<view class="cnctleft">
-						<image :src="item.imgurl" mode="aspectFit"></image>
+						<image :src="item.user.avater" mode="aspectFit"></image>
 					</view>
 					<view class="cnctright">
 						<view class="cnctrli1">
-							<view>{{item.name}}</view>
+							<view>{{item.user.realname}}</view>
 							<view>{{item.hzs}}</view>
 						</view>
 						<view class="cnctrli2">
-							<view>{{item.time}}</view>
+							<view>{{item.create_time}}</view>
 						</view>
 					</view>
 				</view>
 				<view class="cncbot">
-					<view>{{item.chcon}}</view>
+					<view>{{item.intro}}</view>
 				</view>
 			</view>
 			<view class="btnbox" @click="toPage" v-if="user.role == 1 || user.role == 5">
@@ -38,7 +40,11 @@
 </template>
 
 <script>
+	import mpHtml from '../components/mp-html/mp-html'
 	export default {
+		components: {
+			mpHtml
+		},
 		data() {
 			return {
 				type: '', // 1合作社承诺 2包靠干部承诺 3成员

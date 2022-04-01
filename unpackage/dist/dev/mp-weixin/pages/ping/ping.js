@@ -147,6 +147,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -175,6 +179,7 @@ var _default =
     this.getPing();
   },
   onPullDownRefresh: function onPullDownRefresh() {
+    this.cnlist = [];
     this.page = 1;
     this.getPing();
     uni.stopPullDownRefresh();

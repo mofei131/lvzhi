@@ -2,6 +2,7 @@
 .uni-input {
 	color: #646464;
 	font-size: 32rpx;
+	width: 100%;
 }
 .jbtn {
 	width: 261rpx;

@@ -222,7 +222,7 @@ var _default =
 
     toPage: function toPage() {
       uni.navigateTo({
-        url: './fabu?type=shailvzhi' });
+        url: '../index/fabu?type=shailvzhi' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

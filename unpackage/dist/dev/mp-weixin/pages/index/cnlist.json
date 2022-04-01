@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "晒承诺",
-  "usingComponents": {}
+  "usingComponents": {
+    "mp-html": "/pages/components/mp-html/mp-html"
+  }
 }

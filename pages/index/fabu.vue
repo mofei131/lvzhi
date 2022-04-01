@@ -22,7 +22,7 @@
 					<image src="../../static/image/deleat.png"></image>
 				</view>
 			</view>
-			<view class="addpice" @click="getimg()">
+			<view v-if="picelist.length < 9" class="addpice" @click="getimg()">
 				<image src="../../static/image/addpice.png"></image>
 			</view>
 		</view>
@@ -161,7 +161,7 @@
 						if (res.code == 200) {
 							this.fabu_tc = false
 							this.fabu_tc2 = true
-						}else{
+						} else {
 							uni.showToast({
 								title: res.message,
 								icon: 'none'
@@ -385,6 +385,7 @@
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
+		padding-bottom: 190rpx;
 	}
 
 	.textarea {

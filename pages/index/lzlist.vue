@@ -6,13 +6,15 @@
 			</view>
 			<view class="coon-info">
 				<view class="cooperative_name">{{coopInfo.cooperative_name}}</view>
-				<view class="intro" v-if="info">时间：{{info.intro}}</view>
-				<view class="create_time" v-if="info">{{info.create_time}}</view>
+				<view class="intro" v-if="info">时间：{{info.create_time}}</view>
+				<view class="create_time" v-if="info">
+					<mp-html class="title" :content="info.intro" />
+				</view>
 			</view>
 		</view>
 
 		<view v-if="type == 3">
-			<view class="lzcard" v-for="(item,index) in lzlist" :key="index">
+			<view v-if="lzlist.length > 0" class="lzcard" v-for="(item,index) in lzlist" :key="index">
 				<view class="lzcleft">
 					<image :src="item.url" mode="aspectFit"></image>
 				</view>
@@ -33,6 +35,10 @@
 					</view>
 				</view>
 			</view>
+			<view v-if="lzlist.length <= 0" class="p404">
+				<image src="../../static/image/404.png"></image>
+				<text>暂无内容</text>
+			</view>
 			<view class="btnbox" v-if="user.role == 1 || user.role == 5">
 				<view class="btn" @click="toPage">立即发布</view>
 			</view>
@@ -41,7 +47,11 @@
 </template>
 
 <script>
+	import mpHtml from '../components/mp-html/mp-html'
 	export default {
+		components: {
+			mpHtml
+		},
 		data() {
 			return {
 				type: '',
@@ -105,8 +115,8 @@
 					this.lzlist = lzlist.concat(res.data)
 				})
 			},
-			
-			toPage(){
+
+			toPage() {
 				uni.navigateTo({
 					url: './fabu?type=shailvzhi'
 				})
@@ -234,5 +244,16 @@
 	.intro {
 		font-size: 26rpx;
 		margin: 40rpx 0;
+	}
+
+	.p404 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 100rpx;
+		margin-top: 200rpx;
 	}
 </style>

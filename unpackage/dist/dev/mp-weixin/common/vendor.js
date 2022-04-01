@@ -1,6 +1,6 @@
-(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
-/* 0 */,
-/* 1 */
+(global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
+
+/***/ 1:
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
   \************************************************************/
@@ -2084,7 +2084,3039 @@ uni$1;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 2 */
+
+/***/ 11:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 12:
+/*!********************************************!*\
+  !*** G:/mofei/item/lvzhi/pages/api/api.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.Api = void 0;var _base = __webpack_require__(/*! ./base.js */ 13);function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}
+
+
+var urlList = {
+  login: 'index/login', //授权登录
+  getStreets: 'index/getStreets', // 获取街道
+  getCoops: 'index/getCoops', // 获取合作社
+  updateUser: 'index/updateUser', // 初次登录 更新用户信息
+  banner: 'index/banner', // 获取轮播
+  members: 'index/members', // 成员列表
+  notice: 'index/notice', // 公告
+  promiseCoop: 'Promise/coop', //合作社承诺
+  coopInfo: 'index/coopInfo', //合作社详情
+  promiseList: 'Promise/list', //合作社成员
+  JudgeCoop: 'Judge/coop', //合作社评价
+  JudgeList: 'Judge/list', //成员评价
+  promiseAdd: 'Promise/add', //发布承诺
+  LvzhiCoop: 'Lvzhi/coop', //合作社履职
+  LvzhiList: 'Lvzhi/list', //合作社成员履职
+  LvzhiAdd: 'Lvzhi/add', //添加履职
+  ShaiList: 'Shai/list', //晒连户
+  ShaiAdd: 'Shai/add', //晒连户 发布
+  PromiseMyList: 'Promise/myList', //我的承诺
+  getUserInfo: 'index/getUserInfo', //查看用户详情
+  indexSetting: 'index/setting', //关于我们
+  ShaiMyList: 'Shai/myList', //我的晒连户
+  ShaiDel: 'Shai/del', //删除晒连户
+  indexAuth: 'index/auth' //小程序是否审核
+};var
+Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "indexSetting", value: function indexSetting(
+    param, callback) {
+      var param = {
+        url: urlList.indexSetting,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "getUserInfo", value: function getUserInfo(
+    param, callback) {
+      var param = {
+        url: urlList.getUserInfo,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "notice", value: function notice(
+    param, callback) {
+      var param = {
+        url: urlList.notice,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "JudgeList", value: function JudgeList(
+    param, callback) {
+      var param = {
+        url: urlList.JudgeList,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "JudgeCoop", value: function JudgeCoop(
+    param, callback) {
+      var param = {
+        url: urlList.JudgeCoop,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "banner", value: function banner(
+    param, callback) {
+      var param = {
+        url: urlList.banner,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "login", value: function login(
+
+    param, callback) {
+      var param = {
+        url: urlList.login,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "getStreets", value: function getStreets(
+
+    param, callback) {
+      var param = {
+        url: urlList.getStreets,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "getCoops", value: function getCoops(
+
+    param, callback) {
+      var param = {
+        url: urlList.getCoops,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "updateUser", value: function updateUser(
+
+    param, callback) {
+      var param = {
+        url: urlList.updateUser,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "members", value: function members(
+
+    param, callback) {
+      var param = {
+        url: urlList.members,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "notice", value: function notice(
+
+    param, callback) {
+      var param = {
+        url: urlList.notice,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "promiseCoop", value: function promiseCoop(
+
+    param, callback) {
+      var param = {
+        url: urlList.promiseCoop,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "coopInfo", value: function coopInfo(
+
+    param, callback) {
+      var param = {
+        url: urlList.coopInfo,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "promiseList", value: function promiseList(
+
+    param, callback) {
+      var param = {
+        url: urlList.promiseList,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "promiseAdd", value: function promiseAdd(
+
+    param, callback) {
+      var param = {
+        url: urlList.promiseAdd,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "LvzhiCoop", value: function LvzhiCoop(
+
+    param, callback) {
+      var param = {
+        url: urlList.LvzhiCoop,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "LvzhiList", value: function LvzhiList(
+
+    param, callback) {
+      var param = {
+        url: urlList.LvzhiList,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "LvzhiAdd", value: function LvzhiAdd(
+
+    param, callback) {
+      var param = {
+        url: urlList.LvzhiAdd,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "ShaiList", value: function ShaiList(
+
+    param, callback) {
+      var param = {
+        url: urlList.ShaiList,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "ShaiAdd", value: function ShaiAdd(
+
+    param, callback) {
+      var param = {
+        url: urlList.ShaiAdd,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "PromiseMyList", value: function PromiseMyList(
+
+    param, callback) {
+      var param = {
+        url: urlList.PromiseMyList,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "ShaiMyList", value: function ShaiMyList(
+
+    param, callback) {
+      var param = {
+        url: urlList.ShaiMyList,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "ShaiDel", value: function ShaiDel(
+
+    param, callback) {
+      var param = {
+        url: urlList.ShaiDel,
+        type: "post",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "indexAuth", value: function indexAuth(
+
+    param, callback) {
+      var param = {
+        url: urlList.indexAuth,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }]);return Api;}(_base.Base);exports.Api = Api;
+
+/***/ }),
+
+/***/ 13:
+/*!*********************************************!*\
+  !*** G:/mofei/item/lvzhi/pages/api/base.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.Base = void 0;function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var Base = /*#__PURE__*/function () {
+
+  function Base() {_classCallCheck(this, Base);
+    this.baseRestUrl = 'https://lvzhi.boyaokj.cn/api/';
+  }_createClass(Base, [{ key: "request", value: function request(
+
+    params) {var auth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      var that = this;
+      var url = this.baseRestUrl + params.url;
+      var file = params.file; // 是否为上传
+      var loading = params.loading == "hide" ? "hide" : "show";
+      if (!params.type) {
+        params.type = 'get';
+      }
+
+      /*不需要再次组装地址*/
+      if (params.setUpUrl == false) {
+        url = params.url;
+      }
+      if (file === undefined) {
+        wx.request({
+          url: url,
+          data: params.data,
+          method: params.type,
+          header: {
+            'content-type': 'application/json' },
+
+          success: function success(res) {
+            var code = res.statusCode.toString();
+            var startChar = code.charAt(0);
+            if (startChar == '2') {
+              params.sCallback && params.sCallback(res.data);
+            } else {
+              that._processError(res);
+              params.eCallback && params.eCallback(res.data);
+            }
+          },
+          complete: function complete(res) {
+            // loading == "show" ? wx.hideLoading() : false;
+          },
+          fail: function fail(err) {
+            that._processError(err);
+          } });
+
+      }
+
+      // 发起上传
+      if (file) {
+        return new Promise(function (resolve, reject) {
+          wx.uploadFile({
+            url: url,
+            header: { "Content-Type": "multipart/form-data" },
+            name: 'file',
+            filePath: file,
+            formData: data,
+            success: function success(res) {
+              resolve(JSON.parse(res.data));
+              loading == "show" ? wx.hideLoading() : false;
+            },
+            fail: function fail(err) {
+              loading == "show" ? wx.hideLoading() : false;
+              reject(err);
+            } });
+
+        });
+      }
+    }
+
+    // 打印错误信息
+  }, { key: "_processError", value: function _processError(err) {
+      console.log(err);
+    } }]);return Base;}();exports.Base = Base;
+;
+
+/***/ }),
+
+/***/ 14:
+/*!******************************************!*\
+  !*** G:/mofei/item/lvzhi/store/store.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 15));
+var _api = _interopRequireDefault(__webpack_require__(/*! ../pages/api/api.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //引用Vuex
+_vue.default.use(_vuex.default);
+
+//实例store对象
+var store = new _vuex.default.Store({
+  state: {
+    bannerlist: [] //轮播列表
+  },
+  mutations: {} });var _default =
+
+
+store;exports.default = _default;
+
+/***/ }),
+
+/***/ 15:
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
+ */
+
+
+function applyMixin (Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({ beforeCreate: vuexInit });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      if ( options === void 0 ) options = {};
+
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit;
+      _init.call(this, options);
+    };
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  function vuexInit () {
+    var options = this.$options;
+    // store injection
+    if (options.store) {
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+}
+
+var target = typeof window !== 'undefined'
+  ? window
+  : typeof global !== 'undefined'
+    ? global
+    : {};
+var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin (store) {
+  if (!devtoolHook) { return }
+
+  store._devtoolHook = devtoolHook;
+
+  devtoolHook.emit('vuex:init', store);
+
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  }, { prepend: true });
+
+  store.subscribeAction(function (action, state) {
+    devtoolHook.emit('vuex:action', action, state);
+  }, { prepend: true });
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+function find (list, f) {
+  return list.filter(f)[0]
+}
+
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+function deepCopy (obj, cache) {
+  if ( cache === void 0 ) cache = [];
+
+  // just return if obj is immutable value
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  // if obj is hit, it is in circular structure
+  var hit = find(cache, function (c) { return c.original === obj; });
+  if (hit) {
+    return hit.copy
+  }
+
+  var copy = Array.isArray(obj) ? [] : {};
+  // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+  cache.push({
+    original: obj,
+    copy: copy
+  });
+
+  Object.keys(obj).forEach(function (key) {
+    copy[key] = deepCopy(obj[key], cache);
+  });
+
+  return copy
+}
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}
+
+// Base data struct for store's module, package with some attribute and method
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  // Store some children item
+  this._children = Object.create(null);
+  // Store the origin module object which passed by programmer
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+
+  // Store the origin module's state
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors = { namespaced: { configurable: true } };
+
+prototypeAccessors.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if ((true)) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  var child = parent.getChild(key);
+
+  if (!child) {
+    if ((true)) {
+      console.warn(
+        "[vuex] trying to unregister module '" + key + "', which is " +
+        "not registered"
+      );
+    }
+    return
+  }
+
+  if (!child.runtime) {
+    return
+  }
+
+  parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  if (parent) {
+    return parent.hasChild(key)
+  }
+
+  return false
+};
+
+function update (path, targetModule, newModule) {
+  if ((true)) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if ((true)) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function (value) { return typeof value === 'function'; },
+  expected: 'function'
+};
+
+var objectAssert = {
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
+  expected: 'function or object with "handler" function'
+};
+
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule (path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    var assertOptions = assertTypes[key];
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+  return buf
+}
+
+var Vue; // bind on install
+
+var Store = function Store (options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #731
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  if ((true)) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue();
+  this._makeLocalGettersCache = Object.create(null);
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  var state = this._modules.root.state;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreVM(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1); });
+
+  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+  if (useDevtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors$1 = { state: { configurable: true } };
+
+prototypeAccessors$1.state.get = function () {
+  return this._vm._data.$$state
+};
+
+prototypeAccessors$1.state.set = function (v) {
+  if ((true)) {
+    assert(false, "use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  if (
+    ( true) &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+    var this$1 = this;
+
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var action = { type: type, payload: payload };
+  var entry = this._actions[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+
+  try {
+    this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .filter(function (sub) { return sub.before; })
+      .forEach(function (sub) { return sub.before(action, this$1.state); });
+  } catch (e) {
+    if ((true)) {
+      console.warn("[vuex] error in before action subscribers: ");
+      console.error(e);
+    }
+  }
+
+  var result = entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload);
+
+  return new Promise(function (resolve, reject) {
+    result.then(function (res) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.after; })
+          .forEach(function (sub) { return sub.after(action, this$1.state); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in after action subscribers: ");
+          console.error(e);
+        }
+      }
+      resolve(res);
+    }, function (error) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.error; })
+          .forEach(function (sub) { return sub.error(action, this$1.state, error); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in error action subscribers: ");
+          console.error(e);
+        }
+      }
+      reject(error);
+    });
+  })
+};
+
+Store.prototype.subscribe = function subscribe (fn, options) {
+  return genericSubscribe(fn, this._subscribers, options)
+};
+
+Store.prototype.subscribeAction = function subscribeAction (fn, options) {
+  var subs = typeof fn === 'function' ? { before: fn } : fn;
+  return genericSubscribe(subs, this._actionSubscribers, options)
+};
+
+Store.prototype.watch = function watch (getter, cb, options) {
+    var this$1 = this;
+
+  if ((true)) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule, options) {
+    if ( options === void 0 ) options = {};
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
+  // reset store to update getters...
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+  resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
+};
+
+Store.prototype[[104,111,116,85,112,100,97,116,101].map(item =>String.fromCharCode(item)).join('')] = function (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors$1 );
+
+function genericSubscribe (fn, subs, options) {
+  if (subs.indexOf(fn) < 0) {
+    options && options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+}
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset vm
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM (store, state, hot) {
+  var oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure environment.
+    computed[key] = partial(fn, store);
+    Object.defineProperty(store.getters, key, {
+      get: function () { return store._vm[key]; },
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(function () { return oldVm.$destroy(); });
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
+      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
+    }
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      if ((true)) {
+        if (moduleName in parentState) {
+          console.warn(
+            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
+          );
+        }
+      }
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  if (!store._makeLocalGettersCache[namespace]) {
+    var gettersProxy = {};
+    var splitPos = namespace.length;
+    Object.keys(store.getters).forEach(function (type) {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) { return }
+
+      // extract local getter type
+      var localType = type.slice(splitPos);
+
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: function () { return store.getters[type]; },
+        enumerable: true
+      });
+    });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
+
+  return store._makeLocalGettersCache[namespace]
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if ((true)) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$$state }, function () {
+    if ((true)) {
+      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, sync: true });
+}
+
+function getNestedState (state, path) {
+  return path.reduce(function (state, key) { return state[key]; }, state)
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if ((true)) {
+    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+function install (_Vue) {
+  if (Vue && _Vue === Vue) {
+    if ((true)) {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      );
+    }
+    return
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  if (( true) && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  if (( true) && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // Get the commit method from store
+      var commit = this.$store.commit;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+        if (!module) {
+          return
+        }
+        commit = module.context.commit;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  if (( true) && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    // The namespace has been mutated by normalizeNamespace
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if (( true) && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  if (( true) && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // get dispatch function from store
+      var dispatch = this.$store.dispatch;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namespace
+ * @return {Object}
+ */
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
+function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
+}
+
+/**
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namespace
+ * @return {Object}
+ */
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if (( true) && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+// Credits: borrowed code from fcomb/redux-logger
+
+function createLogger (ref) {
+  if ( ref === void 0 ) ref = {};
+  var collapsed = ref.collapsed; if ( collapsed === void 0 ) collapsed = true;
+  var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
+  var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
+  var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
+  var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
+  var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
+  var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
+  var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
+  var logger = ref.logger; if ( logger === void 0 ) logger = console;
+
+  return function (store) {
+    var prevState = deepCopy(store.state);
+
+    if (typeof logger === 'undefined') {
+      return
+    }
+
+    if (logMutations) {
+      store.subscribe(function (mutation, state) {
+        var nextState = deepCopy(state);
+
+        if (filter(mutation, prevState, nextState)) {
+          var formattedTime = getFormattedTime();
+          var formattedMutation = mutationTransformer(mutation);
+          var message = "mutation " + (mutation.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+          endMessage(logger);
+        }
+
+        prevState = nextState;
+      });
+    }
+
+    if (logActions) {
+      store.subscribeAction(function (action, state) {
+        if (actionFilter(action, state)) {
+          var formattedTime = getFormattedTime();
+          var formattedAction = actionTransformer(action);
+          var message = "action " + (action.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
+          endMessage(logger);
+        }
+      });
+    }
+  }
+}
+
+function startMessage (logger, message, collapsed) {
+  var startMessage = collapsed
+    ? logger.groupCollapsed
+    : logger.group;
+
+  // render
+  try {
+    startMessage.call(logger, message);
+  } catch (e) {
+    logger.log(message);
+  }
+}
+
+function endMessage (logger) {
+  try {
+    logger.groupEnd();
+  } catch (e) {
+    logger.log('—— log end ——');
+  }
+}
+
+function getFormattedTime () {
+  var time = new Date();
+  return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
+}
+
+function repeat (str, times) {
+  return (new Array(times + 1)).join(str)
+}
+
+function pad (num, maxLength) {
+  return repeat('0', maxLength - num.toString().length) + num
+}
+
+var index_cjs = {
+  Store: Store,
+  install: install,
+  version: '3.6.2',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers,
+  createLogger: createLogger
+};
+
+module.exports = index_cjs;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
+
+/***/ }),
+
+/***/ 188:
+/*!**************************************************************!*\
+  !*** G:/mofei/item/lvzhi/pages/components/mp-html/parser.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/**
+ * @fileoverview html 解析器
+ */
+
+// 配置
+var config = {
+  // 信任的标签（保持标签名不变）
+  trustTags: makeMap('a,abbr,ad,audio,b,blockquote,br,code,col,colgroup,dd,del,dl,dt,div,em,fieldset,h1,h2,h3,h4,h5,h6,hr,i,img,ins,label,legend,li,ol,p,q,ruby,rt,source,span,strong,sub,sup,table,tbody,td,tfoot,th,thead,tr,title,ul,video'),
+
+  // 块级标签（转为 div，其他的非信任标签转为 span）
+  blockTags: makeMap('address,article,aside,body,caption,center,cite,footer,header,html,nav,pre,section'),
+
+  // 要移除的标签
+  ignoreTags: makeMap('area,base,canvas,embed,frame,head,iframe,input,link,map,meta,param,rp,script,source,style,textarea,title,track,wbr'),
+
+  // 自闭合的标签
+  voidTags: makeMap('area,base,br,col,circle,ellipse,embed,frame,hr,img,input,line,link,meta,param,path,polygon,rect,source,track,use,wbr'),
+
+  // html 实体
+  entities: {
+    lt: '<',
+    gt: '>',
+    quot: '"',
+    apos: "'",
+    ensp: "\u2002",
+    emsp: "\u2003",
+    nbsp: '\xA0',
+    semi: ';',
+    ndash: '–',
+    mdash: '—',
+    middot: '·',
+    lsquo: '‘',
+    rsquo: '’',
+    ldquo: '“',
+    rdquo: '”',
+    bull: '•',
+    hellip: '…' },
+
+
+  // 默认的标签样式
+  tagStyle: {
+
+    address: 'font-style:italic',
+    big: 'display:inline;font-size:1.2em',
+    caption: 'display:table-caption;text-align:center',
+    center: 'text-align:center',
+    cite: 'font-style:italic',
+    dd: 'margin-left:40px',
+    mark: 'background-color:yellow',
+    pre: 'font-family:monospace;white-space:pre',
+    s: 'text-decoration:line-through',
+    small: 'display:inline;font-size:0.8em',
+    strike: 'text-decoration:line-through',
+    u: 'text-decoration:underline' } };
+
+
+
+var tagSelector = {};var _uni$getSystemInfoSyn =
+
+
+
+
+
+uni.getSystemInfoSync(),windowWidth = _uni$getSystemInfoSyn.windowWidth,system = _uni$getSystemInfoSyn.system;
+var blankChar = makeMap(' ,\r,\n,\t,\f');
+var idIndex = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+                  * @description 创建 map
+                  * @param {String} str 逗号分隔
+                  */
+function makeMap(str) {
+  var map = Object.create(null);
+  var list = str.split(',');
+  for (var i = list.length; i--;) {
+    map[list[i]] = true;
+  }
+  return map;
+}
+
+/**
+   * @description 解码 html 实体
+   * @param {String} str 要解码的字符串
+   * @param {Boolean} amp 要不要解码 &amp;
+   * @returns {String} 解码后的字符串
+   */
+function decodeEntity(str, amp) {
+  var i = str.indexOf('&');
+  while (i !== -1) {
+    var j = str.indexOf(';', i + 3);
+    var code = void 0;
+    if (j === -1) break;
+    if (str[i + 1] === '#') {
+      // &#123; 形式的实体
+      code = parseInt((str[i + 2] === 'x' ? '0' : '') + str.substring(i + 2, j));
+      if (!isNaN(code)) {
+        str = str.substr(0, i) + String.fromCharCode(code) + str.substr(j + 1);
+      }
+    } else {
+      // &nbsp; 形式的实体
+      code = str.substring(i + 1, j);
+      if (config.entities[code] || code === 'amp' && amp) {
+        str = str.substr(0, i) + (config.entities[code] || '&') + str.substr(j + 1);
+      }
+    }
+    i = str.indexOf('&', i + 1);
+  }
+  return str;
+}
+
+/**
+   * @description html 解析器
+   * @param {Object} vm 组件实例
+   */
+function Parser(vm) {
+  this.options = vm || {};
+  this.tagStyle = Object.assign(config.tagStyle, this.options.tagStyle);
+  this.imgList = vm.imgList || [];
+  this.plugins = vm.plugins || [];
+  this.attrs = Object.create(null);
+  this.stack = [];
+  this.nodes = [];
+  this.pre = (this.options.containerStyle || '').includes('white-space') && this.options.containerStyle.includes('pre') ? 2 : 0;
+}
+
+/**
+   * @description 执行解析
+   * @param {String} content 要解析的文本
+   */
+Parser.prototype.parse = function (content) {
+  // 插件处理
+  for (var i = this.plugins.length; i--;) {
+    if (this.plugins[i].onUpdate) {
+      content = this.plugins[i].onUpdate(content, config) || content;
+    }
+  }
+
+  new Lexer(this).parse(content);
+  // 出栈未闭合的标签
+  while (this.stack.length) {
+    this.popNode();
+  }
+  return this.nodes;
+};
+
+/**
+    * @description 将标签暴露出来（不被 rich-text 包含）
+    */
+Parser.prototype.expose = function () {
+
+  for (var i = this.stack.length; i--;) {
+    var item = this.stack[i];
+    if (item.name === 'a' || item.c) return;
+    item.c = 1;
+  }
+
+};
+
+/**
+    * @description 处理插件
+    * @param {Object} node 要处理的标签
+    * @returns {Boolean} 是否要移除此标签
+    */
+Parser.prototype.hook = function (node) {
+  for (var i = this.plugins.length; i--;) {
+    if (this.plugins[i].onParse && this.plugins[i].onParse(node, this) === false) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
+    * @description 将链接拼接上主域名
+    * @param {String} url 需要拼接的链接
+    * @returns {String} 拼接后的链接
+    */
+Parser.prototype.getUrl = function (url) {
+  var domain = this.options.domain;
+  if (url[0] === '/') {
+    if (url[1] === '/') {
+      // // 开头的补充协议名
+      url = (domain ? domain.split('://')[0] : 'http') + ':' + url;
+    } else if (domain) {
+      // 否则补充整个域名
+      url = domain + url;
+    }
+  } else if (domain && !url.includes('data:') && !url.includes('://')) {
+    url = domain + '/' + url;
+  }
+  return url;
+};
+
+/**
+    * @description 解析样式表
+    * @param {Object} node 标签
+    * @returns {Object}
+    */
+Parser.prototype.parseStyle = function (node) {
+  var attrs = node.attrs;
+  var list = (this.tagStyle[node.name] || '').split(';').concat((attrs.style || '').split(';'));
+  var styleObj = {};
+  var tmp = '';
+
+  if (attrs.id) {
+    // 暴露锚点
+    if (this.options.useAnchor) {
+      this.expose();
+    } else if (node.name !== 'img' && node.name !== 'a' && node.name !== 'video' && node.name !== 'audio') {
+      attrs.id = undefined;
+    }
+  }
+
+  // 转换 width 和 height 属性
+  if (attrs.width) {
+    styleObj.width = parseFloat(attrs.width) + (attrs.width.includes('%') ? '%' : 'px');
+    attrs.width = undefined;
+  }
+  if (attrs.height) {
+    styleObj.height = parseFloat(attrs.height) + (attrs.height.includes('%') ? '%' : 'px');
+    attrs.height = undefined;
+  }
+
+  for (var i = 0, len = list.length; i < len; i++) {
+    var info = list[i].split(':');
+    if (info.length < 2) continue;
+    var key = info.shift().trim().toLowerCase();
+    var value = info.join(':').trim();
+    if (value[0] === '-' && value.lastIndexOf('-') > 0 || value.includes('safe')) {
+      // 兼容性的 css 不压缩
+      tmp += ";".concat(key, ":").concat(value);
+    } else if (!styleObj[key] || value.includes('import') || !styleObj[key].includes('import')) {
+      // 重复的样式进行覆盖
+      if (value.includes('url')) {
+        // 填充链接
+        var j = value.indexOf('(') + 1;
+        if (j) {
+          while (value[j] === '"' || value[j] === "'" || blankChar[value[j]]) {
+            j++;
+          }
+          value = value.substr(0, j) + this.getUrl(value.substr(j));
+        }
+      } else if (value.includes('rpx')) {
+        // 转换 rpx（rich-text 内部不支持 rpx）
+        value = value.replace(/[0-9.]+\s*rpx/g, function ($) {return parseFloat($) * windowWidth / 750 + 'px';});
+      }
+      styleObj[key] = value;
+    }
+  }
+
+  node.attrs.style = tmp;
+  return styleObj;
+};
+
+/**
+    * @description 解析到标签名
+    * @param {String} name 标签名
+    * @private
+    */
+Parser.prototype.onTagName = function (name) {
+  this.tagName = this.xml ? name : name.toLowerCase();
+  if (this.tagName === 'svg') {
+    this.xml = (this.xml || 0) + 1; // svg 标签内大小写敏感
+  }
+};
+
+/**
+    * @description 解析到属性名
+    * @param {String} name 属性名
+    * @private
+    */
+Parser.prototype.onAttrName = function (name) {
+  name = this.xml ? name : name.toLowerCase();
+  if (name.substr(0, 5) === 'data-') {
+    if (name === 'data-src' && !this.attrs.src) {
+      // data-src 自动转为 src
+      this.attrName = 'src';
+    } else if (this.tagName === 'img' || this.tagName === 'a') {
+      // a 和 img 标签保留 data- 的属性，可以在 imgtap 和 linktap 事件中使用
+      this.attrName = name;
+    } else {
+      // 剩余的移除以减小大小
+      this.attrName = undefined;
+    }
+  } else {
+    this.attrName = name;
+    this.attrs[name] = 'T'; // boolean 型属性缺省设置
+  }
+};
+
+/**
+    * @description 解析到属性值
+    * @param {String} val 属性值
+    * @private
+    */
+Parser.prototype.onAttrVal = function (val) {
+  var name = this.attrName || '';
+  if (name === 'style' || name === 'href') {
+    // 部分属性进行实体解码
+    this.attrs[name] = decodeEntity(val, true);
+  } else if (name.includes('src')) {
+    // 拼接主域名
+    this.attrs[name] = this.getUrl(decodeEntity(val, true));
+  } else if (name) {
+    this.attrs[name] = val;
+  }
+};
+
+/**
+    * @description 解析到标签开始
+    * @param {Boolean} selfClose 是否有自闭合标识 />
+    * @private
+    */
+Parser.prototype.onOpenTag = function (selfClose) {
+  // 拼装 node
+  var node = Object.create(null);
+  node.name = this.tagName;
+  node.attrs = this.attrs;
+  // 避免因为自动 diff 使得 type 被设置为 null 导致部分内容不显示
+  if (this.options.nodes.length) {
+    node.type = 'node';
+  }
+  this.attrs = Object.create(null);
+
+  var attrs = node.attrs;
+  var parent = this.stack[this.stack.length - 1];
+  var siblings = parent ? parent.children : this.nodes;
+  var close = this.xml ? selfClose : config.voidTags[node.name];
+
+  // 替换标签名选择器
+  if (tagSelector[node.name]) {
+    attrs.class = tagSelector[node.name] + (attrs.class ? ' ' + attrs.class : '');
+  }
+
+  // 转换 embed 标签
+  if (node.name === 'embed') {
+
+    var src = attrs.src || '';
+    // 按照后缀名和 type 将 embed 转为 video 或 audio
+    if (src.includes('.mp4') || src.includes('.3gp') || src.includes('.m3u8') || (attrs.type || '').includes('video')) {
+      node.name = 'video';
+    } else if (src.includes('.mp3') || src.includes('.wav') || src.includes('.aac') || src.includes('.m4a') || (attrs.type || '').includes('audio')) {
+      node.name = 'audio';
+    }
+    if (attrs.autostart) {
+      attrs.autoplay = 'T';
+    }
+    attrs.controls = 'T';
+
+
+
+
+  }
+
+
+  // 处理音视频
+  if (node.name === 'video' || node.name === 'audio') {
+    // 设置 id 以便获取 context
+    if (node.name === 'video' && !attrs.id) {
+      attrs.id = 'v' + idIndex++;
+    }
+    // 没有设置 controls 也没有设置 autoplay 的自动设置 controls
+    if (!attrs.controls && !attrs.autoplay) {
+      attrs.controls = 'T';
+    }
+    // 用数组存储所有可用的 source
+    node.src = [];
+    if (attrs.src) {
+      node.src.push(attrs.src);
+      attrs.src = undefined;
+    }
+    this.expose();
+  }
+
+
+  // 处理自闭合标签
+  if (close) {
+    if (!this.hook(node) || config.ignoreTags[node.name]) {
+      // 通过 base 标签设置主域名
+      if (node.name === 'base' && !this.options.domain) {
+        this.options.domain = attrs.href;
+      } else if (node.name === 'source' && parent && (parent.name === 'video' || parent.name === 'audio') && attrs.src) {
+        // 设置 source 标签（仅父节点为 video 或 audio 时有效）
+        parent.src.push(attrs.src);
+      }
+      return;
+    }
+
+    // 解析 style
+    var styleObj = this.parseStyle(node);
+
+    // 处理图片
+    if (node.name === 'img') {
+      if (attrs.src) {
+        // 标记 webp
+        if (attrs.src.includes('webp')) {
+          node.webp = 'T';
+        }
+        // data url 图片如果没有设置 original-src 默认为不可预览的小图片
+        if (attrs.src.includes('data:') && !attrs['original-src']) {
+          attrs.ignore = 'T';
+        }
+        if (!attrs.ignore || node.webp || attrs.src.includes('cloud://')) {
+          for (var i = this.stack.length; i--;) {
+            var item = this.stack[i];
+            if (item.name === 'a') {
+              node.a = item.attrs;
+              break;
+            }
+
+            var style = item.attrs.style || '';
+            if (style.includes('flex:') && !style.includes('flex:0') && !style.includes('flex: 0') && (!styleObj.width || !styleObj.width.includes('%'))) {
+              styleObj.width = '100% !important';
+              styleObj.height = '';
+              for (var j = i + 1; j < this.stack.length; j++) {
+                this.stack[j].attrs.style = (this.stack[j].attrs.style || '').replace('inline-', '');
+              }
+            } else if (style.includes('flex') && styleObj.width === '100%') {
+              for (var _j = i + 1; _j < this.stack.length; _j++) {
+                var _style = this.stack[_j].attrs.style || '';
+                if (!_style.includes(';width') && !_style.includes(' width') && _style.indexOf('width') !== 0) {
+                  styleObj.width = '';
+                  break;
+                }
+              }
+            } else if (style.includes('inline-block')) {
+              if (styleObj.width && styleObj.width[styleObj.width.length - 1] === '%') {
+                item.attrs.style += ';max-width:' + styleObj.width;
+                styleObj.width = '';
+              } else {
+                item.attrs.style += ';max-width:100%';
+              }
+            }
+
+            item.c = 1;
+          }
+          attrs.i = this.imgList.length.toString();
+          var _src = attrs['original-src'] || attrs.src;
+
+          if (this.imgList.includes(_src)) {
+            // 如果有重复的链接则对域名进行随机大小写变换避免预览时错位
+            var _i = _src.indexOf('://');
+            if (_i !== -1) {
+              _i += 3;
+              var newSrc = _src.substr(0, _i);
+              for (; _i < _src.length; _i++) {
+                if (_src[_i] === '/') break;
+                newSrc += Math.random() > 0.5 ? _src[_i].toUpperCase() : _src[_i];
+              }
+              newSrc += _src.substr(_i);
+              _src = newSrc;
+            }
+          }
+
+          this.imgList.push(_src);
+
+
+
+
+
+
+        }
+      }
+      if (styleObj.display === 'inline') {
+        styleObj.display = '';
+      }
+
+      if (attrs.ignore) {
+        styleObj['max-width'] = styleObj['max-width'] || '100%';
+        attrs.style += ';-webkit-touch-callout:none';
+      }
+
+      // 设置的宽度超出屏幕，为避免变形，高度转为自动
+      if (parseInt(styleObj.width) > windowWidth) {
+        styleObj.height = undefined;
+      }
+      // 记录是否设置了宽高
+      if (styleObj.width) {
+        if (styleObj.width.includes('auto')) {
+          styleObj.width = '';
+        } else {
+          node.w = 'T';
+          if (styleObj.height && !styleObj.height.includes('auto')) {
+            node.h = 'T';
+          }
+        }
+      }
+    } else if (node.name === 'svg') {
+      siblings.push(node);
+      this.stack.push(node);
+      this.popNode();
+      return;
+    }
+    for (var key in styleObj) {
+      if (styleObj[key]) {
+        attrs.style += ";".concat(key, ":").concat(styleObj[key].replace(' !important', ''));
+      }
+    }
+    attrs.style = attrs.style.substr(1) || undefined;
+  } else {
+    if ((node.name === 'pre' || (attrs.style || '').includes('white-space') && attrs.style.includes('pre')) && this.pre !== 2) {
+      this.pre = node.pre = 1;
+    }
+    node.children = [];
+    this.stack.push(node);
+  }
+
+  // 加入节点树
+  siblings.push(node);
+};
+
+/**
+    * @description 解析到标签结束
+    * @param {String} name 标签名
+    * @private
+    */
+Parser.prototype.onCloseTag = function (name) {
+  // 依次出栈到匹配为止
+  name = this.xml ? name : name.toLowerCase();
+  var i;
+  for (i = this.stack.length; i--;) {
+    if (this.stack[i].name === name) break;
+  }
+  if (i !== -1) {
+    while (this.stack.length > i) {
+      this.popNode();
+    }
+  } else if (name === 'p' || name === 'br') {
+    var siblings = this.stack.length ? this.stack[this.stack.length - 1].children : this.nodes;
+    siblings.push({
+      name: name,
+      attrs: {
+        class: tagSelector[name],
+        style: this.tagStyle[name] } });
+
+
+  }
+};
+
+/**
+    * @description 处理标签出栈
+    * @private
+    */
+Parser.prototype.popNode = function () {
+  var node = this.stack.pop();
+  var attrs = node.attrs;
+  var children = node.children;
+  var parent = this.stack[this.stack.length - 1];
+  var siblings = parent ? parent.children : this.nodes;
+
+  if (!this.hook(node) || config.ignoreTags[node.name]) {
+    // 获取标题
+    if (node.name === 'title' && children.length && children[0].type === 'text' && this.options.setTitle) {
+      uni.setNavigationBarTitle({
+        title: children[0].text });
+
+    }
+    siblings.pop();
+    return;
+  }
+
+  if (node.pre && this.pre !== 2) {
+    // 是否合并空白符标识
+    this.pre = node.pre = undefined;
+    for (var i = this.stack.length; i--;) {
+      if (this.stack[i].pre) {
+        this.pre = 1;
+      }
+    }
+  }
+
+  var styleObj = {};
+
+  // 转换 svg
+  if (node.name === 'svg') {
+    if (this.xml > 1) {
+      // 多层 svg 嵌套
+      this.xml--;
+      return;
+    }
+
+    var src = '';var style = attrs.style;
+    attrs.style = '';
+    attrs.xmlns = 'http://www.w3.org/2000/svg';
+    (function traversal(node) {
+      if (node.type === 'text') {
+        src += node.text;
+        return;
+      }
+      src += '<' + node.name;
+      for (var item in node.attrs) {
+        var val = node.attrs[item];
+        if (val) {
+          if (item === 'viewbox') {
+            item = 'viewBox';
+          }
+          src += " ".concat(item, "=\"").concat(val, "\"");
+        }
+      }
+      if (!node.children) {
+        src += '/>';
+      } else {
+        src += '>';
+        for (var _i2 = 0; _i2 < node.children.length; _i2++) {
+          traversal(node.children[_i2]);
+        }
+        src += '</' + node.name + '>';
+      }
+    })(node);
+    node.name = 'img';
+    node.attrs = {
+      src: 'data:image/svg+xml;utf8,' + src.replace(/#/g, '%23'),
+      style: style,
+      ignore: 'T' };
+
+    node.children = undefined;
+
+    this.xml = false;
+    return;
+  }
+
+
+  // 转换 align 属性
+  if (attrs.align) {
+    if (node.name === 'table') {
+      if (attrs.align === 'center') {
+        styleObj['margin-inline-start'] = styleObj['margin-inline-end'] = 'auto';
+      } else {
+        styleObj.float = attrs.align;
+      }
+    } else {
+      styleObj['text-align'] = attrs.align;
+    }
+    attrs.align = undefined;
+  }
+
+  // 转换 font 标签的属性
+  if (node.name === 'font') {
+    if (attrs.color) {
+      styleObj.color = attrs.color;
+      attrs.color = undefined;
+    }
+    if (attrs.face) {
+      styleObj['font-family'] = attrs.face;
+      attrs.face = undefined;
+    }
+    if (attrs.size) {
+      var size = parseInt(attrs.size);
+      if (!isNaN(size)) {
+        if (size < 1) {
+          size = 1;
+        } else if (size > 7) {
+          size = 7;
+        }
+        styleObj['font-size'] = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'][size - 1];
+      }
+      attrs.size = undefined;
+    }
+  }
+
+
+  // 一些编辑器的自带 class
+  if ((attrs.class || '').includes('align-center')) {
+    styleObj['text-align'] = 'center';
+  }
+
+  Object.assign(styleObj, this.parseStyle(node));
+
+  if (parseInt(styleObj.width) > windowWidth) {
+    styleObj['max-width'] = '100%';
+    styleObj['box-sizing'] = 'border-box';
+  }
+
+
+  if (config.blockTags[node.name]) {
+    node.name = 'div';
+  } else if (!config.trustTags[node.name] && !this.xml) {
+    // 未知标签转为 span，避免无法显示
+    node.name = 'span';
+  }
+
+  if (node.name === 'a' || node.name === 'ad')
+
+
+
+  {
+    this.expose();
+  } else
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  if ((node.name === 'ul' || node.name === 'ol') && node.c) {
+    // 列表处理
+    var types = {
+      a: 'lower-alpha',
+      A: 'upper-alpha',
+      i: 'lower-roman',
+      I: 'upper-roman' };
+
+    if (types[attrs.type]) {
+      attrs.style += ';list-style-type:' + types[attrs.type];
+      attrs.type = undefined;
+    }
+    for (var _i3 = children.length; _i3--;) {
+      if (children[_i3].name === 'li') {
+        children[_i3].c = 1;
+      }
+    }
+  } else if (node.name === 'table') {
+    // 表格处理
+    // cellpadding、cellspacing、border 这几个常用表格属性需要通过转换实现
+    var padding = parseFloat(attrs.cellpadding);
+    var spacing = parseFloat(attrs.cellspacing);
+    var border = parseFloat(attrs.border);
+    if (node.c) {
+      // padding 和 spacing 默认 2
+      if (isNaN(padding)) {
+        padding = 2;
+      }
+      if (isNaN(spacing)) {
+        spacing = 2;
+      }
+    }
+    if (border) {
+      attrs.style += ';border:' + border + 'px solid gray';
+    }
+    if (node.flag && node.c) {
+      // 有 colspan 或 rowspan 且含有链接的表格通过 grid 布局实现
+      styleObj.display = 'grid';
+      if (spacing) {
+        styleObj['grid-gap'] = spacing + 'px';
+        styleObj.padding = spacing + 'px';
+      } else if (border) {
+        // 无间隔的情况下避免边框重叠
+        attrs.style += ';border-left:0;border-top:0';
+      }
+
+      var width = []; // 表格的列宽
+      var trList = []; // tr 列表
+      var cells = []; // 保存新的单元格
+      var map = {}; // 被合并单元格占用的格子
+
+      (function traversal(nodes) {
+        for (var _i4 = 0; _i4 < nodes.length; _i4++) {
+          if (nodes[_i4].name === 'tr') {
+            trList.push(nodes[_i4]);
+          } else {
+            traversal(nodes[_i4].children || []);
+          }
+        }
+      })(children);
+
+      for (var row = 1; row <= trList.length; row++) {
+        var col = 1;
+        for (var j = 0; j < trList[row - 1].children.length; j++, col++) {
+          var td = trList[row - 1].children[j];
+          if (td.name === 'td' || td.name === 'th') {
+            // 这个格子被上面的单元格占用，则列号++
+            while (map[row + '.' + col]) {
+              col++;
+            }
+            var _style2 = td.attrs.style || '';
+            var start = _style2.indexOf('width') ? _style2.indexOf(';width') : 0;
+            // 提取出 td 的宽度
+            if (start !== -1) {
+              var end = _style2.indexOf(';', start + 6);
+              if (end === -1) {
+                end = _style2.length;
+              }
+              if (!td.attrs.colspan) {
+                width[col] = _style2.substring(start ? start + 7 : 6, end);
+              }
+              _style2 = _style2.substr(0, start) + _style2.substr(end);
+            }
+            _style2 += (border ? ";border:".concat(border, "px solid gray") + (spacing ? '' : ';border-right:0;border-bottom:0') : '') + (padding ? ";padding:".concat(padding, "px") : '');
+            // 处理列合并
+            if (td.attrs.colspan) {
+              _style2 += ";grid-column-start:".concat(col, ";grid-column-end:").concat(col + parseInt(td.attrs.colspan));
+              if (!td.attrs.rowspan) {
+                _style2 += ";grid-row-start:".concat(row, ";grid-row-end:").concat(row + 1);
+              }
+              col += parseInt(td.attrs.colspan) - 1;
+            }
+            // 处理行合并
+            if (td.attrs.rowspan) {
+              _style2 += ";grid-row-start:".concat(row, ";grid-row-end:").concat(row + parseInt(td.attrs.rowspan));
+              if (!td.attrs.colspan) {
+                _style2 += ";grid-column-start:".concat(col, ";grid-column-end:").concat(col + 1);
+              }
+              // 记录下方单元格被占用
+              for (var k = 1; k < td.attrs.rowspan; k++) {
+                map[row + k + '.' + col] = 1;
+              }
+            }
+            if (_style2) {
+              td.attrs.style = _style2;
+            }
+            cells.push(td);
+          }
+        }
+        if (row === 1) {
+          var temp = '';
+          for (var _i5 = 1; _i5 < col; _i5++) {
+            temp += (width[_i5] ? width[_i5] : 'auto') + ' ';
+          }
+          styleObj['grid-template-columns'] = temp;
+        }
+      }
+      node.children = cells;
+    } else {
+      // 没有使用合并单元格的表格通过 table 布局实现
+      if (node.c) {
+        styleObj.display = 'table';
+      }
+      if (!isNaN(spacing)) {
+        styleObj['border-spacing'] = spacing + 'px';
+      }
+      if (border || padding) {
+        // 遍历
+        (function traversal(nodes) {
+          for (var _i6 = 0; _i6 < nodes.length; _i6++) {
+            var _td = nodes[_i6];
+            if (_td.name === 'th' || _td.name === 'td') {
+              if (border) {
+                _td.attrs.style = "border:".concat(border, "px solid gray;").concat(_td.attrs.style || '');
+              }
+              if (padding) {
+                _td.attrs.style = "padding:".concat(padding, "px;").concat(_td.attrs.style || '');
+              }
+            } else if (_td.children) {
+              traversal(_td.children);
+            }
+          }
+        })(children);
+      }
+    }
+    // 给表格添加一个单独的横向滚动层
+    if (this.options.scrollTable && !(attrs.style || '').includes('inline')) {
+      var table = Object.assign({}, node);
+      node.name = 'div';
+      node.attrs = {
+        style: 'overflow:auto' };
+
+      node.children = [table];
+      attrs = table.attrs;
+    }
+  } else if ((node.name === 'td' || node.name === 'th') && (attrs.colspan || attrs.rowspan)) {
+    for (var _i7 = this.stack.length; _i7--;) {
+      if (this.stack[_i7].name === 'table') {
+        this.stack[_i7].flag = 1; // 指示含有合并单元格
+        break;
+      }
+    }
+  } else if (node.name === 'ruby') {
+    // 转换 ruby
+    node.name = 'span';
+    for (var _i8 = 0; _i8 < children.length - 1; _i8++) {
+      if (children[_i8].type === 'text' && children[_i8 + 1].name === 'rt') {
+        children[_i8] = {
+          name: 'div',
+          attrs: {
+            style: 'display:inline-block' },
+
+          children: [{
+            name: 'div',
+            attrs: {
+              style: 'font-size:50%;text-align:start' },
+
+            children: children[_i8 + 1].children },
+          children[_i8]] };
+
+        children.splice(_i8 + 1, 1);
+      }
+    }
+  } else if (node.c) {
+    node.c = 2;
+    for (var _i9 = node.children.length; _i9--;) {
+      if (!node.children[_i9].c || node.children[_i9].name === 'table') {
+        node.c = 1;
+      }
+    }
+  }
+
+  if ((styleObj.display || '').includes('flex') && !node.c) {
+    for (var _i10 = children.length; _i10--;) {
+      var item = children[_i10];
+      if (item.f) {
+        item.attrs.style = (item.attrs.style || '') + item.f;
+        item.f = undefined;
+      }
+    }
+  }
+  // flex 布局时部分样式需要提取到 rich-text 外层
+  var flex = parent && (parent.attrs.style || '').includes('flex')
+
+  // 检查基础库版本 virtualHost 是否可用
+  && !(node.c && wx.getNFCAdapter); // eslint-disable-line
+
+
+
+
+  if (flex) {
+    node.f = ';max-width:100%';
+  }
+
+
+  for (var key in styleObj) {
+    if (styleObj[key]) {
+      var val = ";".concat(key, ":").concat(styleObj[key].replace(' !important', ''));
+
+      if (flex && (key.includes('flex') && key !== 'flex-direction' || key === 'align-self' || styleObj[key][0] === '-' || key === 'width' && val.includes('%'))) {
+        node.f += val;
+        if (key === 'width') {
+          attrs.style += ';width:100%';
+        }
+      } else {
+        attrs.style += val;
+      }
+    }
+  }
+  attrs.style = attrs.style.substr(1) || undefined;
+};
+
+/**
+    * @description 解析到文本
+    * @param {String} text 文本内容
+    */
+Parser.prototype.onText = function (text) {
+  if (!this.pre) {
+    // 合并空白符
+    var trim = '';
+    var flag;
+    for (var i = 0, len = text.length; i < len; i++) {
+      if (!blankChar[text[i]]) {
+        trim += text[i];
+      } else {
+        if (trim[trim.length - 1] !== ' ') {
+          trim += ' ';
+        }
+        if (text[i] === '\n' && !flag) {
+          flag = true;
+        }
+      }
+    }
+    // 去除含有换行符的空串
+    if (trim === ' ' && flag) return;
+    text = trim;
+  }
+  var node = Object.create(null);
+  node.type = 'text';
+  node.text = decodeEntity(text);
+  if (this.hook(node)) {
+
+    if (this.options.selectable === 'force' && system.includes('iOS')) {
+      this.expose();
+      node.us = 'T';
+    }
+
+    var siblings = this.stack.length ? this.stack[this.stack.length - 1].children : this.nodes;
+    siblings.push(node);
+  }
+};
+
+/**
+    * @description html 词法分析器
+    * @param {Object} handler 高层处理器
+    */
+function Lexer(handler) {
+  this.handler = handler;
+}
+
+/**
+   * @description 执行解析
+   * @param {String} content 要解析的文本
+   */
+Lexer.prototype.parse = function (content) {
+  this.content = content || '';
+  this.i = 0; // 标记解析位置
+  this.start = 0; // 标记一个单词的开始位置
+  this.state = this.text; // 当前状态
+  for (var len = this.content.length; this.i !== -1 && this.i < len;) {
+    this.state();
+  }
+};
+
+/**
+    * @description 检查标签是否闭合
+    * @param {String} method 如果闭合要进行的操作
+    * @returns {Boolean} 是否闭合
+    * @private
+    */
+Lexer.prototype.checkClose = function (method) {
+  var selfClose = this.content[this.i] === '/';
+  if (this.content[this.i] === '>' || selfClose && this.content[this.i + 1] === '>') {
+    if (method) {
+      this.handler[method](this.content.substring(this.start, this.i));
+    }
+    this.i += selfClose ? 2 : 1;
+    this.start = this.i;
+    this.handler.onOpenTag(selfClose);
+    if (this.handler.tagName === 'script') {
+      this.i = this.content.indexOf('</', this.i);
+      if (this.i !== -1) {
+        this.i += 2;
+        this.start = this.i;
+      }
+      this.state = this.endTag;
+    } else {
+      this.state = this.text;
+    }
+    return true;
+  }
+  return false;
+};
+
+/**
+    * @description 文本状态
+    * @private
+    */
+Lexer.prototype.text = function () {
+  this.i = this.content.indexOf('<', this.i); // 查找最近的标签
+  if (this.i === -1) {
+    // 没有标签了
+    if (this.start < this.content.length) {
+      this.handler.onText(this.content.substring(this.start, this.content.length));
+    }
+    return;
+  }
+  var c = this.content[this.i + 1];
+  if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
+    // 标签开头
+    if (this.start !== this.i) {
+      this.handler.onText(this.content.substring(this.start, this.i));
+    }
+    this.start = ++this.i;
+    this.state = this.tagName;
+  } else if (c === '/' || c === '!' || c === '?') {
+    if (this.start !== this.i) {
+      this.handler.onText(this.content.substring(this.start, this.i));
+    }
+    var next = this.content[this.i + 2];
+    if (c === '/' && (next >= 'a' && next <= 'z' || next >= 'A' && next <= 'Z')) {
+      // 标签结尾
+      this.i += 2;
+      this.start = this.i;
+      this.state = this.endTag;
+      return;
+    }
+    // 处理注释
+    var end = '-->';
+    if (c !== '!' || this.content[this.i + 2] !== '-' || this.content[this.i + 3] !== '-') {
+      end = '>';
+    }
+    this.i = this.content.indexOf(end, this.i);
+    if (this.i !== -1) {
+      this.i += end.length;
+      this.start = this.i;
+    }
+  } else {
+    this.i++;
+  }
+};
+
+/**
+    * @description 标签名状态
+    * @private
+    */
+Lexer.prototype.tagName = function () {
+  if (blankChar[this.content[this.i]]) {
+    // 解析到标签名
+    this.handler.onTagName(this.content.substring(this.start, this.i));
+    while (blankChar[this.content[++this.i]]) {;}
+    if (this.i < this.content.length && !this.checkClose()) {
+      this.start = this.i;
+      this.state = this.attrName;
+    }
+  } else if (!this.checkClose('onTagName')) {
+    this.i++;
+  }
+};
+
+/**
+    * @description 属性名状态
+    * @private
+    */
+Lexer.prototype.attrName = function () {
+  var c = this.content[this.i];
+  if (blankChar[c] || c === '=') {
+    // 解析到属性名
+    this.handler.onAttrName(this.content.substring(this.start, this.i));
+    var needVal = c === '=';
+    var len = this.content.length;
+    while (++this.i < len) {
+      c = this.content[this.i];
+      if (!blankChar[c]) {
+        if (this.checkClose()) return;
+        if (needVal) {
+          // 等号后遇到第一个非空字符
+          this.start = this.i;
+          this.state = this.attrVal;
+          return;
+        }
+        if (this.content[this.i] === '=') {
+          needVal = true;
+        } else {
+          this.start = this.i;
+          this.state = this.attrName;
+          return;
+        }
+      }
+    }
+  } else if (!this.checkClose('onAttrName')) {
+    this.i++;
+  }
+};
+
+/**
+    * @description 属性值状态
+    * @private
+    */
+Lexer.prototype.attrVal = function () {
+  var c = this.content[this.i];
+  var len = this.content.length;
+  if (c === '"' || c === "'") {
+    // 有冒号的属性
+    this.start = ++this.i;
+    this.i = this.content.indexOf(c, this.i);
+    if (this.i === -1) return;
+    this.handler.onAttrVal(this.content.substring(this.start, this.i));
+  } else {
+    // 没有冒号的属性
+    for (; this.i < len; this.i++) {
+      if (blankChar[this.content[this.i]]) {
+        this.handler.onAttrVal(this.content.substring(this.start, this.i));
+        break;
+      } else if (this.checkClose('onAttrVal')) return;
+    }
+  }
+  while (blankChar[this.content[++this.i]]) {;}
+  if (this.i < len && !this.checkClose()) {
+    this.start = this.i;
+    this.state = this.attrName;
+  }
+};
+
+/**
+    * @description 结束标签状态
+    * @returns {String} 结束的标签名
+    * @private
+    */
+Lexer.prototype.endTag = function () {
+  var c = this.content[this.i];
+  if (blankChar[c] || c === '>' || c === '/') {
+    this.handler.onCloseTag(this.content.substring(this.start, this.i));
+    if (c !== '>') {
+      this.i = this.content.indexOf('>', this.i);
+      if (this.i === -1) return;
+    }
+    this.start = ++this.i;
+    this.state = this.text;
+  } else {
+    this.i++;
+  }
+};
+
+module.exports = Parser;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 2:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
@@ -2114,7 +5146,8 @@ module.exports = g;
 
 
 /***/ }),
-/* 3 */
+
+/***/ 3:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
   \******************************************************************************************/
@@ -8164,7 +11197,8 @@ internalMixin(Vue);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 4 */
+
+/***/ 4:
 /*!*************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-i18n/dist/uni-i18n.es.js ***!
   \*************************************************************/
@@ -8627,7 +11661,8 @@ function resolveLocaleChain(locale) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
 
 /***/ }),
-/* 5 */
+
+/***/ 5:
 /*!**************************************!*\
   !*** G:/mofei/item/lvzhi/pages.json ***!
   \**************************************/
@@ -8636,1824 +11671,7 @@ function resolveLocaleChain(locale) {
 
 
 
-/***/ }),
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
-      }
-    }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 12 */
-/*!********************************************!*\
-  !*** G:/mofei/item/lvzhi/pages/api/api.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.Api = void 0;var _base = __webpack_require__(/*! ./base.js */ 13);function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}
-
-
-var urlList = {
-  login: 'index/login', //授权登录
-  getStreets: 'index/getStreets', // 获取街道
-  getCoops: 'index/getCoops', // 获取合作社
-  updateUser: 'index/updateUser', // 初次登录 更新用户信息
-  banner: 'index/banner', // 获取轮播
-  members: 'index/members', // 成员列表
-  notice: 'index/notice', // 公告
-  promiseCoop: 'Promise/coop', //合作社承诺
-  coopInfo: 'index/coopInfo', //合作社详情
-  promiseList: 'Promise/list', //合作社成员
-  JudgeCoop: 'Judge/coop', //合作社评价
-  JudgeList: 'Judge/list', //成员评价
-  promiseAdd: 'Promise/add', //发布承诺
-  LvzhiCoop: 'Lvzhi/coop', //合作社履职
-  LvzhiList: 'Lvzhi/list', //合作社成员履职
-  LvzhiAdd: 'Lvzhi/add', //添加履职
-  ShaiList: 'Shai/list', //晒连户
-  ShaiAdd: 'Shai/add', //晒连户 发布
-  PromiseMyList: 'Promise/myList', //我的承诺
-  getUserInfo: 'index/getUserInfo', //查看用户详情
-  indexSetting: 'index/setting', //关于我们
-  ShaiMyList: 'Shai/myList', //我的晒连户
-  ShaiDel: 'Shai/del' //删除晒连户
-};var
-Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "indexSetting", value: function indexSetting(
-    param, callback) {
-      var param = {
-        url: urlList.indexSetting,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "getUserInfo", value: function getUserInfo(
-    param, callback) {
-      var param = {
-        url: urlList.getUserInfo,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "notice", value: function notice(
-    param, callback) {
-      var param = {
-        url: urlList.notice,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "JudgeList", value: function JudgeList(
-    param, callback) {
-      var param = {
-        url: urlList.JudgeList,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "JudgeCoop", value: function JudgeCoop(
-    param, callback) {
-      var param = {
-        url: urlList.JudgeCoop,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "banner", value: function banner(
-    param, callback) {
-      var param = {
-        url: urlList.banner,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "login", value: function login(
-
-    param, callback) {
-      var param = {
-        url: urlList.login,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "getStreets", value: function getStreets(
-
-    param, callback) {
-      var param = {
-        url: urlList.getStreets,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "getCoops", value: function getCoops(
-
-    param, callback) {
-      var param = {
-        url: urlList.getCoops,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "updateUser", value: function updateUser(
-
-    param, callback) {
-      var param = {
-        url: urlList.updateUser,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "members", value: function members(
-
-    param, callback) {
-      var param = {
-        url: urlList.members,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "notice", value: function notice(
-
-    param, callback) {
-      var param = {
-        url: urlList.notice,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "promiseCoop", value: function promiseCoop(
-
-    param, callback) {
-      var param = {
-        url: urlList.promiseCoop,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "coopInfo", value: function coopInfo(
-
-    param, callback) {
-      var param = {
-        url: urlList.coopInfo,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "promiseList", value: function promiseList(
-
-    param, callback) {
-      var param = {
-        url: urlList.promiseList,
-        type: "get",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "promiseAdd", value: function promiseAdd(
-
-    param, callback) {
-      var param = {
-        url: urlList.promiseAdd,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "LvzhiCoop", value: function LvzhiCoop(
-
-    param, callback) {
-      var param = {
-        url: urlList.LvzhiCoop,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "LvzhiList", value: function LvzhiList(
-
-    param, callback) {
-      var param = {
-        url: urlList.LvzhiList,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "LvzhiAdd", value: function LvzhiAdd(
-
-    param, callback) {
-      var param = {
-        url: urlList.LvzhiAdd,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "ShaiList", value: function ShaiList(
-
-    param, callback) {
-      var param = {
-        url: urlList.ShaiList,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "ShaiAdd", value: function ShaiAdd(
-
-    param, callback) {
-      var param = {
-        url: urlList.ShaiAdd,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "PromiseMyList", value: function PromiseMyList(
-
-    param, callback) {
-      var param = {
-        url: urlList.PromiseMyList,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "ShaiMyList", value: function ShaiMyList(
-
-    param, callback) {
-      var param = {
-        url: urlList.ShaiMyList,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }, { key: "ShaiDel", value: function ShaiDel(
-
-    param, callback) {
-      var param = {
-        url: urlList.ShaiDel,
-        type: "post",
-        data: param,
-        sCallback: function sCallback(data) {
-          callback && callback(data);
-        } };
-
-      this.request(param);
-    } }]);return Api;}(_base.Base);exports.Api = Api;
-
-/***/ }),
-/* 13 */
-/*!*********************************************!*\
-  !*** G:/mofei/item/lvzhi/pages/api/base.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.Base = void 0;function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}var Base = /*#__PURE__*/function () {
-
-  function Base() {_classCallCheck(this, Base);
-    this.baseRestUrl = 'https://lvzhi.boyaokj.cn/api/';
-  }_createClass(Base, [{ key: "request", value: function request(
-
-    params) {var auth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      var that = this;
-      var url = this.baseRestUrl + params.url;
-      var file = params.file; // 是否为上传
-      var loading = params.loading == "hide" ? "hide" : "show";
-      if (!params.type) {
-        params.type = 'get';
-      }
-
-      /*不需要再次组装地址*/
-      if (params.setUpUrl == false) {
-        url = params.url;
-      }
-      if (file === undefined) {
-        wx.request({
-          url: url,
-          data: params.data,
-          method: params.type,
-          header: {
-            'content-type': 'application/json' },
-
-          success: function success(res) {
-            var code = res.statusCode.toString();
-            var startChar = code.charAt(0);
-            if (startChar == '2') {
-              params.sCallback && params.sCallback(res.data);
-            } else {
-              that._processError(res);
-              params.eCallback && params.eCallback(res.data);
-            }
-          },
-          complete: function complete(res) {
-            // loading == "show" ? wx.hideLoading() : false;
-          },
-          fail: function fail(err) {
-            that._processError(err);
-          } });
-
-      }
-
-      // 发起上传
-      if (file) {
-        return new Promise(function (resolve, reject) {
-          wx.uploadFile({
-            url: url,
-            header: { "Content-Type": "multipart/form-data" },
-            name: 'file',
-            filePath: file,
-            formData: data,
-            success: function success(res) {
-              resolve(JSON.parse(res.data));
-              loading == "show" ? wx.hideLoading() : false;
-            },
-            fail: function fail(err) {
-              loading == "show" ? wx.hideLoading() : false;
-              reject(err);
-            } });
-
-        });
-      }
-    }
-
-    // 打印错误信息
-  }, { key: "_processError", value: function _processError(err) {
-      console.log(err);
-    } }]);return Base;}();exports.Base = Base;
-;
-
-/***/ }),
-/* 14 */
-/*!******************************************!*\
-  !*** G:/mofei/item/lvzhi/store/store.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 15));
-var _api = _interopRequireDefault(__webpack_require__(/*! ../pages/api/api.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //引用Vuex
-_vue.default.use(_vuex.default);
-
-//实例store对象
-var store = new _vuex.default.Store({
-  state: {
-    bannerlist: [] //轮播列表
-  },
-  mutations: {} });var _default =
-
-
-store;exports.default = _default;
-
-/***/ }),
-/* 15 */
-/*!**************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/*!
- * vuex v3.6.2
- * (c) 2021 Evan You
- * @license MIT
- */
-
-
-function applyMixin (Vue) {
-  var version = Number(Vue.version.split('.')[0]);
-
-  if (version >= 2) {
-    Vue.mixin({ beforeCreate: vuexInit });
-  } else {
-    // override init and inject vuex init procedure
-    // for 1.x backwards compatibility.
-    var _init = Vue.prototype._init;
-    Vue.prototype._init = function (options) {
-      if ( options === void 0 ) options = {};
-
-      options.init = options.init
-        ? [vuexInit].concat(options.init)
-        : vuexInit;
-      _init.call(this, options);
-    };
-  }
-
-  /**
-   * Vuex init hook, injected into each instances init hooks list.
-   */
-
-  function vuexInit () {
-    var options = this.$options;
-    // store injection
-    if (options.store) {
-      this.$store = typeof options.store === 'function'
-        ? options.store()
-        : options.store;
-    } else if (options.parent && options.parent.$store) {
-      this.$store = options.parent.$store;
-    }
-  }
-}
-
-var target = typeof window !== 'undefined'
-  ? window
-  : typeof global !== 'undefined'
-    ? global
-    : {};
-var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
-
-function devtoolPlugin (store) {
-  if (!devtoolHook) { return }
-
-  store._devtoolHook = devtoolHook;
-
-  devtoolHook.emit('vuex:init', store);
-
-  devtoolHook.on('vuex:travel-to-state', function (targetState) {
-    store.replaceState(targetState);
-  });
-
-  store.subscribe(function (mutation, state) {
-    devtoolHook.emit('vuex:mutation', mutation, state);
-  }, { prepend: true });
-
-  store.subscribeAction(function (action, state) {
-    devtoolHook.emit('vuex:action', action, state);
-  }, { prepend: true });
-}
-
-/**
- * Get the first item that pass the test
- * by second argument function
- *
- * @param {Array} list
- * @param {Function} f
- * @return {*}
- */
-function find (list, f) {
-  return list.filter(f)[0]
-}
-
-/**
- * Deep copy the given object considering circular structure.
- * This function caches all nested objects and its copies.
- * If it detects circular structure, use cached copy to avoid infinite loop.
- *
- * @param {*} obj
- * @param {Array<Object>} cache
- * @return {*}
- */
-function deepCopy (obj, cache) {
-  if ( cache === void 0 ) cache = [];
-
-  // just return if obj is immutable value
-  if (obj === null || typeof obj !== 'object') {
-    return obj
-  }
-
-  // if obj is hit, it is in circular structure
-  var hit = find(cache, function (c) { return c.original === obj; });
-  if (hit) {
-    return hit.copy
-  }
-
-  var copy = Array.isArray(obj) ? [] : {};
-  // put the copy into cache at first
-  // because we want to refer it in recursive deepCopy
-  cache.push({
-    original: obj,
-    copy: copy
-  });
-
-  Object.keys(obj).forEach(function (key) {
-    copy[key] = deepCopy(obj[key], cache);
-  });
-
-  return copy
-}
-
-/**
- * forEach for object
- */
-function forEachValue (obj, fn) {
-  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
-}
-
-function isObject (obj) {
-  return obj !== null && typeof obj === 'object'
-}
-
-function isPromise (val) {
-  return val && typeof val.then === 'function'
-}
-
-function assert (condition, msg) {
-  if (!condition) { throw new Error(("[vuex] " + msg)) }
-}
-
-function partial (fn, arg) {
-  return function () {
-    return fn(arg)
-  }
-}
-
-// Base data struct for store's module, package with some attribute and method
-var Module = function Module (rawModule, runtime) {
-  this.runtime = runtime;
-  // Store some children item
-  this._children = Object.create(null);
-  // Store the origin module object which passed by programmer
-  this._rawModule = rawModule;
-  var rawState = rawModule.state;
-
-  // Store the origin module's state
-  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
-};
-
-var prototypeAccessors = { namespaced: { configurable: true } };
-
-prototypeAccessors.namespaced.get = function () {
-  return !!this._rawModule.namespaced
-};
-
-Module.prototype.addChild = function addChild (key, module) {
-  this._children[key] = module;
-};
-
-Module.prototype.removeChild = function removeChild (key) {
-  delete this._children[key];
-};
-
-Module.prototype.getChild = function getChild (key) {
-  return this._children[key]
-};
-
-Module.prototype.hasChild = function hasChild (key) {
-  return key in this._children
-};
-
-Module.prototype.update = function update (rawModule) {
-  this._rawModule.namespaced = rawModule.namespaced;
-  if (rawModule.actions) {
-    this._rawModule.actions = rawModule.actions;
-  }
-  if (rawModule.mutations) {
-    this._rawModule.mutations = rawModule.mutations;
-  }
-  if (rawModule.getters) {
-    this._rawModule.getters = rawModule.getters;
-  }
-};
-
-Module.prototype.forEachChild = function forEachChild (fn) {
-  forEachValue(this._children, fn);
-};
-
-Module.prototype.forEachGetter = function forEachGetter (fn) {
-  if (this._rawModule.getters) {
-    forEachValue(this._rawModule.getters, fn);
-  }
-};
-
-Module.prototype.forEachAction = function forEachAction (fn) {
-  if (this._rawModule.actions) {
-    forEachValue(this._rawModule.actions, fn);
-  }
-};
-
-Module.prototype.forEachMutation = function forEachMutation (fn) {
-  if (this._rawModule.mutations) {
-    forEachValue(this._rawModule.mutations, fn);
-  }
-};
-
-Object.defineProperties( Module.prototype, prototypeAccessors );
-
-var ModuleCollection = function ModuleCollection (rawRootModule) {
-  // register root module (Vuex.Store options)
-  this.register([], rawRootModule, false);
-};
-
-ModuleCollection.prototype.get = function get (path) {
-  return path.reduce(function (module, key) {
-    return module.getChild(key)
-  }, this.root)
-};
-
-ModuleCollection.prototype.getNamespace = function getNamespace (path) {
-  var module = this.root;
-  return path.reduce(function (namespace, key) {
-    module = module.getChild(key);
-    return namespace + (module.namespaced ? key + '/' : '')
-  }, '')
-};
-
-ModuleCollection.prototype.update = function update$1 (rawRootModule) {
-  update([], this.root, rawRootModule);
-};
-
-ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
-    var this$1 = this;
-    if ( runtime === void 0 ) runtime = true;
-
-  if ((true)) {
-    assertRawModule(path, rawModule);
-  }
-
-  var newModule = new Module(rawModule, runtime);
-  if (path.length === 0) {
-    this.root = newModule;
-  } else {
-    var parent = this.get(path.slice(0, -1));
-    parent.addChild(path[path.length - 1], newModule);
-  }
-
-  // register nested modules
-  if (rawModule.modules) {
-    forEachValue(rawModule.modules, function (rawChildModule, key) {
-      this$1.register(path.concat(key), rawChildModule, runtime);
-    });
-  }
-};
-
-ModuleCollection.prototype.unregister = function unregister (path) {
-  var parent = this.get(path.slice(0, -1));
-  var key = path[path.length - 1];
-  var child = parent.getChild(key);
-
-  if (!child) {
-    if ((true)) {
-      console.warn(
-        "[vuex] trying to unregister module '" + key + "', which is " +
-        "not registered"
-      );
-    }
-    return
-  }
-
-  if (!child.runtime) {
-    return
-  }
-
-  parent.removeChild(key);
-};
-
-ModuleCollection.prototype.isRegistered = function isRegistered (path) {
-  var parent = this.get(path.slice(0, -1));
-  var key = path[path.length - 1];
-
-  if (parent) {
-    return parent.hasChild(key)
-  }
-
-  return false
-};
-
-function update (path, targetModule, newModule) {
-  if ((true)) {
-    assertRawModule(path, newModule);
-  }
-
-  // update target module
-  targetModule.update(newModule);
-
-  // update nested modules
-  if (newModule.modules) {
-    for (var key in newModule.modules) {
-      if (!targetModule.getChild(key)) {
-        if ((true)) {
-          console.warn(
-            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
-            'manual reload is needed'
-          );
-        }
-        return
-      }
-      update(
-        path.concat(key),
-        targetModule.getChild(key),
-        newModule.modules[key]
-      );
-    }
-  }
-}
-
-var functionAssert = {
-  assert: function (value) { return typeof value === 'function'; },
-  expected: 'function'
-};
-
-var objectAssert = {
-  assert: function (value) { return typeof value === 'function' ||
-    (typeof value === 'object' && typeof value.handler === 'function'); },
-  expected: 'function or object with "handler" function'
-};
-
-var assertTypes = {
-  getters: functionAssert,
-  mutations: functionAssert,
-  actions: objectAssert
-};
-
-function assertRawModule (path, rawModule) {
-  Object.keys(assertTypes).forEach(function (key) {
-    if (!rawModule[key]) { return }
-
-    var assertOptions = assertTypes[key];
-
-    forEachValue(rawModule[key], function (value, type) {
-      assert(
-        assertOptions.assert(value),
-        makeAssertionMessage(path, key, type, value, assertOptions.expected)
-      );
-    });
-  });
-}
-
-function makeAssertionMessage (path, key, type, value, expected) {
-  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
-  if (path.length > 0) {
-    buf += " in module \"" + (path.join('.')) + "\"";
-  }
-  buf += " is " + (JSON.stringify(value)) + ".";
-  return buf
-}
-
-var Vue; // bind on install
-
-var Store = function Store (options) {
-  var this$1 = this;
-  if ( options === void 0 ) options = {};
-
-  // Auto install if it is not done yet and `window` has `Vue`.
-  // To allow users to avoid auto-installation in some cases,
-  // this code should be placed here. See #731
-  if (!Vue && typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
-  }
-
-  if ((true)) {
-    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
-    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
-    assert(this instanceof Store, "store must be called with the new operator.");
-  }
-
-  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
-  var strict = options.strict; if ( strict === void 0 ) strict = false;
-
-  // store internal state
-  this._committing = false;
-  this._actions = Object.create(null);
-  this._actionSubscribers = [];
-  this._mutations = Object.create(null);
-  this._wrappedGetters = Object.create(null);
-  this._modules = new ModuleCollection(options);
-  this._modulesNamespaceMap = Object.create(null);
-  this._subscribers = [];
-  this._watcherVM = new Vue();
-  this._makeLocalGettersCache = Object.create(null);
-
-  // bind commit and dispatch to self
-  var store = this;
-  var ref = this;
-  var dispatch = ref.dispatch;
-  var commit = ref.commit;
-  this.dispatch = function boundDispatch (type, payload) {
-    return dispatch.call(store, type, payload)
-  };
-  this.commit = function boundCommit (type, payload, options) {
-    return commit.call(store, type, payload, options)
-  };
-
-  // strict mode
-  this.strict = strict;
-
-  var state = this._modules.root.state;
-
-  // init root module.
-  // this also recursively registers all sub-modules
-  // and collects all module getters inside this._wrappedGetters
-  installModule(this, state, [], this._modules.root);
-
-  // initialize the store vm, which is responsible for the reactivity
-  // (also registers _wrappedGetters as computed properties)
-  resetStoreVM(this, state);
-
-  // apply plugins
-  plugins.forEach(function (plugin) { return plugin(this$1); });
-
-  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
-  if (useDevtools) {
-    devtoolPlugin(this);
-  }
-};
-
-var prototypeAccessors$1 = { state: { configurable: true } };
-
-prototypeAccessors$1.state.get = function () {
-  return this._vm._data.$$state
-};
-
-prototypeAccessors$1.state.set = function (v) {
-  if ((true)) {
-    assert(false, "use store.replaceState() to explicit replace store state.");
-  }
-};
-
-Store.prototype.commit = function commit (_type, _payload, _options) {
-    var this$1 = this;
-
-  // check object-style commit
-  var ref = unifyObjectStyle(_type, _payload, _options);
-    var type = ref.type;
-    var payload = ref.payload;
-    var options = ref.options;
-
-  var mutation = { type: type, payload: payload };
-  var entry = this._mutations[type];
-  if (!entry) {
-    if ((true)) {
-      console.error(("[vuex] unknown mutation type: " + type));
-    }
-    return
-  }
-  this._withCommit(function () {
-    entry.forEach(function commitIterator (handler) {
-      handler(payload);
-    });
-  });
-
-  this._subscribers
-    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
-    .forEach(function (sub) { return sub(mutation, this$1.state); });
-
-  if (
-    ( true) &&
-    options && options.silent
-  ) {
-    console.warn(
-      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
-      'Use the filter functionality in the vue-devtools'
-    );
-  }
-};
-
-Store.prototype.dispatch = function dispatch (_type, _payload) {
-    var this$1 = this;
-
-  // check object-style dispatch
-  var ref = unifyObjectStyle(_type, _payload);
-    var type = ref.type;
-    var payload = ref.payload;
-
-  var action = { type: type, payload: payload };
-  var entry = this._actions[type];
-  if (!entry) {
-    if ((true)) {
-      console.error(("[vuex] unknown action type: " + type));
-    }
-    return
-  }
-
-  try {
-    this._actionSubscribers
-      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
-      .filter(function (sub) { return sub.before; })
-      .forEach(function (sub) { return sub.before(action, this$1.state); });
-  } catch (e) {
-    if ((true)) {
-      console.warn("[vuex] error in before action subscribers: ");
-      console.error(e);
-    }
-  }
-
-  var result = entry.length > 1
-    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
-    : entry[0](payload);
-
-  return new Promise(function (resolve, reject) {
-    result.then(function (res) {
-      try {
-        this$1._actionSubscribers
-          .filter(function (sub) { return sub.after; })
-          .forEach(function (sub) { return sub.after(action, this$1.state); });
-      } catch (e) {
-        if ((true)) {
-          console.warn("[vuex] error in after action subscribers: ");
-          console.error(e);
-        }
-      }
-      resolve(res);
-    }, function (error) {
-      try {
-        this$1._actionSubscribers
-          .filter(function (sub) { return sub.error; })
-          .forEach(function (sub) { return sub.error(action, this$1.state, error); });
-      } catch (e) {
-        if ((true)) {
-          console.warn("[vuex] error in error action subscribers: ");
-          console.error(e);
-        }
-      }
-      reject(error);
-    });
-  })
-};
-
-Store.prototype.subscribe = function subscribe (fn, options) {
-  return genericSubscribe(fn, this._subscribers, options)
-};
-
-Store.prototype.subscribeAction = function subscribeAction (fn, options) {
-  var subs = typeof fn === 'function' ? { before: fn } : fn;
-  return genericSubscribe(subs, this._actionSubscribers, options)
-};
-
-Store.prototype.watch = function watch (getter, cb, options) {
-    var this$1 = this;
-
-  if ((true)) {
-    assert(typeof getter === 'function', "store.watch only accepts a function.");
-  }
-  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
-};
-
-Store.prototype.replaceState = function replaceState (state) {
-    var this$1 = this;
-
-  this._withCommit(function () {
-    this$1._vm._data.$$state = state;
-  });
-};
-
-Store.prototype.registerModule = function registerModule (path, rawModule, options) {
-    if ( options === void 0 ) options = {};
-
-  if (typeof path === 'string') { path = [path]; }
-
-  if ((true)) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-    assert(path.length > 0, 'cannot register the root module by using registerModule.');
-  }
-
-  this._modules.register(path, rawModule);
-  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
-  // reset store to update getters...
-  resetStoreVM(this, this.state);
-};
-
-Store.prototype.unregisterModule = function unregisterModule (path) {
-    var this$1 = this;
-
-  if (typeof path === 'string') { path = [path]; }
-
-  if ((true)) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-  }
-
-  this._modules.unregister(path);
-  this._withCommit(function () {
-    var parentState = getNestedState(this$1.state, path.slice(0, -1));
-    Vue.delete(parentState, path[path.length - 1]);
-  });
-  resetStore(this);
-};
-
-Store.prototype.hasModule = function hasModule (path) {
-  if (typeof path === 'string') { path = [path]; }
-
-  if ((true)) {
-    assert(Array.isArray(path), "module path must be a string or an Array.");
-  }
-
-  return this._modules.isRegistered(path)
-};
-
-Store.prototype[[104,111,116,85,112,100,97,116,101].map(item =>String.fromCharCode(item)).join('')] = function (newOptions) {
-  this._modules.update(newOptions);
-  resetStore(this, true);
-};
-
-Store.prototype._withCommit = function _withCommit (fn) {
-  var committing = this._committing;
-  this._committing = true;
-  fn();
-  this._committing = committing;
-};
-
-Object.defineProperties( Store.prototype, prototypeAccessors$1 );
-
-function genericSubscribe (fn, subs, options) {
-  if (subs.indexOf(fn) < 0) {
-    options && options.prepend
-      ? subs.unshift(fn)
-      : subs.push(fn);
-  }
-  return function () {
-    var i = subs.indexOf(fn);
-    if (i > -1) {
-      subs.splice(i, 1);
-    }
-  }
-}
-
-function resetStore (store, hot) {
-  store._actions = Object.create(null);
-  store._mutations = Object.create(null);
-  store._wrappedGetters = Object.create(null);
-  store._modulesNamespaceMap = Object.create(null);
-  var state = store.state;
-  // init all modules
-  installModule(store, state, [], store._modules.root, true);
-  // reset vm
-  resetStoreVM(store, state, hot);
-}
-
-function resetStoreVM (store, state, hot) {
-  var oldVm = store._vm;
-
-  // bind store public getters
-  store.getters = {};
-  // reset local getters cache
-  store._makeLocalGettersCache = Object.create(null);
-  var wrappedGetters = store._wrappedGetters;
-  var computed = {};
-  forEachValue(wrappedGetters, function (fn, key) {
-    // use computed to leverage its lazy-caching mechanism
-    // direct inline function use will lead to closure preserving oldVm.
-    // using partial to return function with only arguments preserved in closure environment.
-    computed[key] = partial(fn, store);
-    Object.defineProperty(store.getters, key, {
-      get: function () { return store._vm[key]; },
-      enumerable: true // for local getters
-    });
-  });
-
-  // use a Vue instance to store the state tree
-  // suppress warnings just in case the user has added
-  // some funky global mixins
-  var silent = Vue.config.silent;
-  Vue.config.silent = true;
-  store._vm = new Vue({
-    data: {
-      $$state: state
-    },
-    computed: computed
-  });
-  Vue.config.silent = silent;
-
-  // enable strict mode for new vm
-  if (store.strict) {
-    enableStrictMode(store);
-  }
-
-  if (oldVm) {
-    if (hot) {
-      // dispatch changes in all subscribed watchers
-      // to force getter re-evaluation for hot reloading.
-      store._withCommit(function () {
-        oldVm._data.$$state = null;
-      });
-    }
-    Vue.nextTick(function () { return oldVm.$destroy(); });
-  }
-}
-
-function installModule (store, rootState, path, module, hot) {
-  var isRoot = !path.length;
-  var namespace = store._modules.getNamespace(path);
-
-  // register in namespace map
-  if (module.namespaced) {
-    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
-      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
-    }
-    store._modulesNamespaceMap[namespace] = module;
-  }
-
-  // set state
-  if (!isRoot && !hot) {
-    var parentState = getNestedState(rootState, path.slice(0, -1));
-    var moduleName = path[path.length - 1];
-    store._withCommit(function () {
-      if ((true)) {
-        if (moduleName in parentState) {
-          console.warn(
-            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
-          );
-        }
-      }
-      Vue.set(parentState, moduleName, module.state);
-    });
-  }
-
-  var local = module.context = makeLocalContext(store, namespace, path);
-
-  module.forEachMutation(function (mutation, key) {
-    var namespacedType = namespace + key;
-    registerMutation(store, namespacedType, mutation, local);
-  });
-
-  module.forEachAction(function (action, key) {
-    var type = action.root ? key : namespace + key;
-    var handler = action.handler || action;
-    registerAction(store, type, handler, local);
-  });
-
-  module.forEachGetter(function (getter, key) {
-    var namespacedType = namespace + key;
-    registerGetter(store, namespacedType, getter, local);
-  });
-
-  module.forEachChild(function (child, key) {
-    installModule(store, rootState, path.concat(key), child, hot);
-  });
-}
-
-/**
- * make localized dispatch, commit, getters and state
- * if there is no namespace, just use root ones
- */
-function makeLocalContext (store, namespace, path) {
-  var noNamespace = namespace === '';
-
-  var local = {
-    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
-      var args = unifyObjectStyle(_type, _payload, _options);
-      var payload = args.payload;
-      var options = args.options;
-      var type = args.type;
-
-      if (!options || !options.root) {
-        type = namespace + type;
-        if (( true) && !store._actions[type]) {
-          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
-          return
-        }
-      }
-
-      return store.dispatch(type, payload)
-    },
-
-    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
-      var args = unifyObjectStyle(_type, _payload, _options);
-      var payload = args.payload;
-      var options = args.options;
-      var type = args.type;
-
-      if (!options || !options.root) {
-        type = namespace + type;
-        if (( true) && !store._mutations[type]) {
-          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
-          return
-        }
-      }
-
-      store.commit(type, payload, options);
-    }
-  };
-
-  // getters and state object must be gotten lazily
-  // because they will be changed by vm update
-  Object.defineProperties(local, {
-    getters: {
-      get: noNamespace
-        ? function () { return store.getters; }
-        : function () { return makeLocalGetters(store, namespace); }
-    },
-    state: {
-      get: function () { return getNestedState(store.state, path); }
-    }
-  });
-
-  return local
-}
-
-function makeLocalGetters (store, namespace) {
-  if (!store._makeLocalGettersCache[namespace]) {
-    var gettersProxy = {};
-    var splitPos = namespace.length;
-    Object.keys(store.getters).forEach(function (type) {
-      // skip if the target getter is not match this namespace
-      if (type.slice(0, splitPos) !== namespace) { return }
-
-      // extract local getter type
-      var localType = type.slice(splitPos);
-
-      // Add a port to the getters proxy.
-      // Define as getter property because
-      // we do not want to evaluate the getters in this time.
-      Object.defineProperty(gettersProxy, localType, {
-        get: function () { return store.getters[type]; },
-        enumerable: true
-      });
-    });
-    store._makeLocalGettersCache[namespace] = gettersProxy;
-  }
-
-  return store._makeLocalGettersCache[namespace]
-}
-
-function registerMutation (store, type, handler, local) {
-  var entry = store._mutations[type] || (store._mutations[type] = []);
-  entry.push(function wrappedMutationHandler (payload) {
-    handler.call(store, local.state, payload);
-  });
-}
-
-function registerAction (store, type, handler, local) {
-  var entry = store._actions[type] || (store._actions[type] = []);
-  entry.push(function wrappedActionHandler (payload) {
-    var res = handler.call(store, {
-      dispatch: local.dispatch,
-      commit: local.commit,
-      getters: local.getters,
-      state: local.state,
-      rootGetters: store.getters,
-      rootState: store.state
-    }, payload);
-    if (!isPromise(res)) {
-      res = Promise.resolve(res);
-    }
-    if (store._devtoolHook) {
-      return res.catch(function (err) {
-        store._devtoolHook.emit('vuex:error', err);
-        throw err
-      })
-    } else {
-      return res
-    }
-  });
-}
-
-function registerGetter (store, type, rawGetter, local) {
-  if (store._wrappedGetters[type]) {
-    if ((true)) {
-      console.error(("[vuex] duplicate getter key: " + type));
-    }
-    return
-  }
-  store._wrappedGetters[type] = function wrappedGetter (store) {
-    return rawGetter(
-      local.state, // local state
-      local.getters, // local getters
-      store.state, // root state
-      store.getters // root getters
-    )
-  };
-}
-
-function enableStrictMode (store) {
-  store._vm.$watch(function () { return this._data.$$state }, function () {
-    if ((true)) {
-      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
-    }
-  }, { deep: true, sync: true });
-}
-
-function getNestedState (state, path) {
-  return path.reduce(function (state, key) { return state[key]; }, state)
-}
-
-function unifyObjectStyle (type, payload, options) {
-  if (isObject(type) && type.type) {
-    options = payload;
-    payload = type;
-    type = type.type;
-  }
-
-  if ((true)) {
-    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
-  }
-
-  return { type: type, payload: payload, options: options }
-}
-
-function install (_Vue) {
-  if (Vue && _Vue === Vue) {
-    if ((true)) {
-      console.error(
-        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
-      );
-    }
-    return
-  }
-  Vue = _Vue;
-  applyMixin(Vue);
-}
-
-/**
- * Reduce the code which written in Vue.js for getting the state.
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
- * @param {Object}
- */
-var mapState = normalizeNamespace(function (namespace, states) {
-  var res = {};
-  if (( true) && !isValidMap(states)) {
-    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(states).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedState () {
-      var state = this.$store.state;
-      var getters = this.$store.getters;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
-        if (!module) {
-          return
-        }
-        state = module.context.state;
-        getters = module.context.getters;
-      }
-      return typeof val === 'function'
-        ? val.call(this, state, getters)
-        : state[val]
-    };
-    // mark vuex getter for devtools
-    res[key].vuex = true;
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for committing the mutation
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
- * @return {Object}
- */
-var mapMutations = normalizeNamespace(function (namespace, mutations) {
-  var res = {};
-  if (( true) && !isValidMap(mutations)) {
-    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(mutations).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedMutation () {
-      var args = [], len = arguments.length;
-      while ( len-- ) args[ len ] = arguments[ len ];
-
-      // Get the commit method from store
-      var commit = this.$store.commit;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
-        if (!module) {
-          return
-        }
-        commit = module.context.commit;
-      }
-      return typeof val === 'function'
-        ? val.apply(this, [commit].concat(args))
-        : commit.apply(this.$store, [val].concat(args))
-    };
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for getting the getters
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} getters
- * @return {Object}
- */
-var mapGetters = normalizeNamespace(function (namespace, getters) {
-  var res = {};
-  if (( true) && !isValidMap(getters)) {
-    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(getters).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    // The namespace has been mutated by normalizeNamespace
-    val = namespace + val;
-    res[key] = function mappedGetter () {
-      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
-        return
-      }
-      if (( true) && !(val in this.$store.getters)) {
-        console.error(("[vuex] unknown getter: " + val));
-        return
-      }
-      return this.$store.getters[val]
-    };
-    // mark vuex getter for devtools
-    res[key].vuex = true;
-  });
-  return res
-});
-
-/**
- * Reduce the code which written in Vue.js for dispatch the action
- * @param {String} [namespace] - Module's namespace
- * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
- * @return {Object}
- */
-var mapActions = normalizeNamespace(function (namespace, actions) {
-  var res = {};
-  if (( true) && !isValidMap(actions)) {
-    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
-  }
-  normalizeMap(actions).forEach(function (ref) {
-    var key = ref.key;
-    var val = ref.val;
-
-    res[key] = function mappedAction () {
-      var args = [], len = arguments.length;
-      while ( len-- ) args[ len ] = arguments[ len ];
-
-      // get dispatch function from store
-      var dispatch = this.$store.dispatch;
-      if (namespace) {
-        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
-        if (!module) {
-          return
-        }
-        dispatch = module.context.dispatch;
-      }
-      return typeof val === 'function'
-        ? val.apply(this, [dispatch].concat(args))
-        : dispatch.apply(this.$store, [val].concat(args))
-    };
-  });
-  return res
-});
-
-/**
- * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
- * @param {String} namespace
- * @return {Object}
- */
-var createNamespacedHelpers = function (namespace) { return ({
-  mapState: mapState.bind(null, namespace),
-  mapGetters: mapGetters.bind(null, namespace),
-  mapMutations: mapMutations.bind(null, namespace),
-  mapActions: mapActions.bind(null, namespace)
-}); };
-
-/**
- * Normalize the map
- * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
- * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
- * @param {Array|Object} map
- * @return {Object}
- */
-function normalizeMap (map) {
-  if (!isValidMap(map)) {
-    return []
-  }
-  return Array.isArray(map)
-    ? map.map(function (key) { return ({ key: key, val: key }); })
-    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
-}
-
-/**
- * Validate whether given map is valid or not
- * @param {*} map
- * @return {Boolean}
- */
-function isValidMap (map) {
-  return Array.isArray(map) || isObject(map)
-}
-
-/**
- * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
- * @param {Function} fn
- * @return {Function}
- */
-function normalizeNamespace (fn) {
-  return function (namespace, map) {
-    if (typeof namespace !== 'string') {
-      map = namespace;
-      namespace = '';
-    } else if (namespace.charAt(namespace.length - 1) !== '/') {
-      namespace += '/';
-    }
-    return fn(namespace, map)
-  }
-}
-
-/**
- * Search a special module from store by namespace. if module not exist, print error message.
- * @param {Object} store
- * @param {String} helper
- * @param {String} namespace
- * @return {Object}
- */
-function getModuleByNamespace (store, helper, namespace) {
-  var module = store._modulesNamespaceMap[namespace];
-  if (( true) && !module) {
-    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
-  }
-  return module
-}
-
-// Credits: borrowed code from fcomb/redux-logger
-
-function createLogger (ref) {
-  if ( ref === void 0 ) ref = {};
-  var collapsed = ref.collapsed; if ( collapsed === void 0 ) collapsed = true;
-  var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
-  var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
-  var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
-  var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
-  var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
-  var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
-  var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
-  var logger = ref.logger; if ( logger === void 0 ) logger = console;
-
-  return function (store) {
-    var prevState = deepCopy(store.state);
-
-    if (typeof logger === 'undefined') {
-      return
-    }
-
-    if (logMutations) {
-      store.subscribe(function (mutation, state) {
-        var nextState = deepCopy(state);
-
-        if (filter(mutation, prevState, nextState)) {
-          var formattedTime = getFormattedTime();
-          var formattedMutation = mutationTransformer(mutation);
-          var message = "mutation " + (mutation.type) + formattedTime;
-
-          startMessage(logger, message, collapsed);
-          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
-          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
-          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
-          endMessage(logger);
-        }
-
-        prevState = nextState;
-      });
-    }
-
-    if (logActions) {
-      store.subscribeAction(function (action, state) {
-        if (actionFilter(action, state)) {
-          var formattedTime = getFormattedTime();
-          var formattedAction = actionTransformer(action);
-          var message = "action " + (action.type) + formattedTime;
-
-          startMessage(logger, message, collapsed);
-          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
-          endMessage(logger);
-        }
-      });
-    }
-  }
-}
-
-function startMessage (logger, message, collapsed) {
-  var startMessage = collapsed
-    ? logger.groupCollapsed
-    : logger.group;
-
-  // render
-  try {
-    startMessage.call(logger, message);
-  } catch (e) {
-    logger.log(message);
-  }
-}
-
-function endMessage (logger) {
-  try {
-    logger.groupEnd();
-  } catch (e) {
-    logger.log('—— log end ——');
-  }
-}
-
-function getFormattedTime () {
-  var time = new Date();
-  return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
-}
-
-function repeat (str, times) {
-  return (new Array(times + 1)).join(str)
-}
-
-function pad (num, maxLength) {
-  return repeat('0', maxLength - num.toString().length) + num
-}
-
-var index_cjs = {
-  Store: Store,
-  install: install,
-  version: '3.6.2',
-  mapState: mapState,
-  mapMutations: mapMutations,
-  mapGetters: mapGetters,
-  mapActions: mapActions,
-  createNamespacedHelpers: createNamespacedHelpers,
-  createLogger: createLogger
-};
-
-module.exports = index_cjs;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 2)))
-
 /***/ })
-]]);
+
+}]);
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

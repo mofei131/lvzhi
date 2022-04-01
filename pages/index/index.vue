@@ -121,26 +121,36 @@
 		onLoad() {
 			// 修改顶部标题
 			let info = uni.getStorageSync('userInfo')
-			if(info.role == 4){
+			if (info.role == 4) {
 				uni.setNavigationBarTitle({
 					title: '组织部'
 				})
-			}else if(info.role == 3){
+			} else if (info.role == 3) {
 				uni.setNavigationBarTitle({
-					title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item.id == info.street_id)].street_name
+					title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item
+						.id == info.street_id)].street_name
 				})
-			}else if(info.role == 2 || info.role == 1 || info.role == 5){
+			} else if (info.role == 2 || info.role == 1 || info.role == 5) {
 				uni.setNavigationBarTitle({
-					title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == info.cooperative_id)].cooperative_name
+					title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(
+						item => item.id == info.cooperative_id)].cooperative_name
 				})
 			}
 		},
 
 		onShow() {
-			this.userInfo = uni.getStorageSync('userInfo')
 			if (!uni.getStorageSync('userInfo')) {
-				this.login = true
+				this.api.indexAuth({}, res => {
+					if (res.data.is_auth == 0) {
+						uni.redirectTo({
+							url: 'register'
+						})
+					} else {
+						this.login = true
+					}
+				})
 			} else {
+				this.userInfo = uni.getStorageSync('userInfo')
 				this.login = false
 				this.huoquNotice()
 				if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni
@@ -181,22 +191,22 @@
 				}
 			},
 			//跳转成员详情
-			toDet(e){
+			toDet(e) {
 				uni.navigateTo({
-					url:'../my/infoDet?uid='+e.id
+					url: '../my/infoDet?uid=' + e.id
 				})
 			},
 			//获取公告列表
-			getNotice(){
+			getNotice() {
 				this.api.notice({
-					
-				},res=>{
-					if(res.code == 200){
+
+				}, res => {
+					if (res.code == 200) {
 						this.noticeList = res.data
-					}else{
+					} else {
 						uni.showToast({
-							title:res.message,
-							icon:'none'
+							title: res.message,
+							icon: 'none'
 						})
 					}
 				})

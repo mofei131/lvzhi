@@ -25,6 +25,7 @@ let urlList = {
 	indexSetting:'index/setting',//关于我们
 	ShaiMyList: 'Shai/myList', //我的晒连户
 	ShaiDel: 'Shai/del', //删除晒连户
+	indexAuth: 'index/auth', //小程序是否审核
 }
 class Api extends Base {
 	indexSetting(param, callback) {
@@ -302,6 +303,18 @@ class Api extends Base {
 		var param = {
 			url: urlList.ShaiDel,
 			type: "post",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	indexAuth(param, callback) {
+		var param = {
+			url: urlList.indexAuth,
+			type: "get",
 			data: param,
 			sCallback: function(data) {
 				callback && callback(data);
