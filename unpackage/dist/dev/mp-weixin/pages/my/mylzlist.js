@@ -195,6 +195,15 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   methods: {
+    //全屏看图
+    imgPreview: function imgPreview(item, index) {
+      uni.previewImage({
+        current: index,
+        indicator: "number",
+        loop: true,
+        urls: item });
+
+    },
     // 获取 1:合作社, 2:包靠干部 履职
     huoquLvzhiCoop: function huoquLvzhiCoop() {var _this = this;
       var list = [];

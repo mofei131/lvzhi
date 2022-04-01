@@ -13,7 +13,7 @@
 						<rich-text  v-html='item.intro_text'></rich-text>
 					</view>
 					<view class="lzcrli3">
-						<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit">
+						<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit" @click="imgPreview(item.pics,index2)">
 						</image>
 					</view>
 					<view class="lzcrli4">
@@ -63,6 +63,15 @@
 		},
 
 		methods: {
+			//全屏看图
+			imgPreview(item,index){
+					uni.previewImage({
+						current:index,
+						indicator:"number",
+						loop:true,
+						urls:item
+					})
+			},
 			// 获取 1:合作社, 2:包靠干部 履职
 			huoquLvzhiCoop() {
 				let list = []
