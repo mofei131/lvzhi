@@ -1,4 +1,5 @@
 {
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "评一评",
+  "navigationStyle": "custom",
   "usingComponents": {}
 }

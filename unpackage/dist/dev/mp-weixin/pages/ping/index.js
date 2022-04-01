@@ -143,6 +143,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -163,10 +167,19 @@ var _default =
       showList: [], //展示列表
       coop_id: '', //合作社id
       street_id: '', //街道id
-      toping: false //直接去成员评价
-    };
+      toping: false, //直接去成员评价
+      height: '',
+      showBack: false };
+
   },
   onLoad: function onLoad(p) {
+    var that = this;
+    uni.getSystemInfo({
+      success: function success(data) {
+        // 将其赋值给this
+        that.height = data.statusBarHeight;
+      } });
+
     //角色字段赋值
     this.role = uni.getStorageSync('userInfo').role;
     this.showlist();
@@ -180,9 +193,29 @@ var _default =
     }
   },
   methods: {
+    back: function back() {
+      if (uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3) {
+        if (this.role == 2) {
+          if (uni.getStorageSync('userInfo').role == 3) {
+            this.role++;
+            this.showList = uni.getStorageSync('cooperativeList');
+            this.showBack = false;
+            return;
+          }
+          this.showBack = true;
+          this.showList = uni.getStorageSync('cooperativeList');
+          this.role++;
+        } else if (this.role == 3) {
+          this.showBack = false;
+          this.showList = uni.getStorageSync('streetList');
+          this.role++;
+        }
+      }
+    },
     // 判断角色赋值第一次显示列表
     showlist: function showlist() {
       if (this.role == 4) {
+        this.$store.state.role = 3;
         this.showList = uni.getStorageSync('streetList');
       } else if (this.role == 3) {
         this.showList = uni.getStorageSync('cooperativeList');
@@ -252,6 +285,11 @@ var _default =
           uni.navigateTo({
             url: './ping?coop_id=' + this.coop_id + '&type=' + e.id + '&part=0' });
 
+        }
+      }
+      if (uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3) {
+        if (this.role == 3 || this.role == 2) {
+          this.showBack = true;
         }
       }
     },

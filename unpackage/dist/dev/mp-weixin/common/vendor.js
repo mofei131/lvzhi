@@ -2662,7 +2662,8 @@ _vue.default.use(_vuex.default);
 //实例store对象
 var store = new _vuex.default.Store({
   state: {
-    bannerlist: [] //轮播列表
+    bannerlist: [], //轮播列表
+    role: 0 //角色
   },
   mutations: {} });var _default =
 

@@ -13,7 +13,11 @@
 		}, {
 			"path": "pages/ping/index",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "评一评",
+				"navigationStyle": "custom",
+				"app-plus":{
+					"titleNView": false
+				}
 			}
 		}, {
 			"path": "pages/my/index",
