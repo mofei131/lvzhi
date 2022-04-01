@@ -16,7 +16,7 @@
 				</view>
 			</view>
 			<view class="cncbot">
-				<view>{{item.intro}}</view>
+				<rich-text  v-html='item.intro'></rich-text>
 			</view>
 		</view>
 		<view v-if="cnlist.length <= 0" class="p404">

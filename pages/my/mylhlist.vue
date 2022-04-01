@@ -26,6 +26,10 @@
 		<view class="btnbox" v-if="user.role == 1" @click="toPage">
 			<view class="btn">立即发布</view>
 		</view>
+		<view v-if="lhlist.length <= 0" class="p404">
+			<image src="../../static/image/404.png"></image>
+			<text>暂无内容</text>
+		</view>
 	</view>
 </template>
 
@@ -103,6 +107,16 @@
 </script>
 
 <style>
+	.p404 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 100rpx;
+		margin-top: 200rpx;
+	}
 	.btn {
 		width: 681rpx;
 		height: 91rpx;

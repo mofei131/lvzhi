@@ -1,0 +1,1 @@
+<view class="toptitle" style="{{'height:'+(height+35+'px')+';'}}"><image src="../../static/image/back.png" mode></image><view>评一评</view></view>

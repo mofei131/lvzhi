@@ -2663,8 +2663,10 @@ _vue.default.use(_vuex.default);
 var store = new _vuex.default.Store({
   state: {
     bannerlist: [], //轮播列表
-    role: 0 //角色
-  },
+    slz: '',
+    slh: '',
+    scn: '' },
+
   mutations: {} });var _default =
 
 
@@ -3929,7 +3931,7 @@ module.exports = index_cjs;
 
 /***/ }),
 
-/***/ 188:
+/***/ 195:
 /*!**************************************************************!*\
   !*** G:/mofei/item/lvzhi/pages/components/mp-html/parser.js ***!
   \**************************************************************/

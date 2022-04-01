@@ -1,0 +1,19 @@
+
+.toptitle view{
+	font-size: 32rpx;
+	text-align: center;
+}
+.toptitle image{
+	width: 40rpx;
+	height: 40rpx;
+}
+.toptitle{
+	width: 750rpx;
+	margin: auto;
+	display: flex;
+	align-items: flex-end;
+	padding-left: 20rpx;
+	box-sizing: border-box;
+	margin-bottom: 44rpx;
+}
+

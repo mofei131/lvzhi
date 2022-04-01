@@ -52,17 +52,29 @@
 		}, {
 			"path": "pages/ping/scn",
 			"style": {
-				"navigationBarTitleText": "晒承诺"
+				"navigationBarTitleText": "晒承诺",
+				"navigationStyle": "custom",
+				"app-plus":{
+					"titleNView": false
+				}
 			}
 		}, {
 			"path": "pages/ping/slz",
 			"style": {
-				"navigationBarTitleText": "晒履职"
+				"navigationBarTitleText": "晒履职",
+				"navigationStyle": "custom",
+				"app-plus":{
+					"titleNView": false
+				}
 			}
 		}, {
 			"path": "pages/ping/slh",
 			"style": {
-				"navigationBarTitleText": "晒联户"
+				"navigationBarTitleText": "晒联户",
+				"navigationStyle": "custom",
+				"app-plus":{
+					"titleNView": false
+				}
 			}
 		}, {
 			"path": "pages/ping/ping",

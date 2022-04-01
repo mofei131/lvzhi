@@ -8,7 +8,9 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		bannerlist:[],//轮播列表
-		role:0,//角色
+		slz:'',
+		slh:'',
+		scn:''
 	},
 	mutations: {
 	}

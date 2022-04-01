@@ -166,6 +166,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -192,7 +197,8 @@ var _default =
       jiedao: false,
       hezuoshe: false,
 
-      date: currentDate };
+      date: currentDate,
+      height: '' };
 
   },
   computed: {
@@ -205,29 +211,71 @@ var _default =
 
 
   onLoad: function onLoad(e) {
+    var that = this;
+    uni.getSystemInfo({
+      success: function success(data) {
+        // 将其赋值给this
+        that.height = data.statusBarHeight;
+        console.log(data.statusBarHeight);
+      } });
 
+    this.showList();
   },
 
   onShow: function onShow() {
-    if (uni.getStorageSync('userInfo').role == 4) {
-      this.zuzhibu = true;
-      this.jiedao = false;
-      this.hezuoshe = false;
-      this.huoquStreets();
-    } else if (uni.getStorageSync('userInfo').role == 3) {
-      this.jiedao = true;
-      this.zuzhibu = false;
-      this.hezuoshe = false;
-      this.huoquCoops();
-    } else {
-      this.hezuoshe = true;
-      this.zuzhibu = false;
-      this.jiedao = false;
-      this.huoquHezuoshe();
-    }
+
   },
 
   methods: {
+    //显示展示列表
+    showList: function showList() {
+      if (uni.getStorageSync('userInfo').role == 4) {
+        this.zuzhibu = true;
+        this.jiedao = false;
+        this.hezuoshe = false;
+        this.huoquStreets();
+      } else if (uni.getStorageSync('userInfo').role == 3) {
+        this.jiedao = true;
+        this.zuzhibu = false;
+        this.hezuoshe = false;
+        this.huoquCoops();
+      } else {
+        this.hezuoshe = true;
+        this.zuzhibu = false;
+        this.jiedao = false;
+        this.huoquHezuoshe();
+      }
+    },
+    //返回上一级
+    backList: function backList() {
+      if (this.zuzhibu) {
+        uni.switchTab({
+          url: '../index/index' });
+
+      } else if (this.jiedao) {
+        if (uni.getStorageSync('userInfo').role == 4) {
+          this.zuzhibu = true;
+          this.jiedao = false;
+          this.hezuoshe = false;
+          this.huoquStreets();
+        } else {
+          uni.switchTab({
+            url: '../index/index' });
+
+        }
+      } else if (this.hezuoshe) {
+        if (uni.getStorageSync('userInfo').role == 3 || uni.getStorageSync('userInfo').role == 4) {
+          this.jiedao = true;
+          this.zuzhibu = false;
+          this.hezuoshe = false;
+          this.huoquCoops();
+        } else {
+          uni.switchTab({
+            url: '../index/index' });
+
+        }
+      }
+    },
     // 获取街道
     huoquStreets: function huoquStreets() {var _this = this;
       this.api.getStreets({}, function (res) {

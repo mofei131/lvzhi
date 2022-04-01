@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "晒承诺",
+  "navigationStyle": "custom",
   "usingComponents": {}
 }

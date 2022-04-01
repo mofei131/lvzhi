@@ -54,6 +54,7 @@
 		},
 		onPullDownRefresh() {
 			this.page = 1
+			this.melist = []
 			this.getMeList()
 			uni.stopPullDownRefresh();
 		},
