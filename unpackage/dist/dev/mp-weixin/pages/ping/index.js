@@ -162,19 +162,22 @@ var _default =
       cooperativeList: [], //合作社列表
       showList: [], //展示列表
       coop_id: '', //合作社id
-      street_id: '' //街道id
+      street_id: '', //街道id
+      toping: false //直接去成员评价
     };
   },
-  onShow: function onShow() {
+  onLoad: function onLoad(p) {
     //角色字段赋值
     this.role = uni.getStorageSync('userInfo').role;
+    this.showlist();
+  },
+  onShow: function onShow() {
     //判断是否已经登录
     if (!uni.getStorageSync('userInfo')) {
       this.login = true;
     } else {
       this.login = false;
     }
-    this.showlist();
   },
   methods: {
     // 判断角色赋值第一次显示列表
@@ -183,13 +186,30 @@ var _default =
         this.showList = uni.getStorageSync('streetList');
       } else if (this.role == 3) {
         this.showList = uni.getStorageSync('cooperativeList');
-      } else {
-        var code = this.role == 1 ? -3 : this.role == 2 ? -1 : -2;
-        console.log(code);
-        uni.reLaunch({
-          url: './ping?coop_id=' + uni.getStorageSync('userInfo').cooperative_id + '&type=' + code + '&part=1' });
-
+      } else if (this.role == 2) {
+        this.list.splice(this.list.findIndex(function (item) {return item.id == -2;}), 1);
+        this.list.splice(this.list.findIndex(function (item) {return item.id == -3;}), 1);
+        this.showList = this.list;
+        this.toping = true;
+      } else if (this.role == 5) {
+        this.list.splice(this.list.findIndex(function (item) {return item.id == -1;}), 1);
+        this.list.splice(this.list.findIndex(function (item) {return item.id == -3;}), 1);
+        this.showList = this.list;
+        this.toping = true;
+        console.log(this.showList);
+      } else if (this.role == 1) {
+        this.list.splice(this.list.findIndex(function (item) {return item.id == -1;}), 1);
+        this.list.splice(this.list.findIndex(function (item) {return item.id == -2;}), 1);
+        this.showList = this.list;
+        this.showList[this.showList.findIndex(function (item) {return item.id == -3;})].title = '我的评价';
+        this.toping = true;
       }
+      // let code = this.role == 1?-3:this.role == 2?-1:-2
+      // console.log(code)
+      // uni.reLaunch({
+      // 	url:'./ping?coop_id='+uni.getStorageSync('userInfo').cooperative_id+'&type='+code+'&part=1'
+      // })
+      // }
     },
     //去看评价或进下一级
     topage: function topage(e) {var _this = this;
@@ -207,7 +227,23 @@ var _default =
         this.coop_id = e.id;
         this.showList = this.list;
         this.role = 2;
-      } else if (this.role == 2) {
+      } else if (this.role == 2 || this.role == 1 || this.role == 5) {
+        if (this.toping) {
+          if (this.role == 1) {
+            var code = this.role == 1 ? -3 : this.role == 2 ? -1 : -2;
+            console.log(code);
+            uni.reLaunch({
+              url: './ping?coop_id=' + uni.getStorageSync('userInfo').cooperative_id + '&type=' + code + '&part=1' });
+
+          } else {
+            var _code = this.role == 1 ? -3 : this.role == 2 ? -1 : -2;
+            console.log(_code);
+            uni.reLaunch({
+              url: './ping?coop_id=' + uni.getStorageSync('userInfo').cooperative_id + '&type=' + _code + '&part=0' });
+
+          }
+          return;
+        }
         if (e.id == -3) {
           uni.navigateTo({
             url: 'meList?coop_id=' + this.coop_id + '&street_id=' + this.street_id });
