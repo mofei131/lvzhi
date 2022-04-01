@@ -1,35 +1,34 @@
 <template>
 	<view class="box">
-		<view>
-			<view class="lzcard" v-for="(item,index) in lzlist" :key="index">
+			<view v-if="lzlist.length > 0" class="lzcard" v-for="(item,index) in lzlist" :key="index">
 				<view class="lzcleft">
-					<image :src="item.url" mode="aspectFit"></image>
+					<image :src="item.user.avater" mode="aspectFit"></image>
 				</view>
 				<view class="lzcright">
 					<view class="lzcrli1">
-						<view>{{item.name}}</view>
-						<view>{{item.she}}</view>
+						<view>{{item.user.realname}}</view>
+						<view>{{item.intro}}</view>
 					</view>
 					<view class="lzcrli2">
-						<view>{{item.mark}}</view>
+						<!-- <view>{{item.mark}}</view> -->
+						<rich-text  v-html='item.intro_text'></rich-text>
 					</view>
 					<view class="lzcrli3">
-						<image v-for="(item2,index2) in item.imgurl" :key='index2' :src="item2" mode="aspectFit">
+						<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit">
 						</image>
 					</view>
 					<view class="lzcrli4">
-						<view>{{item.time}}</view>
+						<view>{{item.create_time}}</view>
 					</view>
 				</view>
 			</view>
 			<view v-if="lzlist.length <= 0" class="p404">
-				<image src="../../static/image/404.png" mode="aspectFit"></image>
-				<text>暂无承诺</text>
+				<image src="../../static/image/404.png"></image>
+				<text>暂无内容</text>
 			</view>
 			<view class="btnbox" v-if="user.role == 1 || user.role == 5">
 				<view class="btn" @click="toPage">立即发布</view>
 			</view>
-		</view>
 	</view>
 </template>
 
@@ -43,7 +42,6 @@
 				user:'',
 				info: {},
 				coopInfo: {},
-
 				lzlist: []
 			}
 		},
@@ -53,38 +51,35 @@
 
 		onShow() {
 			this.user = uni.getStorageSync('userInfo')
+			this.page = 1
+			this.huoquLvzhiCoop()
 		},
 
 		onReachBottom: function() {
 			this.page = this.page + 1
-			if(this.role == 1){
-				this.huoquLvzhiList()
-			}else{
-				this.huoquLvzhiCoop()
-			}
+			this.huoquLvzhiCoop()
 		},
 
 		methods: {
 			// 获取 1:合作社, 2:包靠干部 履职
 			huoquLvzhiCoop() {
-				this.api.LvzhiCoop({
-					yearMonth: this.date,
-					coop_id:uni.getStorageSync('userInfo').cooperative_id,
-					type: this.user.role == 2?1:2 //1:合作社, 2:包靠干部
-				}, res => {
-					this.info = res.data
-				})
-			},
-
-			// 获取成员 履职
-			huoquLvzhiList() {
+				let list = []
 				var lzlist = this.page == 1 ? [] : this.lzlist
-				this.api.LvzhiList({
-					coop_id: uni.getStorageSync('userInfo').cooperative_id,
-					limit: 10,
-					page: this.page
-				}, res => {
-					this.lzlist = lzlist.concat(res.data)
+				this.api.LvzhiMyList({
+					uid:this.user.id,
+					page:this.page,
+					limit:10
+				},res=>{
+					list = res.data
+					for(let i in list){
+						// list[i].coop_id = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == list[i].coop_id)].cooperative_name
+						if(list[i].pics){
+							list[i].pics = list[i].pics.split('|')
+						}
+						console.log(list[i].pics)
+					}
+					this.lzlist = lzlist.concat(list)
+					// console.log(list)
 				})
 			},
 			

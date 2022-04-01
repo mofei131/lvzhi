@@ -2249,9 +2249,21 @@ var urlList = {
   indexSetting: 'index/setting', //关于我们
   ShaiMyList: 'Shai/myList', //我的晒连户
   ShaiDel: 'Shai/del', //删除晒连户
-  indexAuth: 'index/auth' //小程序是否审核
+  indexAuth: 'index/auth', //小程序是否审核
+  LvzhiMyList: 'Lvzhi/myList' //我的履职
 };var
-Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "indexSetting", value: function indexSetting(
+Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "LvzhiMyList", value: function LvzhiMyList(
+    param, callback) {
+      var param = {
+        url: urlList.LvzhiMyList,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "indexSetting", value: function indexSetting(
     param, callback) {
       var param = {
         url: urlList.indexSetting,
