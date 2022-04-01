@@ -3,20 +3,20 @@
 		<view class="cncard" v-for="(item,index) in cnlist" :key="index" v-if="item">
 			<view class="cnctop">
 				<view class="cnctleft">
-					<image :src="item.imgurl" mode="aspectFit"></image>
+					<image :src="item.user.avater" mode="aspectFit"></image>
 				</view>
 				<view class="cnctright">
 					<view class="cnctrli1">
-						<view>{{item.name}}</view>
-						<view>{{item.hzs}}</view>
+						<view>{{item.user.realname}}</view>
+						<view>{{coopInfo.cooperative_name}}</view>
 					</view>
 					<view class="cnctrli2">
-						<view>{{item.time}}</view>
+						<view>{{item.create_time}}</view>
 					</view>
 				</view>
 			</view>
 			<view class="cncbot">
-				<view>{{item.chcon}}</view>
+				<view>{{item.intro}}</view>
 			</view>
 		</view>
 		<view v-if="cnlist.length <= 0" class="p404">
@@ -34,11 +34,18 @@
 		data() {
 			return {
 				cnlist: [],
-				page: 1
+				page: 1,
+				
+				coopInfo: {}
 			}
 		},
 		
 		onShow() {
+			this.huoquList()
+		},
+		
+		onReachBottom: function() {
+			this.page = this.page + 1
 			this.huoquList()
 		},
 
@@ -51,6 +58,11 @@
 					limit: 10
 				}, res => {
 					this.cnlist = cnlist.concat(res.data)
+					this.api.coopInfo({
+						id: uni.getStorageSync('userInfo').cooperative_id,
+					}, res => {
+						this.coopInfo = res.data
+					})
 				})
 			},
 

@@ -180,8 +180,7 @@ var _default =
 
   },
 
-  onLoad: function onLoad(e) {
-  },
+  onLoad: function onLoad(e) {},
 
   onShow: function onShow() {
     this.user = uni.getStorageSync('userInfo');

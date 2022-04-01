@@ -24,7 +24,7 @@
 			</view>
 			<view v-if="lzlist.length <= 0" class="p404">
 				<image src="../../static/image/404.png" mode="aspectFit"></image>
-				<text>暂无承诺</text>
+				<text>暂无履职</text>
 			</view>
 			<view class="btnbox" v-if="user.role == 1 || user.role == 5">
 				<view class="btn" @click="toPage">立即发布</view>
@@ -40,7 +40,7 @@
 				date: '',
 				coop_id: '',
 				page: 1,
-				user:'',
+				user: '',
 				info: {},
 				coopInfo: {},
 
@@ -48,8 +48,7 @@
 			}
 		},
 
-		onLoad(e) {
-		},
+		onLoad(e) {},
 
 		onShow() {
 			this.user = uni.getStorageSync('userInfo')
@@ -57,9 +56,9 @@
 
 		onReachBottom: function() {
 			this.page = this.page + 1
-			if(this.role == 1){
+			if (this.role == 1) {
 				this.huoquLvzhiList()
-			}else{
+			} else {
 				this.huoquLvzhiCoop()
 			}
 		},
@@ -69,8 +68,8 @@
 			huoquLvzhiCoop() {
 				this.api.LvzhiCoop({
 					yearMonth: this.date,
-					coop_id:uni.getStorageSync('userInfo').cooperative_id,
-					type: this.user.role == 2?1:2 //1:合作社, 2:包靠干部
+					coop_id: uni.getStorageSync('userInfo').cooperative_id,
+					type: this.user.role == 2 ? 1 : 2 //1:合作社, 2:包靠干部
 				}, res => {
 					this.info = res.data
 				})
@@ -87,8 +86,8 @@
 					this.lzlist = lzlist.concat(res.data)
 				})
 			},
-			
-			toPage(){
+
+			toPage() {
 				uni.navigateTo({
 					url: '../index/fabu?type=shailvzhi'
 				})
@@ -217,7 +216,7 @@
 		font-size: 26rpx;
 		margin: 40rpx 0;
 	}
-	
+
 	.p404 {
 		display: flex;
 		flex-direction: column;

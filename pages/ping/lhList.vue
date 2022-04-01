@@ -16,7 +16,7 @@
 					<view>合作社共有{{item.total}}股民，本人今年包联{{item.baolian}}户，目前已走访{{item.today_zoufang}}户，今日走访{{item.today_zoufang}}户</view>
 					<view>{{item.intro}}</view>
 				</view>
-				<view class="lzcrli3">
+				<view class="lzcrli3" v-if="item.pics != ''">
 					<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit"></image>
 				</view>
 				<view class="lzcrli4">
