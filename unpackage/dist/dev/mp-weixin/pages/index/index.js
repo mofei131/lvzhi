@@ -263,20 +263,30 @@ var _default =
 
     } else if (info.role == 3) {
       uni.setNavigationBarTitle({
-        title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(function (item) {return item.id == info.street_id;})].street_name });
+        title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(function (item) {return item.
+          id == info.street_id;})].street_name });
 
     } else if (info.role == 2 || info.role == 1 || info.role == 5) {
       uni.setNavigationBarTitle({
-        title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(function (item) {return item.id == info.cooperative_id;})].cooperative_name });
+        title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(
+        function (item) {return item.id == info.cooperative_id;})].cooperative_name });
 
     }
   },
 
-  onShow: function onShow() {
-    this.userInfo = uni.getStorageSync('userInfo');
+  onShow: function onShow() {var _this = this;
     if (!uni.getStorageSync('userInfo')) {
-      this.login = true;
+      this.api.indexAuth({}, function (res) {
+        if (res.data.is_auth == 0) {
+          uni.redirectTo({
+            url: 'register' });
+
+        } else {
+          _this.login = true;
+        }
+      });
     } else {
+      this.userInfo = uni.getStorageSync('userInfo');
       this.login = false;
       this.huoquNotice();
       if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni.
@@ -319,12 +329,12 @@ var _default =
 
     },
     //获取公告列表
-    getNotice: function getNotice() {var _this = this;
+    getNotice: function getNotice() {var _this2 = this;
       this.api.notice({},
 
       function (res) {
         if (res.code == 200) {
-          _this.noticeList = res.data;
+          _this2.noticeList = res.data;
         } else {
           uni.showToast({
             title: res.message,
@@ -353,14 +363,14 @@ var _default =
     },
 
     // 获取公告
-    huoquNotice: function huoquNotice() {var _this2 = this;
+    huoquNotice: function huoquNotice() {var _this3 = this;
       this.api.notice({}, function (res) {
-        _this2.notice = res.data;
+        _this3.notice = res.data;
       });
     },
 
     // 获取成员数据
-    huoquMembers: function huoquMembers() {var _this3 = this;
+    huoquMembers: function huoquMembers() {var _this4 = this;
       var melist = this.page == 1 ? [] : this.melist;
       this.api.members({
         coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
@@ -369,23 +379,23 @@ var _default =
         limit: 10,
         keywords: '' },
       function (res) {
-        _this3.melist = melist.concat(res.data);
+        _this4.melist = melist.concat(res.data);
       });
     },
 
     // 获取合作社
-    huoquCoops: function huoquCoops() {var _this4 = this;
+    huoquCoops: function huoquCoops() {var _this5 = this;
       this.api.getCoops({
         street_id: uni.getStorageSync('userInfo').street_id },
       function (res) {
-        _this4.melist = res.data;
+        _this5.melist = res.data;
       });
     },
 
     // 获取街道
-    huoquStreets: function huoquStreets() {var _this5 = this;
+    huoquStreets: function huoquStreets() {var _this6 = this;
       this.api.getStreets({}, function (res) {
-        _this5.melist = res.data;
+        _this6.melist = res.data;
       });
     },
 

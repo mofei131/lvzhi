@@ -90,7 +90,7 @@
 			
 			toPage(){
 				uni.navigateTo({
-					url: './fabu?type=shailvzhi'
+					url: '../index/fabu?type=shailvzhi'
 				})
 			}
 		}

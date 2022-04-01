@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "晒履职",
-  "usingComponents": {}
+  "usingComponents": {
+    "mp-html": "/pages/components/mp-html/mp-html"
+  }
 }

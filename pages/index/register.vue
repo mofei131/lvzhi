@@ -47,7 +47,7 @@
 					<view>年龄</view>
 				</view>
 				<view class="inliright">
-					<input type="number" placeholder="请输入年龄" v-model="info.age" />
+					<input maxlength="2" type="number" placeholder="请输入年龄" v-model="info.age" />
 				</view>
 			</view>
 			<view class="infoli">
@@ -263,6 +263,7 @@
 	.uni-input {
 		color: #646464;
 		font-size: 32rpx;
+		width: 100%;
 	}
 
 	.jbtn {
