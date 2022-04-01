@@ -195,22 +195,6 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   methods: {
-    formatRichText: function formatRichText(html) {
-      var newContent = html.replace(/<img[^>]*>/gi, function (match, capture) {
-        match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
-        match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
-        match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
-        return match;
-      });
-      newContent = newContent.replace(/style="[^"]+"/gi, function (match, capture) {
-        match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi, 'max-width:100%;');
-        return match;
-      });
-      newContent = newContent.replace(/<br[^>]*\/>/gi, '');
-      newContent = newContent.replace(/\<img/gi,
-      '<img style="max-width:100%;height:auto;display:inline-block;margin:10rpx auto;"');
-      return newContent;
-    },
     // 获取 1:合作社, 2:包靠干部 履职
     huoquLvzhiCoop: function huoquLvzhiCoop() {var _this = this;
       var list = [];
@@ -220,21 +204,13 @@ __webpack_require__.r(__webpack_exports__);
         page: this.page,
         limit: 10 },
       function (res) {
-        list = res.data;var _loop = function _loop(
-        i) {
-          _this.api.coopInfo({
-            id: res.data[i].coop_id },
-          function (res) {
-            list[i].coop_id = res.data.cooperative_name;
-          });
+        list = res.data;
+        for (var i in list) {
           if (list[i].pics) {
             list[i].pics = list[i].pics.split('|');
           }
-          list[i].intro_text = _this.formatRichText(list[i].intro_text);
-          console.log(list[i].pics);};for (var i in list) {_loop(i);
         }
         _this.lzlist = lzlist.concat(list);
-        // console.log(list)
       });
     },
 

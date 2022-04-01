@@ -7,7 +7,7 @@
 				<view class="lzcright">
 					<view class="lzcrli1">
 						<view>{{item.user.realname}}</view>
-						<view>{{item.coop_id}}</view>
+						<view>{{item.coop_name}}</view>
 					</view>
 					<view class="lzcrli2">
 						<rich-text  v-html='item.intro_text'></rich-text>
@@ -63,22 +63,6 @@
 		},
 
 		methods: {
-			formatRichText(html) {
-					let newContent = html.replace(/<img[^>]*>/gi, function(match, capture) {
-						match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
-						match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
-						match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
-						return match;
-					});
-					newContent = newContent.replace(/style="[^"]+"/gi, function(match, capture) {
-						match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi, 'max-width:100%;');
-						return match;
-					});
-					newContent = newContent.replace(/<br[^>]*\/>/gi, '');
-					newContent = newContent.replace(/\<img/gi,
-						'<img style="max-width:100%;height:auto;display:inline-block;margin:10rpx auto;"');
-					return newContent;
-				},
 			// 获取 1:合作社, 2:包靠干部 履职
 			huoquLvzhiCoop() {
 				let list = []
@@ -90,19 +74,11 @@
 				},res=>{
 					list = res.data
 					for(let i in list){
-						this.api.coopInfo({
-							id:res.data[i].coop_id
-						},res=>{
-							list[i].coop_id = res.data.cooperative_name
-						})
 						if(list[i].pics){
 							list[i].pics = list[i].pics.split('|')
 						}
-						list[i].intro_text = this.formatRichText(list[i].intro_text)
-						console.log(list[i].pics)
 					}
 					this.lzlist = lzlist.concat(list)
-					// console.log(list)
 				})
 			},
 
