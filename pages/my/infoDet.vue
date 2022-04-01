@@ -10,7 +10,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="btnbox">
+		<view class="btnbox" v-if="myInfo.role == 1?uid == myInfo.id?true:false:true">
 			<view class="qbtn" @click="towork(1)">履职情况</view>
 			<view class="jbtn" @click="towork(2)">工作承诺</view>
 		</view>
@@ -47,13 +47,15 @@
 					value:''
 				}],
 				userInfo:'',
-				uid:''
+				uid:'',
+				myInfo:''
 			}
 		},
 		onLoad(p) {
 			this.uid = p.uid
 		},
 		onShow() {
+			this.myInfo = uni.getStorageSync('userInfo')
 			this.getInfoDet()
 		},
 		methods:{
