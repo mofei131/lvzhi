@@ -21,6 +21,10 @@
 				</view>
 			</view>
 		</view>
+		<view v-if="melist.length <= 0" class="p404">
+			<image src="../../static/image/404.png" mode="aspectFit"></image>
+			<text>暂无数据</text>
+		</view>
 	</view>
 </template>
 
@@ -97,6 +101,16 @@
 </script>
 
 <style>
+	.p404 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 100rpx;
+		margin-top: 200rpx;
+	}
 	.melir3 view:nth-child(2){
 		color: #969696;
 		font-size: 26rpx;
