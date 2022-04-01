@@ -163,7 +163,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 var _default =
 {
   data: function data() {
@@ -178,8 +177,7 @@ var _default =
 
   },
 
-  onLoad: function onLoad(e) {
-  },
+  onLoad: function onLoad(e) {},
 
   onShow: function onShow() {
     this.user = uni.getStorageSync('userInfo');
@@ -202,13 +200,17 @@ var _default =
         page: this.page,
         limit: 10 },
       function (res) {
-        list = res.data;
-        for (var i in list) {
-          // list[i].coop_id = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == list[i].coop_id)].cooperative_name
+        list = res.data;var _loop = function _loop(
+        i) {
+          _this.api.coopInfo({
+            id: res.data[i].coop_id },
+          function (res) {
+            list[i].coop_id = res.data.cooperative_name;
+          });
           if (list[i].pics) {
             list[i].pics = list[i].pics.split('|');
           }
-          console.log(list[i].pics);
+          console.log(list[i].pics);};for (var i in list) {_loop(i);
         }
         _this.lzlist = lzlist.concat(list);
         // console.log(list)

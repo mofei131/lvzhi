@@ -7,10 +7,9 @@
 				<view class="lzcright">
 					<view class="lzcrli1">
 						<view>{{item.user.realname}}</view>
-						<view>{{item.intro}}</view>
+						<view>{{item.coop_id}}</view>
 					</view>
 					<view class="lzcrli2">
-						<!-- <view>{{item.mark}}</view> -->
 						<rich-text  v-html='item.intro_text'></rich-text>
 					</view>
 					<view class="lzcrli3">
@@ -39,15 +38,14 @@
 				date: '',
 				coop_id: '',
 				page: 1,
-				user:'',
+				user: '',
 				info: {},
 				coopInfo: {},
 				lzlist: []
 			}
 		},
 
-		onLoad(e) {
-		},
+		onLoad(e) {},
 
 		onShow() {
 			this.user = uni.getStorageSync('userInfo')
@@ -72,7 +70,11 @@
 				},res=>{
 					list = res.data
 					for(let i in list){
-						// list[i].coop_id = uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(item => item.id == list[i].coop_id)].cooperative_name
+						this.api.coopInfo({
+							id:res.data[i].coop_id
+						},res=>{
+							list[i].coop_id = res.data.cooperative_name
+						})
 						if(list[i].pics){
 							list[i].pics = list[i].pics.split('|')
 						}
@@ -82,8 +84,8 @@
 					// console.log(list)
 				})
 			},
-			
-			toPage(){
+
+			toPage() {
 				uni.navigateTo({
 					url: '../index/fabu?type=shailvzhi'
 				})
@@ -212,7 +214,7 @@
 		font-size: 26rpx;
 		margin: 40rpx 0;
 	}
-	
+
 	.p404 {
 		display: flex;
 		flex-direction: column;

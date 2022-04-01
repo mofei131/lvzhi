@@ -166,11 +166,18 @@ var _default =
   data: function data() {
     return {
       cnlist: [],
-      page: 1 };
+      page: 1,
+
+      coopInfo: {} };
 
   },
 
   onShow: function onShow() {
+    this.huoquList();
+  },
+
+  onReachBottom: function onReachBottom() {
+    this.page = this.page + 1;
     this.huoquList();
   },
 
@@ -183,6 +190,11 @@ var _default =
         limit: 10 },
       function (res) {
         _this.cnlist = cnlist.concat(res.data);
+        _this.api.coopInfo({
+          id: uni.getStorageSync('userInfo').cooperative_id },
+        function (res) {
+          _this.coopInfo = res.data;
+        });
       });
     },
 

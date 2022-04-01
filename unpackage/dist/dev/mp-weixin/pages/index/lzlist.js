@@ -244,7 +244,18 @@ __webpack_require__.r(__webpack_exports__);
         limit: 10,
         page: this.page },
       function (res) {
-        _this2.lzlist = lzlist.concat(res.data);
+        var list = res.data;
+        for (var i in list) {
+          if (list[i].pics) {
+            list[i].pics = list[i].pics.split('|');
+          }
+        }
+        _this2.lzlist = lzlist.concat(list);
+        _this2.api.coopInfo({
+          id: _this2.coop_id ? _this2.coop_id : uni.getStorageSync('userInfo').cooperative_id },
+        function (ress) {
+          _this2.coopInfo = ress.data;
+        });
       });
     },
 

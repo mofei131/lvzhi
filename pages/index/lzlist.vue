@@ -16,22 +16,22 @@
 		<view v-if="type == 3">
 			<view v-if="lzlist.length > 0" class="lzcard" v-for="(item,index) in lzlist" :key="index">
 				<view class="lzcleft">
-					<image :src="item.url" mode="aspectFit"></image>
+					<image :src="item.user.avater" mode="aspectFit"></image>
 				</view>
 				<view class="lzcright">
 					<view class="lzcrli1">
-						<view>{{item.name}}</view>
-						<view>{{item.she}}</view>
+						<view>{{item.user.realname}}</view>
+						<view>{{coopInfo.cooperative_name}}</view>
 					</view>
 					<view class="lzcrli2">
-						<view>{{item.mark}}</view>
+						<view>{{item.intro}}</view>
 					</view>
 					<view class="lzcrli3">
-						<image v-for="(item2,index2) in item.imgurl" :key='index2' :src="item2" mode="aspectFit">
+						<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit">
 						</image>
 					</view>
 					<view class="lzcrli4">
-						<view>{{item.time}}</view>
+						<view>{{item.create_time}}</view>
 					</view>
 				</view>
 			</view>
@@ -112,7 +112,18 @@
 					limit: 10,
 					page: this.page
 				}, res => {
-					this.lzlist = lzlist.concat(res.data)
+					var list = res.data
+					for(var i in list){
+						if(list[i].pics){
+							list[i].pics = list[i].pics.split('|')
+						}
+					}
+					this.lzlist = lzlist.concat(list)
+					this.api.coopInfo({
+						id: this.coop_id ? this.coop_id : uni.getStorageSync('userInfo').cooperative_id,
+					}, ress => {
+						this.coopInfo = ress.data
+					})
 				})
 			},
 
