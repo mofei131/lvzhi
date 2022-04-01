@@ -121,7 +121,7 @@
 					}
 					this.arrayList = res.data
 					this.huoquHezuoshe(res.data[0].id)
-					uni.setStorageSync('streetList',res.data)
+					uni.setStorageSync('streetList', res.data)
 				})
 			},
 			bindPickerChange2(e) {
@@ -141,7 +141,7 @@
 					}
 					this.$set(this.array, 1, data)
 					this.arrayList2 = res.data
-					uni.setStorageSync('cooperativeList',res.data)
+					uni.setStorageSync('cooperativeList', res.data)
 				})
 			},
 			bindPickerChange(e) {
@@ -263,7 +263,7 @@
 	.uni-input {
 		color: #646464;
 		font-size: 32rpx;
-		width: 100%;
+		width: 479rpx;
 	}
 
 	.jbtn {

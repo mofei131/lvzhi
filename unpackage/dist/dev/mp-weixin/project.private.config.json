@@ -89,6 +89,12 @@
           "pathName": "pages/my/infoDet",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/index/register",
+          "pathName": "pages/index/register",
+          "query": "",
+          "scene": null
         }
       ]
     }

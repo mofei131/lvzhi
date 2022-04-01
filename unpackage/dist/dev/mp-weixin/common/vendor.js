@@ -805,9 +805,15 @@ var customize = cached(function (str) {
 
 function initTriggerEvent(mpInstance) {
   var oldTriggerEvent = mpInstance.triggerEvent;
-  mpInstance.triggerEvent = function (event) {for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
+  var newTriggerEvent = function newTriggerEvent(event) {for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {args[_key3 - 1] = arguments[_key3];}
     return oldTriggerEvent.apply(mpInstance, [customize(event)].concat(args));
   };
+  try {
+    // 京东小程序 triggerEvent 为只读
+    mpInstance.triggerEvent = newTriggerEvent;
+  } catch (error) {
+    mpInstance._triggerEvent = newTriggerEvent;
+  }
 }
 
 function initHook(name, options, isComponent) {
@@ -1981,17 +1987,17 @@ function createPlugin(vm) {
   var appOptions = parseApp(vm);
   if (isFn(appOptions.onShow) && wx.onAppShow) {
     wx.onAppShow(function () {for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {args[_key7] = arguments[_key7];}
-      appOptions.onShow.apply(vm, args);
+      vm.__call_hook('onShow', args);
     });
   }
   if (isFn(appOptions.onHide) && wx.onAppHide) {
     wx.onAppHide(function () {for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {args[_key8] = arguments[_key8];}
-      appOptions.onHide.apply(vm, args);
+      vm.__call_hook('onHide', args);
     });
   }
   if (isFn(appOptions.onLaunch)) {
     var args = wx.getLaunchOptionsSync && wx.getLaunchOptionsSync();
-    appOptions.onLaunch.call(vm, args);
+    vm.__call_hook('onLaunch', args);
   }
   return vm;
 }
@@ -3916,38 +3922,7 @@ module.exports = index_cjs;
 
 /***/ }),
 
-/***/ 2:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 210:
+/***/ 188:
 /*!***************************************************!*\
   !*** D:/lvzhi/pages/components/mp-html/parser.js ***!
   \***************************************************/
@@ -5144,6 +5119,37 @@ Lexer.prototype.endTag = function () {
 
 module.exports = Parser;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 2:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
 
 /***/ }),
 
@@ -8068,7 +8074,6 @@ function resolveScopedSlots (
 
 /*  */
 
-<<<<<<< HEAD
 function bindDynamicKeys (baseObj, values) {
   for (var i = 0; i < values.length; i += 2) {
     var key = values[i];
@@ -8080,13 +8085,6 @@ function bindDynamicKeys (baseObj, values) {
         ("Invalid value for dynamic directive argument (expected string or null): " + key),
         this
       );
-=======
-  Vue.prototype.$emit = function(event) {
-    if (this.$scope && event) {
-      this.$scope['triggerEvent'](event, {
-        __args__: toArray(arguments, 1)
-      });
->>>>>>> 2ab0a84f6919afccee3743ab293008c4c398c3a8
     }
   }
   return baseObj
@@ -8998,52 +8996,6 @@ function eventsMixin (Vue) {
     vm.$on(event, on);
     return vm
   };
-<<<<<<< HEAD
-=======
-}
-function resolveLocaleChain(locale) {
-  var chain = [];
-  var tokens = locale.split('-');
-  while (tokens.length) {
-    chain.push(tokens.join('-'));
-    tokens.pop();
-  }
-  return chain;
-}
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./../../../webpack/buildin/global.js */ 2)))
-
-/***/ }),
-/* 5 */
-/*!**************************************!*\
-  !*** G:/mofei/item/lvzhi/pages.json ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
->>>>>>> 2ab0a84f6919afccee3743ab293008c4c398c3a8
 
   Vue.prototype.$off = function (event, fn) {
     var vm = this;
@@ -9136,18 +9088,8 @@ function initLifecycle (vm) {
   vm.$parent = parent;
   vm.$root = parent ? parent.$root : vm;
 
-<<<<<<< HEAD
   vm.$children = [];
   vm.$refs = {};
-=======
-/***/ }),
-/* 12 */
-/*!********************************************!*\
-  !*** G:/mofei/item/lvzhi/pages/api/api.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 2ab0a84f6919afccee3743ab293008c4c398c3a8
 
   vm._watcher = null;
   vm._inactive = null;
@@ -9650,7 +9592,6 @@ Watcher.prototype.get = function get () {
   return value
 };
 
-<<<<<<< HEAD
 /**
  * Add a dependency to this directive.
  */
@@ -9664,15 +9605,6 @@ Watcher.prototype.addDep = function addDep (dep) {
     }
   }
 };
-=======
-/***/ }),
-/* 13 */
-/*!*********************************************!*\
-  !*** G:/mofei/item/lvzhi/pages/api/base.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
->>>>>>> 2ab0a84f6919afccee3743ab293008c4c398c3a8
 
 /**
  * Clean up for dependency collection.
@@ -9881,32 +9813,9 @@ function initProps (vm, propsOptions) {
     }
   };
 
-<<<<<<< HEAD
   for (var key in propsOptions) loop( key );
   toggleObserving(true);
 }
-=======
-    // 打印错误信息
-  }, { key: "_processError", value: function _processError(err) {
-      console.log(err);
-    } }]);return Base;}();exports.Base = Base;
-;
-
-/***/ }),
-/* 14 */
-/*!******************************************!*\
-  !*** G:/mofei/item/lvzhi/store/store.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 15));
-var _api = _interopRequireDefault(__webpack_require__(/*! ../pages/api/api.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //引用Vuex
-_vue.default.use(_vuex.default);
->>>>>>> 2ab0a84f6919afccee3743ab293008c4c398c3a8
 
 function initData (vm) {
   var data = vm.$options.data;
