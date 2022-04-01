@@ -226,6 +226,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -251,8 +255,10 @@ var _default =
       dats: true, //轮播是否显示分页器
       userInfo: {},
       placeholder: '',
-      noticeList: [] //公告列表
-    };
+      noticeList: [], //公告列表
+      street_id: '',
+      coop_id: '' };
+
   },
   onLoad: function onLoad() {
     // 修改顶部标题
@@ -311,12 +317,16 @@ var _default =
 
   methods: {
     //切换列表
-    hrole: function hrole(e) {
+    hrole: function hrole(item, e) {
       if (e == 4) {
+        this.street_id = item.id;
+        this.page = 1;
         this.placeholder = '合作社列表';
         this.huoquCoops();
         this.userInfo.role = 3;
       } else if (e == 3) {
+        this.coop_id = item.id;
+        this.page = 1;
         this.placeholder = '成员列表';
         this.huoquMembers();
         this.userInfo.role = 2;
@@ -373,8 +383,10 @@ var _default =
     huoquMembers: function huoquMembers() {var _this4 = this;
       var melist = this.page == 1 ? [] : this.melist;
       this.api.members({
-        coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
-        street_id: uni.getStorageSync('userInfo').street_id, //街道ID
+        coop_id: this.userInfo.role == 4 || this.userInfo.role == 3 ? this.coop_id : this.userInfo.cooperative_id,
+        street_id: this.userInfo.role == 4 ? this.street_id : this.userInfo.street_id,
+        // coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
+        // street_id: uni.getStorageSync('userInfo').street_id, //街道ID
         page: this.page,
         limit: 10,
         keywords: '' },

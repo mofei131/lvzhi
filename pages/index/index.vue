@@ -43,8 +43,12 @@
 					</view>
 				</view>
 			</view>
+			<view v-if="melist.length <= 0" class="p404">
+				<image src="../../static/image/404.png" mode="aspectFit"></image>
+				<text>暂无数据</text>
+			</view>
 
-			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 3" @click="hrole(3)">
+			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 3" @click="hrole(item,3)">
 				<view class="melileft">
 					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
@@ -62,7 +66,7 @@
 				</view>
 			</view>
 
-			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 4" @click="hrole(4)">
+			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 4" @click="hrole(item,4)">
 				<view class="melileft">
 					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
@@ -109,7 +113,9 @@
 				dats: true, //轮播是否显示分页器
 				userInfo: {},
 				placeholder: '',
-				noticeList: [], //公告列表
+				noticeList:[],//公告列表
+				street_id:'',
+				coop_id:''
 			}
 		},
 		onLoad() {
@@ -169,12 +175,16 @@
 
 		methods: {
 			//切换列表
-			hrole(e) {
-				if (e == 4) {
+			hrole(item,e){
+				if(e == 4){
+					this.street_id = item.id
+					this.page = 1
 					this.placeholder = '合作社列表'
 					this.huoquCoops()
 					this.userInfo.role = 3
-				} else if (e == 3) {
+				}else if(e == 3){
+					this.coop_id = item.id
+					this.page = 1
 					this.placeholder = '成员列表'
 					this.huoquMembers()
 					this.userInfo.role = 2
@@ -231,8 +241,10 @@
 			huoquMembers() {
 				var melist = this.page == 1 ? [] : this.melist
 				this.api.members({
-					coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
-					street_id: uni.getStorageSync('userInfo').street_id, //街道ID
+					coop_id:this.userInfo.role == 4 || this.userInfo.role == 3?this.coop_id:this.userInfo.cooperative_id,
+					street_id:this.userInfo.role == 4?this.street_id:this.userInfo.street_id,
+					// coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
+					// street_id: uni.getStorageSync('userInfo').street_id, //街道ID
 					page: this.page,
 					limit: 10,
 					keywords: ''
@@ -268,6 +280,16 @@
 </script>
 
 <style>
+	.p404 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 100rpx;
+		margin-top: 200rpx;
+	}
 	.banner {
 		margin-bottom: 20rpx;
 	}
