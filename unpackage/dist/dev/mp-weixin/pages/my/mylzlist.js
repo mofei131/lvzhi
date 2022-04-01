@@ -130,41 +130,45 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var mpHtml = function mpHtml() {Promise.all(/*! require.ensure | pages/components/mp-html/mp-html */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/components/mp-html/mp-html")]).then((function () {return resolve(__webpack_require__(/*! ../components/mp-html/mp-html */ 183));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+  components: {
+    mpHtml: mpHtml },
+
   data: function data() {
     return {
       date: '',
@@ -191,6 +195,22 @@ var _default =
   },
 
   methods: {
+    formatRichText: function formatRichText(html) {
+      var newContent = html.replace(/<img[^>]*>/gi, function (match, capture) {
+        match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
+        match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
+        match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
+        return match;
+      });
+      newContent = newContent.replace(/style="[^"]+"/gi, function (match, capture) {
+        match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi, 'max-width:100%;');
+        return match;
+      });
+      newContent = newContent.replace(/<br[^>]*\/>/gi, '');
+      newContent = newContent.replace(/\<img/gi,
+      '<img style="max-width:100%;height:auto;display:inline-block;margin:10rpx auto;"');
+      return newContent;
+    },
     // 获取 1:合作社, 2:包靠干部 履职
     huoquLvzhiCoop: function huoquLvzhiCoop() {var _this = this;
       var list = [];
@@ -210,6 +230,7 @@ var _default =
           if (list[i].pics) {
             list[i].pics = list[i].pics.split('|');
           }
+          list[i].intro_text = _this.formatRichText(list[i].intro_text);
           console.log(list[i].pics);};for (var i in list) {_loop(i);
         }
         _this.lzlist = lzlist.concat(list);
