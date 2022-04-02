@@ -175,6 +175,7 @@ var _default =
     }
   },
   onShow: function onShow() {
+    this.cnlist = [];
     this.page = 1;
     this.getPing();
   },

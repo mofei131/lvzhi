@@ -43,6 +43,7 @@
 			}
 		},
 		onShow() {
+			this.cnlist = []
 			this.page = 1
 			this.getPing()
 		},
