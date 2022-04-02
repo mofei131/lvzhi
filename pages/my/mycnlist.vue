@@ -35,12 +35,13 @@
 			return {
 				cnlist: [],
 				page: 1,
-				
+				user:'',
 				coopInfo: {}
 			}
 		},
 		
 		onShow() {
+			this.user = uni.getStorageSync('userInfo')
 			this.huoquList()
 		},
 		

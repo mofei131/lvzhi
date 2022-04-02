@@ -167,12 +167,13 @@ var _default =
     return {
       cnlist: [],
       page: 1,
-
+      user: '',
       coopInfo: {} };
 
   },
 
   onShow: function onShow() {
+    this.user = uni.getStorageSync('userInfo');
     this.huoquList();
   },
 
