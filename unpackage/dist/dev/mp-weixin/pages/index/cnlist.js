@@ -197,7 +197,7 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   onLoad: function onLoad(e) {
-    this.type = e.coop_id;
+    this.coop_id = e.coop_id;
     this.type = e.type;
     this.year = e.year;
   },

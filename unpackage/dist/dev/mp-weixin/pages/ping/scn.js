@@ -311,7 +311,7 @@ var _default =
       var day = date.getDate();
 
       if (type === 'start') {
-        year = year - 0;
+        year = year - 20;
       } else if (type === 'end') {
         year = year + 20;
       }
