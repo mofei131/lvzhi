@@ -269,9 +269,9 @@ var _default =
     this.changeTitle();
     this.resoShow();
   },
-
   onShow: function onShow() {
     this.getNotice();
+    this.toRegister();
   },
 
   onReachBottom: function onReachBottom() {
@@ -282,8 +282,8 @@ var _default =
   },
 
   methods: {
-    //判断跳转显示
-    resoShow: function resoShow() {var _this = this;
+    //判断注册跳转
+    toRegister: function toRegister() {var _this = this;
       if (!uni.getStorageSync('userInfo')) {
         this.api.indexAuth({}, function (res) {
           if (res.data.is_auth == 0) {
@@ -294,7 +294,11 @@ var _default =
             _this.login = true;
           }
         });
-      } else {
+      }
+    },
+    //判断列表显示
+    resoShow: function resoShow() {
+      if (uni.getStorageSync('userInfo')) {
         this.userInfo = uni.getStorageSync('userInfo');
         this.login = false;
         this.huoquNotice();

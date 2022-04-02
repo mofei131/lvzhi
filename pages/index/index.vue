@@ -127,9 +127,9 @@
 			this.changeTitle()
 			this.resoShow()
 		},
-
 		onShow() {
 			this.getNotice()
+			this.toRegister()
 		},
 
 		onReachBottom: function() {
@@ -140,8 +140,8 @@
 		},
 
 		methods: {
-			//判断跳转显示
-			resoShow(){
+			//判断注册跳转
+			toRegister(){
 				if (!uni.getStorageSync('userInfo')) {
 					this.api.indexAuth({}, res => {
 						if (res.data.is_auth == 0) {
@@ -152,7 +152,11 @@
 							this.login = true
 						}
 					})
-				} else {
+				}
+			},
+			//判断列表显示
+			resoShow(){
+				if (uni.getStorageSync('userInfo')) {
 					this.userInfo = uni.getStorageSync('userInfo')
 					this.login = false
 					this.huoquNotice()

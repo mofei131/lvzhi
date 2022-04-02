@@ -10,7 +10,8 @@
 						<view>{{item.coop_name}}</view>
 					</view>
 					<view class="lzcrli2">
-						<rich-text  v-html='item.intro_text'></rich-text>
+						<rich-text  v-html='item.intro_text' v-if="user.role == 2"></rich-text>
+						<view v-else>{{item.intro}}</view>
 					</view>
 					<view class="lzcrli3">
 						<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit" @click="imgPreview(item.pics,index2)">
