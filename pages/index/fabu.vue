@@ -16,7 +16,7 @@
 		<view class="picebox" v-if="type == 'shailvzhi' || type == 'shailianhu'">
 			<view class="uppice" v-for="(item,index) in picelist" :key='index'>
 				<view class="pice">
-					<image :src="item"></image>
+					<image :src="item" mode="aspectFit"></image>
 				</view>
 				<view class="delpice" @click="del(index)">
 					<image src="../../static/image/deleat.png"></image>
@@ -177,6 +177,11 @@
 						if (res.code == 200) {
 							this.fabu_tc = false
 							this.fabu_tc2 = true
+						}else {
+							uni.showToast({
+								title: res.message,
+								icon: 'none'
+							})
 						}
 					})
 				} else if (this.type == 'shailianhu') {

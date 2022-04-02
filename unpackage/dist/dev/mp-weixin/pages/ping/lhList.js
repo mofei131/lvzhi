@@ -184,6 +184,7 @@ var _default =
   },
 
   onShow: function onShow() {
+    this.page = 1;
     this.user = uni.getStorageSync('userInfo');
     this.huoquInfo();
     this.huoquShaiList();

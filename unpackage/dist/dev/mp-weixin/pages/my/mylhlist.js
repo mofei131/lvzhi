@@ -170,7 +170,8 @@ var _default =
   data: function data() {
     return {
       lhlist: [],
-      page: 1 };
+      page: 1,
+      user: '' };
 
   },
 

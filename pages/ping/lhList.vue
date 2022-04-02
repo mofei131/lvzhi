@@ -52,6 +52,7 @@
 		},
 
 		onShow() {
+			this.page = 1
 			this.user = uni.getStorageSync('userInfo')
 			this.huoquInfo()
 			this.huoquShaiList()
