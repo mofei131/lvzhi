@@ -34,7 +34,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="btnbox" @click="toPage" v-if="user.role == 1 || user.role == 5">
+		<view class="btnbox" @click="toPage" v-if="(user.role == 1 || user.role == 5)&& type != 1">
 			<view class="btn">立即发布</view>
 		</view>
 		<view v-if="cnlist.length <= 0 && info.length <= 0" class="p404">
