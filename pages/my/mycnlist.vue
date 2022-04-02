@@ -23,7 +23,7 @@
 			<image src="../../static/image/404.png" mode="aspectFit"></image>
 			<text>暂无承诺</text>
 		</view>
-		<view class="btnbox" @click="toPage">
+		<view class="btnbox" v-if="user.role == 1 || user.role == 5" @click="toPage">
 			<view class="btn">立即发布</view>
 		</view>
 	</view>
