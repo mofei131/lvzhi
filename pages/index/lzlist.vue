@@ -2,7 +2,8 @@
 	<view class="box">
 		<view class="" v-if="type == 1 || type == 2">
 			<view class="topimg">
-				<topimg></topimg>
+				<!-- <topimg></topimg> -->
+				<image :src="coopInfo.pic" mode=""></image>
 			</view>
 			<view class="coon-info">
 				<view class="cooperative_name">{{coopInfo.cooperative_name}}</view>
@@ -146,6 +147,13 @@
 </script>
 
 <style>
+	.topimg image {
+		width: 680rpx;
+		height: 366rpx;
+		margin: auto;
+		display: block;
+		margin-bottom: 52rpx;
+	}
 	.btn {
 		width: 681rpx;
 		height: 91rpx;

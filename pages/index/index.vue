@@ -53,7 +53,7 @@
 
 			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 3" @click="hrole(item,3)">
 				<view class="melileft">
-					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
+					<image :src="item.pic?item.pic:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
 				<view class="meliright"><strong><strong></strong></strong>
 					<view class="melir1">
@@ -71,7 +71,7 @@
 
 			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 4" @click="hrole(item,4)">
 				<view class="melileft">
-					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
+					<image :src="item.pic?item.pic:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
 				<view class="meliright"><strong><strong></strong></strong>
 					<view class="melir1">
@@ -277,8 +277,6 @@
 
 			// 获取成员数据
 			huoquMembers() {
-				console.log(this.street_id)
-				console.log(this.coop_id)
 				var melist = this.page == 1 ? [] : this.melist
 				this.api.members({
 					coop_id:uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3?this.coop_id:this.userInfo.cooperative_id,
@@ -294,9 +292,9 @@
 			},
 
 			// 获取合作社
-			huoquCoops() {
+			huoquCoops(e) {
 				this.api.getCoops({
-					street_id: uni.getStorageSync('userInfo').street_id
+					street_id: uni.getStorageSync('userInfo').role == 4?this.street_id:uni.getStorageSync('userInfo').street_id
 				}, res => {
 					this.melist = res.data
 				})

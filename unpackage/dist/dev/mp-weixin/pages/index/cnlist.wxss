@@ -80,7 +80,11 @@
 	margin-bottom: 52rpx;
 	box-shadow: 5px 10px 20px 0px rgba(147, 147, 147, 0.2);
 }
-.topimg {
+.topimg image {
+	width: 680rpx;
+	height: 366rpx;
+	margin: auto;
+	display: block;
 	margin-bottom: 52rpx;
 }
 .box {

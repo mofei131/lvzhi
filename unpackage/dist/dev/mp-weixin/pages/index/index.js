@@ -419,8 +419,6 @@ var _default =
 
     // 获取成员数据
     huoquMembers: function huoquMembers() {var _this4 = this;
-      console.log(this.street_id);
-      console.log(this.coop_id);
       var melist = this.page == 1 ? [] : this.melist;
       this.api.members({
         coop_id: uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3 ? this.coop_id : this.userInfo.cooperative_id,
@@ -436,9 +434,9 @@ var _default =
     },
 
     // 获取合作社
-    huoquCoops: function huoquCoops() {var _this5 = this;
+    huoquCoops: function huoquCoops(e) {var _this5 = this;
       this.api.getCoops({
-        street_id: uni.getStorageSync('userInfo').street_id },
+        street_id: uni.getStorageSync('userInfo').role == 4 ? this.street_id : uni.getStorageSync('userInfo').street_id },
       function (res) {
         _this5.melist = res.data;
       });

@@ -1,7 +1,8 @@
 <template>
 	<view class="box">
 		<view class="topimg">
-			<topimg></topimg>
+			<!-- <topimg></topimg> -->
+			<image :src="coopInfo.pic" mode=""></image>
 		</view>
 		<view class="lzcard" v-for="(item,index) in lhlist" :key="index" v-if="item">
 			<view class="lzcleft" v-if="item.user">
@@ -110,6 +111,13 @@
 </script>
 
 <style>
+	.topimg image {
+		width: 680rpx;
+		height: 366rpx;
+		margin: auto;
+		display: block;
+		margin-bottom: 52rpx;
+	}
 	.btn {
 		width: 681rpx;
 		height: 91rpx;

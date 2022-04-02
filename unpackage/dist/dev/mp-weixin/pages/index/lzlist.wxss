@@ -1,4 +1,11 @@
 
+.topimg image {
+	width: 680rpx;
+	height: 366rpx;
+	margin: auto;
+	display: block;
+	margin-bottom: 52rpx;
+}
 .btn {
 	width: 681rpx;
 	height: 91rpx;
