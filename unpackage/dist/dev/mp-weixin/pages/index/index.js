@@ -230,6 +230,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -257,65 +260,94 @@ var _default =
       placeholder: '',
       noticeList: [], //公告列表
       street_id: '',
-      coop_id: '' };
-
+      coop_id: '',
+      cyWidth: false //是否显示成员返回上一级
+    };
   },
   onLoad: function onLoad() {
     // 修改顶部标题
-    var info = uni.getStorageSync('userInfo');
-    if (info.role == 4) {
-      uni.setNavigationBarTitle({
-        title: '组织部' });
-
-    } else if (info.role == 3) {
-      uni.setNavigationBarTitle({
-        title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(function (item) {return item.
-          id == info.street_id;})].street_name });
-
-    } else if (info.role == 2 || info.role == 1 || info.role == 5) {
-      uni.setNavigationBarTitle({
-        title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(
-        function (item) {return item.id == info.cooperative_id;})].cooperative_name });
-
-    }
+    this.changeTitle();
+    this.resoShow();
   },
 
-  onShow: function onShow() {var _this = this;
-    if (!uni.getStorageSync('userInfo')) {
-      this.api.indexAuth({}, function (res) {
-        if (res.data.is_auth == 0) {
-          uni.redirectTo({
-            url: 'register' });
-
-        } else {
-          _this.login = true;
-        }
-      });
-    } else {
-      this.userInfo = uni.getStorageSync('userInfo');
-      this.login = false;
-      this.huoquNotice();
-      if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni.
-      getStorageSync('userInfo').role == 5) {
-        this.placeholder = '成员列表';
-        this.huoquMembers();
-      } else if (uni.getStorageSync('userInfo').role == 3) {
-        this.placeholder = '合作社列表';
-        this.huoquCoops();
-      } else if (uni.getStorageSync('userInfo').role == 4) {
-        this.placeholder = '街道列表';
-        this.huoquStreets();
-      }
-    }
+  onShow: function onShow() {
     this.getNotice();
   },
 
   onReachBottom: function onReachBottom() {
     this.page = this.page + 1;
-    this.huoquMembers();
+    if (this.userInfo.role != 4 && this.userInfo.role != 3) {
+      this.huoquMembers();
+    }
   },
 
   methods: {
+    //判断跳转显示
+    resoShow: function resoShow() {var _this = this;
+      if (!uni.getStorageSync('userInfo')) {
+        this.api.indexAuth({}, function (res) {
+          if (res.data.is_auth == 0) {
+            uni.redirectTo({
+              url: 'register' });
+
+          } else {
+            _this.login = true;
+          }
+        });
+      } else {
+        this.userInfo = uni.getStorageSync('userInfo');
+        this.login = false;
+        this.huoquNotice();
+        if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni.
+        getStorageSync('userInfo').role == 5) {
+          this.placeholder = '成员列表';
+          this.huoquMembers();
+        } else if (uni.getStorageSync('userInfo').role == 3) {
+          this.placeholder = '合作社列表';
+          this.huoquCoops();
+        } else if (uni.getStorageSync('userInfo').role == 4) {
+          this.placeholder = '街道列表';
+          this.huoquStreets();
+        }
+      }
+    },
+    //修改顶部标题
+    changeTitle: function changeTitle() {
+      var info = uni.getStorageSync('userInfo');
+      if (info.role == 4) {
+        uni.setNavigationBarTitle({
+          title: '组织部' });
+
+      } else if (info.role == 3) {
+        uni.setNavigationBarTitle({
+          title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(function (item) {return item.
+            id == info.street_id;})].street_name });
+
+      } else if (info.role == 2 || info.role == 1 || info.role == 5) {
+        uni.setNavigationBarTitle({
+          title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(
+          function (item) {return item.id == info.cooperative_id;})].cooperative_name });
+
+      }
+    },
+    //返回上级
+    cyBack: function cyBack() {
+      if (this.userInfo.role == 3 && uni.getStorageSync('userInfo').role == 4) {
+        this.userInfo.role = 4;
+        this.page = 1;
+        this.huoquStreets();
+        this.placeholder = '街道列表';
+        this.cyWidth = false;
+      } else if (this.userInfo.role == 2 && uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3) {
+        this.userInfo.role = 3;
+        this.page = 1;
+        this.placeholder = '合作社列表';
+        this.huoquCoops();
+        if (uni.getStorageSync('userInfo').role == 3) {
+          this.cyWidth = false;
+        }
+      }
+    },
     //切换列表
     hrole: function hrole(item, e) {
       if (e == 4) {
@@ -324,12 +356,14 @@ var _default =
         this.placeholder = '合作社列表';
         this.huoquCoops();
         this.userInfo.role = 3;
+        this.cyWidth = true;
       } else if (e == 3) {
         this.coop_id = item.id;
         this.page = 1;
         this.placeholder = '成员列表';
         this.huoquMembers();
         this.userInfo.role = 2;
+        this.cyWidth = true;
       }
     },
     //跳转成员详情
