@@ -1,4 +1,12 @@
 
+.imgbox{
+	width: 100rpx;
+	height: 100rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* margin-right: 20rpx; */
+}
 .topflex{
 	display: flex;
 	align-items: center;
@@ -11,7 +19,6 @@
 .cyback{
 	width: 45rpx;
 	height: 45rpx;
-	margin-right: 20rpx;
 }
 .p404 {
 	display: flex;

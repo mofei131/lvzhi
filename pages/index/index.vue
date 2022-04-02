@@ -20,7 +20,9 @@
 		</view>
 		<view class="inme">
 			<view class="topflex">
-			<image src="../../static/image/back.png" class="cyback" @click="cyBack" v-if="cyWidth"></image>
+			<view class="imgbox" @click="cyBack" v-if="cyWidth">
+				<image src="../../static/image/back.png" class="cyback" ></image>
+			</view>
 			<view class="imtopse" @click="toPage('./search')" :style="{width:!cyWidth?'620rpx':'560rpx'}">
 				<input type="text" disabled="true" :placeholder="placeholder" />
 				<image src="../../static/image/search.png" mode="aspectFit"></image>
@@ -318,6 +320,14 @@
 </script>
 
 <style>
+	.imgbox{
+		width: 100rpx;
+		height: 100rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* margin-right: 20rpx; */
+	}
 	.topflex{
 		display: flex;
 		align-items: center;
@@ -330,7 +340,6 @@
 	.cyback{
 		width: 45rpx;
 		height: 45rpx;
-		margin-right: 20rpx;
 	}
 	.p404 {
 		display: flex;
