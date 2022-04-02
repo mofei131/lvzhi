@@ -58,7 +58,7 @@
 				date: '',
 				coop_id: '',
 				page: 1,
-
+				user:'',
 				info: {},
 				coopInfo: {},
 
