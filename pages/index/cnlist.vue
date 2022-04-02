@@ -37,7 +37,7 @@
 				<view class="btn">立即发布</view>
 			</view>
 		</view>
-		<view v-if="cnlist.length <= 0" class="p404">
+		<view v-if="cnlist.length <= 0 && info.length <= 0" class="p404">
 			<image src="../../static/image/404.png"></image>
 			<text>暂无内容</text>
 		</view>

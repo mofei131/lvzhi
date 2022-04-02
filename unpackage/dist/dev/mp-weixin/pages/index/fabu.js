@@ -197,7 +197,7 @@ var _default =
       intro: '',
 
       type: '',
-
+      user: '',
       total: '',
       baolian: '',
       total_zoufang: '',
@@ -208,7 +208,9 @@ var _default =
   onLoad: function onLoad(e) {
     this.type = e.type;
   },
-
+  onShow: function onShow() {
+    this.user = uni.getStorageSync('userInfo');
+  },
   methods: {
     // 删除图片
     del: function del(e) {

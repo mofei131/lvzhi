@@ -13,7 +13,7 @@
 		</view>
 		<textarea class="textarea" placeholder="请输入要发布的内容..." auto-height="true" maxlength=-1
 			v-model="intro"></textarea>
-		<view class="picebox" v-if="type == 'shailvzhi' || type == 'shailianhu'">
+		<view class="picebox" v-if="(type == 'shailvzhi' || type == 'shailianhu') && user.role == 1">
 			<view class="uppice" v-for="(item,index) in picelist" :key='index'>
 				<view class="pice">
 					<image :src="item" mode="aspectFit"></image>
@@ -59,7 +59,7 @@
 				intro: '',
 
 				type: '',
-
+				user:'',
 				total: '',
 				baolian: '',
 				total_zoufang: '',
@@ -70,7 +70,9 @@
 		onLoad(e) {
 			this.type = e.type
 		},
-
+		onShow() {
+			this.user = uni.getStorageSync('userInfo')
+		},
 		methods: {
 			// 删除图片
 			del(e) {

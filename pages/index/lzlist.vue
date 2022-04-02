@@ -36,13 +36,13 @@
 					</view>
 				</view>
 			</view>
-			<view v-if="lzlist.length <= 0" class="p404">
-				<image src="../../static/image/404.png"></image>
-				<text>暂无内容</text>
-			</view>
-			<view class="btnbox" v-if="user.role == 1 || user.role == 5">
-				<view class="btn" @click="toPage">立即发布</view>
-			</view>
+		</view>
+		<view class="btnbox" v-if="user.role == 1 || user.role == 5">
+			<view class="btn" @click="toPage">立即发布</view>
+		</view>
+		<view v-if="lzlist.length <= 0 && info.length <= 0" class="p404">
+			<image src="../../static/image/404.png"></image>
+			<text>暂无内容</text>
 		</view>
 	</view>
 </template>
