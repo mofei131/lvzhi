@@ -178,12 +178,16 @@ __webpack_require__.r(__webpack_exports__);
       user: '',
       info: {},
       coopInfo: {},
-      lzlist: [] };
+      lzlist: [],
+      uid: '' };
 
   },
 
-  onLoad: function onLoad(e) {},
-
+  onLoad: function onLoad(p) {
+    if (p.uid) {
+      this.uid = p.uid;
+    }
+  },
   onShow: function onShow() {
     this.user = uni.getStorageSync('userInfo');
     this.page = 1;
@@ -210,7 +214,7 @@ __webpack_require__.r(__webpack_exports__);
       var list = [];
       var lzlist = this.page == 1 ? [] : this.lzlist;
       this.api.LvzhiMyList({
-        uid: this.user.id,
+        uid: this.uid ? this.uid : this.user.id,
         page: this.page,
         limit: 10 },
       function (res) {

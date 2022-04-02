@@ -46,12 +46,16 @@
 				user: '',
 				info: {},
 				coopInfo: {},
-				lzlist: []
+				lzlist: [],
+				uid:''
 			}
 		},
 
-		onLoad(e) {},
-
+		onLoad(p) {
+			if(p.uid){
+				this.uid = p.uid
+			}
+		},
 		onShow() {
 			this.user = uni.getStorageSync('userInfo')
 			this.page = 1
@@ -78,7 +82,7 @@
 				let list = []
 				var lzlist = this.page == 1 ? [] : this.lzlist
 				this.api.LvzhiMyList({
-					uid:this.user.id,
+					uid:this.uid?this.uid:this.user.id,
 					page:this.page,
 					limit:10
 				},res=>{

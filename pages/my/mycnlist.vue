@@ -36,10 +36,15 @@
 				cnlist: [],
 				page: 1,
 				user:'',
-				coopInfo: {}
+				coopInfo: {},
+				uid:''
 			}
 		},
-		
+		onLoad(p) {
+			if(p.uid){
+				this.uid = p.uid
+			}
+		},
 		onShow() {
 			this.user = uni.getStorageSync('userInfo')
 			this.huoquList()
@@ -54,7 +59,7 @@
 			huoquList() {
 				var cnlist = this.page == 1 ? [] : this.cnlist
 				this.api.PromiseMyList({
-					uid: uni.getStorageSync('userInfo').id,
+					uid: this.uid?this.uid:uni.getStorageSync('userInfo').id,
 					page: this.page,
 					limit: 10
 				}, res => {
