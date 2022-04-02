@@ -277,10 +277,12 @@
 
 			// 获取成员数据
 			huoquMembers() {
+				console.log(this.street_id)
+				console.log(this.coop_id)
 				var melist = this.page == 1 ? [] : this.melist
 				this.api.members({
-					coop_id:this.userInfo.role == 4 || this.userInfo.role == 3?this.coop_id:this.userInfo.cooperative_id,
-					street_id:this.userInfo.role == 4?this.street_id:this.userInfo.street_id,
+					coop_id:uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3?this.coop_id:this.userInfo.cooperative_id,
+					street_id:uni.getStorageSync('userInfo').role == 4?this.street_id:this.userInfo.street_id,
 					// coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
 					// street_id: uni.getStorageSync('userInfo').street_id, //街道ID
 					page: this.page,
