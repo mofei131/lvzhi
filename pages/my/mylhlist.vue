@@ -19,7 +19,7 @@
 					<view>{{item.intro}}</view>
 				</view>
 				<view class="lzcrli3">
-					<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit"></image>
+					<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit" @click="imgPreview(item.pics,index2)"></image>
 				</view>
 			</view>
 		</view>
@@ -58,6 +58,15 @@
 		},
 
 		methods: {
+			//全屏看图
+			imgPreview(item,index){
+					uni.previewImage({
+						current:index,
+						indicator:"number",
+						loop:true,
+						urls:item
+					})
+			},
 			// 获取列表
 			huoquShaiList() {
 				var lhlist = this.page == 1 ? [] : this.lhlist

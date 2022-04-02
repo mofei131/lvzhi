@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var mpHtml = function mpHtml() {Promise.all(/*! require.ensure | pages/components/mp-html/mp-html */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/components/mp-html/mp-html")]).then((function () {return resolve(__webpack_require__(/*! ../components/mp-html/mp-html */ 190));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var mpHtml = function mpHtml() {Promise.all(/*! require.ensure | pages/components/mp-html/mp-html */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/components/mp-html/mp-html")]).then((function () {return resolve(__webpack_require__(/*! ../components/mp-html/mp-html */ 183));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -219,6 +219,15 @@ __webpack_require__.r(__webpack_exports__);
   },
 
   methods: {
+    //全屏看图
+    imgPreview: function imgPreview(item, index) {
+      uni.previewImage({
+        current: index,
+        indicator: "number",
+        loop: true,
+        urls: item });
+
+    },
     // 获取 1:合作社, 2:包靠干部 履职
     huoquLvzhiCoop: function huoquLvzhiCoop() {var _this = this;
       this.api.LvzhiCoop({

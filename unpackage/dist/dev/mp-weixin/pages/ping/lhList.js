@@ -196,6 +196,15 @@ var _default =
   },
 
   methods: {
+    //全屏看图
+    imgPreview: function imgPreview(item, index) {
+      uni.previewImage({
+        current: index,
+        indicator: "number",
+        loop: true,
+        urls: item });
+
+    },
     // 获取合作社详情
     huoquInfo: function huoquInfo() {var _this = this;
       this.api.coopInfo({

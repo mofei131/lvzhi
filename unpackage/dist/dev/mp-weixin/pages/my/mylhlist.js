@@ -190,6 +190,15 @@ var _default =
   },
 
   methods: {
+    //全屏看图
+    imgPreview: function imgPreview(item, index) {
+      uni.previewImage({
+        current: index,
+        indicator: "number",
+        loop: true,
+        urls: item });
+
+    },
     // 获取列表
     huoquShaiList: function huoquShaiList() {var _this = this;
       var lhlist = this.page == 1 ? [] : this.lhlist;
