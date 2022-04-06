@@ -3931,7 +3931,36 @@ module.exports = index_cjs;
 
 /***/ }),
 
-/***/ 188:
+/***/ 16:
+/*!**********************************************!*\
+  !*** G:/mofei/item/lvzhi/pages/api/share.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  onShareAppMessage: function onShareAppMessage(ops) {
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage', 'shareTimeline'] });
+
+  },
+  onShareTimeline: function onShareTimeline() {
+    return {
+      title: '我承诺我履职',
+      query: {
+        scene: uni.getStorageSync('userInfo').id
+        // key: 'value' //要携带的参数
+      }
+      // imageUrl: 'http://hlstore.yimetal.cn/2021/tuochebang/my_touxiang.png'
+    };
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 189:
 /*!**************************************************************!*\
   !*** G:/mofei/item/lvzhi/pages/components/mp-html/parser.js ***!
   \**************************************************************/
