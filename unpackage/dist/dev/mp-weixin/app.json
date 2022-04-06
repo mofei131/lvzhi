@@ -56,5 +56,6 @@
   },
   "usingComponents": {
     "topimg": "/pages/components/topimg"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
