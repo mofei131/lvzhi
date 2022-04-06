@@ -16,14 +16,14 @@
 				</view>
 			</view>
 			<view class="cncbot">
-				<view>{{item.intro}}</view>
+				<rich-text  v-html='item.intro'></rich-text>
 			</view>
 		</view>
 		<view v-if="cnlist.length <= 0" class="p404">
 			<image src="../../static/image/404.png" mode="aspectFit"></image>
 			<text>暂无承诺</text>
 		</view>
-		<view class="btnbox" @click="toPage">
+		<view class="btnbox" v-if="user.role == 1 || user.role == 5" @click="toPage">
 			<view class="btn">立即发布</view>
 		</view>
 	</view>
@@ -35,12 +35,18 @@
 			return {
 				cnlist: [],
 				page: 1,
-				
-				coopInfo: {}
+				user:'',
+				coopInfo: {},
+				uid:''
 			}
 		},
-		
+		onLoad(p) {
+			if(p.uid){
+				this.uid = p.uid
+			}
+		},
 		onShow() {
+			this.user = uni.getStorageSync('userInfo')
 			this.huoquList()
 		},
 		
@@ -53,7 +59,7 @@
 			huoquList() {
 				var cnlist = this.page == 1 ? [] : this.cnlist
 				this.api.PromiseMyList({
-					uid: uni.getStorageSync('userInfo').id,
+					uid: this.uid?this.uid:uni.getStorageSync('userInfo').id,
 					page: this.page,
 					limit: 10
 				}, res => {

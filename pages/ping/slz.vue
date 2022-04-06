@@ -1,5 +1,10 @@
 <template>
 	<view class="box">
+		<view class="toptitle" :style="{height:height+30+'px'}">
+			<image src="../../static/image/back.png" mode="" @click="backList"></image>
+			<view>晒联户</view>
+			<view></view>
+		</view>
 		<!-- 用户是 4组织部 -->
 		<view v-if="zuzhibu">
 			<view v-for="(item, index) in streets" class="listf" @click="huoquCoops(item.id)">
@@ -60,6 +65,7 @@
 				zuzhibu: false,
 				jiedao: false,
 				hezuoshe: false,
+				height:''
 			}
 		},
 		computed: {
@@ -72,29 +78,69 @@
 		},
 
 		onLoad(e) {
-
+			let that = this
+			uni.getSystemInfo({
+					success:function(data){
+							// 将其赋值给this
+							that.height=data.statusBarHeight;
+							console.log(data.statusBarHeight)
+					}
+			})
+			this.showList()
 		},
 
 		onShow() {
-			if (uni.getStorageSync('userInfo').role == 4) {
-				this.zuzhibu = true
-				this.jiedao = false
-				this.hezuoshe = false
-				this.huoquStreets()
-			} else if (uni.getStorageSync('userInfo').role == 3) {
-				this.jiedao = true
-				this.zuzhibu = false
-				this.hezuoshe = false
-				this.huoquCoops()
-			} else {
-				this.hezuoshe = true
-				this.zuzhibu = false
-				this.jiedao = false
-				this.huoquHezuoshe()
-			}
 		},
-
 		methods: {
+			//返回上一级
+			backList(){
+				if(this.zuzhibu){
+					uni.switchTab({
+						url:'../index/index'
+					})
+				}else if(this.jiedao){
+					if(uni.getStorageSync('userInfo').role == 4){
+						this.zuzhibu = true
+						this.jiedao = false
+						this.hezuoshe = false
+						this.huoquStreets()
+					}else{
+						uni.switchTab({
+							url:'../index/index'
+						})
+					}
+				}else if(this.hezuoshe){
+					if(uni.getStorageSync('userInfo').role == 3 || uni.getStorageSync('userInfo').role == 4){
+						this.jiedao = true
+						this.zuzhibu = false
+						this.hezuoshe = false
+						this.huoquCoops()
+					}else{
+						uni.switchTab({
+							url:'../index/index'
+						})
+					}
+				}
+			},
+			//显示展示列表
+			showList(){
+				if (uni.getStorageSync('userInfo').role == 4) {
+					this.zuzhibu = true
+					this.jiedao = false
+					this.hezuoshe = false
+					this.huoquStreets()
+				} else if (uni.getStorageSync('userInfo').role == 3) {
+					this.jiedao = true
+					this.zuzhibu = false
+					this.hezuoshe = false
+					this.huoquCoops()
+				} else {
+					this.hezuoshe = true
+					this.zuzhibu = false
+					this.jiedao = false
+					this.huoquHezuoshe()
+				}
+			},
 			// 获取街道
 			huoquStreets() {
 				this.api.getStreets({}, res => {
@@ -131,7 +177,7 @@
 				let day = date.getDate();
 
 				if (type === 'start') {
-					year = year - 0;
+					year = year - 20;
 				} else if (type === 'end') {
 					year = year + 20;
 				}
@@ -151,6 +197,26 @@
 </script>
 
 <style>
+	.toptitle view{
+		font-size: 28rpx;
+		text-align: center;
+	}
+	.toptitle image{
+		width: 40rpx;
+		height: 40rpx;
+	}
+	.toptitle{
+		width: 750rpx;
+		margin: auto;
+		display: flex;
+		align-items: flex-end;
+		padding-left: 20rpx;
+		padding-right: 20rpx;
+		padding-bottom: 20rpx;
+		box-sizing: border-box;
+		margin-bottom: 44rpx;
+		justify-content: space-between;
+	}
 	.flexbox {
 		display: flex;
 		width: 600rpx;

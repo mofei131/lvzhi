@@ -2,7 +2,8 @@
 	<view class="box">
 		<view v-if="type == 1 || type == 2">
 			<view class="topimg">
-				<topimg></topimg>
+				<!-- <topimg></topimg> -->
+				<image :src="coopInfo.pic" mode=""></image>
 			</view>
 			<view class="coon-info">
 				<view class="cooperative_name">{{coopInfo.cooperative_name}}</view>
@@ -32,9 +33,13 @@
 					<view>{{item.intro}}</view>
 				</view>
 			</view>
-			<view class="btnbox" @click="toPage" v-if="user.role == 1 || user.role == 5">
-				<view class="btn">立即发布</view>
-			</view>
+		</view>
+		<view class="btnbox" @click="toPage" v-if="(user.role == 1 || user.role == 5)&& type != 1">
+			<view class="btn">立即发布</view>
+		</view>
+		<view v-if="cnlist.length <= 0 && info.length <= 0" class="p404">
+			<image src="../../static/image/404.png"></image>
+			<text>暂无内容</text>
 		</view>
 	</view>
 </template>
@@ -61,7 +66,7 @@
 		},
 
 		onLoad(e) {
-			this.type = e.coop_id
+			this.coop_id = e.coop_id
 			this.type = e.type
 			this.year = e.year
 		},
@@ -121,6 +126,16 @@
 </script>
 
 <style>
+	.p404 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 100rpx;
+		margin-top: 200rpx;
+	}
 	.btn {
 		width: 681rpx;
 		height: 91rpx;
@@ -203,7 +218,11 @@
 		box-shadow: 5px 10px 20px 0px rgba(147, 147, 147, 0.2);
 	}
 
-	.topimg {
+	.topimg image {
+		width: 680rpx;
+		height: 366rpx;
+		margin: auto;
+		display: block;
 		margin-bottom: 52rpx;
 	}
 

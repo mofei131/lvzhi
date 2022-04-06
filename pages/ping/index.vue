@@ -1,5 +1,9 @@
 <template>
 	<view class="box">
+		<view class="toptitle" :style="{height:height+35+'px'}">
+			<image src="../../static/image/back.png" mode="" @click="back" v-if="showBack"></image>
+			<!-- <view>评一评</view> -->
+		</view>
 		<topimg class="topimg"></topimg>
 		<view class="listf" v-for="(item,index) in showList" :key="index" @click="topage(item)">
 			<view v-if="role == 4">{{item.street_name}}</view>
@@ -32,9 +36,18 @@
 				coop_id:'',//合作社id
 				street_id:'',//街道id
 				toping:false,//直接去成员评价
+				height:'',
+				showBack:false
 			}
 		},
 		onLoad(p) {
+			let that = this
+			uni.getSystemInfo({
+					success:function(data){
+							// 将其赋值给this
+							that.height=data.statusBarHeight;
+					}
+			})
 			//角色字段赋值
 			this.role = uni.getStorageSync('userInfo').role
 			this.showlist()
@@ -48,9 +61,29 @@
 			}
 		},
 		methods:{
+			back(){
+				if(uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3){
+					if(this.role == 2){
+						if(uni.getStorageSync('userInfo').role == 3){
+							this.role++
+							this.showList = uni.getStorageSync('cooperativeList')
+							this.showBack = false
+							return
+						}
+						this.showBack = true
+						this.showList = uni.getStorageSync('cooperativeList')
+						this.role++
+					}else if(this.role == 3){
+						this.showBack = false
+						this.showList = uni.getStorageSync('streetList')
+						this.role++
+					}
+				}
+			},
 			// 判断角色赋值第一次显示列表
 			showlist(){
 				if(this.role == 4){
+					this.$store.state.role = 3
 					this.showList = uni.getStorageSync('streetList')
 				}else if(this.role == 3){
 					this.showList = uni.getStorageSync('cooperativeList')
@@ -122,6 +155,11 @@
 						})
 					}
 				}
+				if(uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3){
+					if(this.role == 3 || this.role == 2){
+						this.showBack = true
+					}
+				}
 			},
 			tologin(){
 				if(!uni.getStorageSync('userInfo')){
@@ -146,6 +184,19 @@
 </script>
 
 <style>
+	.toptitle image{
+		width: 40rpx;
+		height: 40rpx;
+	}
+	.toptitle{
+		width: 750rpx;
+		margin: auto;
+		display: flex;
+		align-items: flex-end;
+		padding-left: 20rpx;
+		box-sizing: border-box;
+		margin-bottom: 44rpx;
+	}
 	.tologin{
 		width: 100%;
 		height: 100%;

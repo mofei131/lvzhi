@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "晒联户",
+  "navigationStyle": "custom",
   "usingComponents": {}
 }

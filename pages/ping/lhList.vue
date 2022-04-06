@@ -1,7 +1,8 @@
 <template>
 	<view class="box">
 		<view class="topimg">
-			<topimg></topimg>
+			<!-- <topimg></topimg> -->
+			<image :src="coopInfo.pic" mode=""></image>
 		</view>
 		<view class="lzcard" v-for="(item,index) in lhlist" :key="index" v-if="item">
 			<view class="lzcleft" v-if="item.user">
@@ -17,7 +18,7 @@
 					<view>{{item.intro}}</view>
 				</view>
 				<view class="lzcrli3" v-if="item.pics != ''">
-					<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit"></image>
+					<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit" @click="imgPreview(item.pics,index2)"></image>
 				</view>
 				<view class="lzcrli4">
 					<view>{{item.create_time}}</view>
@@ -52,6 +53,7 @@
 		},
 
 		onShow() {
+			this.page = 1
 			this.user = uni.getStorageSync('userInfo')
 			this.huoquInfo()
 			this.huoquShaiList()
@@ -64,6 +66,15 @@
 		},
 
 		methods: {
+			//全屏看图
+			imgPreview(item,index){
+					uni.previewImage({
+						current:index,
+						indicator:"number",
+						loop:true,
+						urls:item
+					})
+			},
 			// 获取合作社详情
 			huoquInfo(){
 				this.api.coopInfo({
@@ -100,6 +111,13 @@
 </script>
 
 <style>
+	.topimg image {
+		width: 680rpx;
+		height: 366rpx;
+		margin: auto;
+		display: block;
+		margin-bottom: 52rpx;
+	}
 	.btn {
 		width: 681rpx;
 		height: 91rpx;

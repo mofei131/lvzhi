@@ -2,7 +2,8 @@
 	<view class="box">
 		<view class="" v-if="type == 1 || type == 2">
 			<view class="topimg">
-				<topimg></topimg>
+				<!-- <topimg></topimg> -->
+				<image :src="coopInfo.pic" mode=""></image>
 			</view>
 			<view class="coon-info">
 				<view class="cooperative_name">{{coopInfo.cooperative_name}}</view>
@@ -27,7 +28,7 @@
 						<view>{{item.intro}}</view>
 					</view>
 					<view class="lzcrli3">
-						<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit">
+						<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit" @click="imgPreview(item.pics,index2)">
 						</image>
 					</view>
 					<view class="lzcrli4">
@@ -35,13 +36,13 @@
 					</view>
 				</view>
 			</view>
-			<view v-if="lzlist.length <= 0" class="p404">
-				<image src="../../static/image/404.png"></image>
-				<text>暂无内容</text>
-			</view>
-			<view class="btnbox" v-if="user.role == 1 || user.role == 5">
-				<view class="btn" @click="toPage">立即发布</view>
-			</view>
+		</view>
+		<view class="btnbox" v-if="(user.role == 1 || user.role == 5) && type != 1">
+			<view class="btn" @click="toPage">立即发布</view>
+		</view>
+		<view v-if="lzlist.length <= 0 && info.length <= 0" class="p404">
+			<image src="../../static/image/404.png"></image>
+			<text>暂无内容</text>
 		</view>
 	</view>
 </template>
@@ -58,7 +59,7 @@
 				date: '',
 				coop_id: '',
 				page: 1,
-
+				user:'',
 				info: {},
 				coopInfo: {},
 
@@ -87,6 +88,15 @@
 		},
 
 		methods: {
+			//全屏看图
+			imgPreview(item,index){
+					uni.previewImage({
+						current:index,
+						indicator:"number",
+						loop:true,
+						urls:item
+					})
+			},
 			// 获取 1:合作社, 2:包靠干部 履职
 			huoquLvzhiCoop() {
 				this.api.LvzhiCoop({
@@ -137,6 +147,13 @@
 </script>
 
 <style>
+	.topimg image {
+		width: 680rpx;
+		height: 366rpx;
+		margin: auto;
+		display: block;
+		margin-bottom: 52rpx;
+	}
 	.btn {
 		width: 681rpx;
 		height: 91rpx;

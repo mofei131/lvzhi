@@ -26,8 +26,20 @@ let urlList = {
 	ShaiMyList: 'Shai/myList', //我的晒连户
 	ShaiDel: 'Shai/del', //删除晒连户
 	indexAuth: 'index/auth', //小程序是否审核
+	LvzhiMyList:'Lvzhi/myList',//我的履职
 }
 class Api extends Base {
+	LvzhiMyList(param, callback) {
+		var param = {
+			url: urlList.LvzhiMyList,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
 	indexSetting(param, callback) {
 		var param = {
 			url: urlList.indexSetting,

@@ -83,11 +83,11 @@
 			towork(e){
 				if(e == 1){
 					uni.navigateTo({
-						url:'mylzlist'
+						url:'mylzlist?uid='+this.uid
 					})
 				}else if(e ==2){
 					uni.navigateTo({
-						url:'mycnlist'
+						url:'mycnlist?uid='+this.uid
 					})
 				}
 			}

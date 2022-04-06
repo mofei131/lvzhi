@@ -19,12 +19,16 @@
 					<view>{{item.intro}}</view>
 				</view>
 				<view class="lzcrli3">
-					<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit"></image>
+					<image v-for="(item2,index2) in item.pics" :key='index2' :src="item2" mode="aspectFit" @click="imgPreview(item.pics,index2)"></image>
 				</view>
 			</view>
 		</view>
 		<view class="btnbox" v-if="user.role == 1" @click="toPage">
 			<view class="btn">立即发布</view>
+		</view>
+		<view v-if="lhlist.length <= 0" class="p404">
+			<image src="../../static/image/404.png"></image>
+			<text>暂无内容</text>
 		</view>
 	</view>
 </template>
@@ -34,7 +38,8 @@
 		data() {
 			return {
 				lhlist: [],
-				page: 1
+				page: 1,
+				user:''
 			}
 		},
 
@@ -54,6 +59,15 @@
 		},
 
 		methods: {
+			//全屏看图
+			imgPreview(item,index){
+					uni.previewImage({
+						current:index,
+						indicator:"number",
+						loop:true,
+						urls:item
+					})
+			},
 			// 获取列表
 			huoquShaiList() {
 				var lhlist = this.page == 1 ? [] : this.lhlist
@@ -103,6 +117,16 @@
 </script>
 
 <style>
+	.p404 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-size: 24rpx;
+		color: #999999;
+		line-height: 100rpx;
+		margin-top: 200rpx;
+	}
 	.btn {
 		width: 681rpx;
 		height: 91rpx;

@@ -1,4 +1,17 @@
 
+.toptitle image{
+	width: 40rpx;
+	height: 40rpx;
+}
+.toptitle{
+	width: 750rpx;
+	margin: auto;
+	display: flex;
+	align-items: flex-end;
+	padding-left: 20rpx;
+	box-sizing: border-box;
+	margin-bottom: 44rpx;
+}
 .tologin{
 	width: 100%;
 	height: 100%;

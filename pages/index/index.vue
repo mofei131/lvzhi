@@ -19,9 +19,14 @@
 			</view>
 		</view>
 		<view class="inme">
-			<view class="imtopse" @click="toPage('./search')">
+			<view class="topflex">
+			<view class="imgbox" @click="cyBack" v-if="cyWidth">
+				<image src="../../static/image/back.png" class="cyback" ></image>
+			</view>
+			<view class="imtopse" @click="toPage('./search')" :style="{width:!cyWidth?'620rpx':'560rpx'}">
 				<input type="text" disabled="true" :placeholder="placeholder" />
 				<image src="../../static/image/search.png" mode="aspectFit"></image>
+			</view>
 			</view>
 			<view class="meli" v-for="(item,index) in melist" :key='index'
 				v-if="userInfo.role == 1 || userInfo.role == 2 || userInfo.role == 5" @click="toDet(item)">
@@ -50,7 +55,7 @@
 
 			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 3" @click="hrole(item,3)">
 				<view class="melileft">
-					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
+					<image :src="item.pic?item.pic:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
 				<view class="meliright"><strong><strong></strong></strong>
 					<view class="melir1">
@@ -68,7 +73,7 @@
 
 			<view class="meli" v-for="(item,index) in melist" :key='index' v-if="userInfo.role == 4" @click="hrole(item,4)">
 				<view class="melileft">
-					<image :src="item.avater?item.avater:'../../static/image/tx.png'" mode="aspectFit"></image>
+					<image :src="item.pic?item.pic:'../../static/image/tx.png'" mode="aspectFit"></image>
 				</view>
 				<view class="meliright"><strong><strong></strong></strong>
 					<view class="melir1">
@@ -115,65 +120,98 @@
 				placeholder: '',
 				noticeList:[],//公告列表
 				street_id:'',
-				coop_id:''
+				coop_id:'',
+				cyWidth:false,//是否显示成员返回上一级
 			}
 		},
 		onLoad() {
 			// 修改顶部标题
-			let info = uni.getStorageSync('userInfo')
-			if (info.role == 4) {
-				uni.setNavigationBarTitle({
-					title: '组织部'
-				})
-			} else if (info.role == 3) {
-				uni.setNavigationBarTitle({
-					title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item
-						.id == info.street_id)].street_name
-				})
-			} else if (info.role == 2 || info.role == 1 || info.role == 5) {
-				uni.setNavigationBarTitle({
-					title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(
-						item => item.id == info.cooperative_id)].cooperative_name
-				})
-			}
+			this.changeTitle()
+			this.resoShow()
 		},
-
 		onShow() {
-			if (!uni.getStorageSync('userInfo')) {
-				this.api.indexAuth({}, res => {
-					if (res.data.is_auth == 0) {
-						uni.redirectTo({
-							url: 'register'
-						})
-					} else {
-						this.login = true
-					}
-				})
-			} else {
-				this.userInfo = uni.getStorageSync('userInfo')
-				this.login = false
-				this.huoquNotice()
-				if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni
-					.getStorageSync('userInfo').role == 5) {
-					this.placeholder = '成员列表'
-					this.huoquMembers()
-				} else if (uni.getStorageSync('userInfo').role == 3) {
-					this.placeholder = '合作社列表'
-					this.huoquCoops()
-				} else if (uni.getStorageSync('userInfo').role == 4) {
-					this.placeholder = '街道列表'
-					this.huoquStreets()
-				}
-			}
 			this.getNotice()
+			this.toRegister()
 		},
 
 		onReachBottom: function() {
 			this.page = this.page + 1
-			this.huoquMembers()
+			if(this.userInfo.role != 4 && this.userInfo.role != 3){
+				this.huoquMembers()
+			}
 		},
 
 		methods: {
+			//判断注册跳转
+			toRegister(){
+				if (!uni.getStorageSync('userInfo')) {
+					this.api.indexAuth({}, res => {
+						if (res.data.is_auth == 0) {
+							uni.redirectTo({
+								url: 'register'
+							})
+						} else {
+							this.login = true
+						}
+					})
+				}
+			},
+			//判断列表显示
+			resoShow(){
+				if (uni.getStorageSync('userInfo')) {
+					this.userInfo = uni.getStorageSync('userInfo')
+					this.login = false
+					this.huoquNotice()
+					if (uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni
+						.getStorageSync('userInfo').role == 5) {
+						this.placeholder = '成员列表'
+						this.huoquMembers()
+					} else if (uni.getStorageSync('userInfo').role == 3) {
+						this.placeholder = '合作社列表'
+						this.huoquCoops()
+					} else if (uni.getStorageSync('userInfo').role == 4) {
+						this.placeholder = '街道列表'
+						this.huoquStreets()
+					}
+				}
+			},
+			//修改顶部标题
+			changeTitle(){
+				let info = uni.getStorageSync('userInfo')
+				if (info.role == 4) {
+					uni.setNavigationBarTitle({
+						title: '组织部'
+					})
+				} else if (info.role == 3) {
+					uni.setNavigationBarTitle({
+						title: uni.getStorageSync('streetList')[uni.getStorageSync('streetList').findIndex(item => item
+							.id == info.street_id)].street_name
+					})
+				} else if (info.role == 2 || info.role == 1 || info.role == 5) {
+					uni.setNavigationBarTitle({
+						title: uni.getStorageSync('cooperativeList')[uni.getStorageSync('cooperativeList').findIndex(
+							item => item.id == info.cooperative_id)].cooperative_name
+					})
+				}
+			},
+			//返回上级
+			cyBack(){
+				if(this.userInfo.role == 3 && uni.getStorageSync('userInfo').role == 4){
+					this.userInfo.role = 4
+					this.page = 1
+					this.huoquStreets()
+					this.placeholder = '街道列表'
+					this.cyWidth = false
+				}else if(this.userInfo.role == 2 && uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3){
+					this.userInfo.role = 3
+					this.page = 1
+					this.placeholder = '合作社列表'
+					this.huoquCoops()
+					if(uni.getStorageSync('userInfo').role == 3){
+						this.cyWidth = false
+					}
+				}
+			},
 			//切换列表
 			hrole(item,e){
 				if(e == 4){
@@ -182,12 +220,14 @@
 					this.placeholder = '合作社列表'
 					this.huoquCoops()
 					this.userInfo.role = 3
+					this.cyWidth = true
 				}else if(e == 3){
 					this.coop_id = item.id
 					this.page = 1
 					this.placeholder = '成员列表'
 					this.huoquMembers()
 					this.userInfo.role = 2
+					this.cyWidth = true
 				}
 			},
 			//跳转成员详情
@@ -241,8 +281,8 @@
 			huoquMembers() {
 				var melist = this.page == 1 ? [] : this.melist
 				this.api.members({
-					coop_id:this.userInfo.role == 4 || this.userInfo.role == 3?this.coop_id:this.userInfo.cooperative_id,
-					street_id:this.userInfo.role == 4?this.street_id:this.userInfo.street_id,
+					coop_id:uni.getStorageSync('userInfo').role == 4 || uni.getStorageSync('userInfo').role == 3?this.coop_id:this.userInfo.cooperative_id,
+					street_id:uni.getStorageSync('userInfo').role == 4?this.street_id:this.userInfo.street_id,
 					// coop_id: uni.getStorageSync('userInfo').cooperative_id, //合作社ID
 					// street_id: uni.getStorageSync('userInfo').street_id, //街道ID
 					page: this.page,
@@ -254,9 +294,9 @@
 			},
 
 			// 获取合作社
-			huoquCoops() {
+			huoquCoops(e) {
 				this.api.getCoops({
-					street_id: uni.getStorageSync('userInfo').street_id
+					street_id: uni.getStorageSync('userInfo').role == 4?this.street_id:uni.getStorageSync('userInfo').street_id
 				}, res => {
 					this.melist = res.data
 				})
@@ -280,6 +320,27 @@
 </script>
 
 <style>
+	.imgbox{
+		width: 100rpx;
+		height: 100rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* margin-right: 20rpx; */
+	}
+	.topflex{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 620rpx;
+		margin: auto;
+		margin-bottom: 46rpx;
+		border-bottom: 1rpx solid #E6E6E6;
+	}
+	.cyback{
+		width: 45rpx;
+		height: 45rpx;
+	}
 	.p404 {
 		display: flex;
 		flex-direction: column;
@@ -387,10 +448,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		width: 620rpx;
-		margin: auto;
-		border-bottom: 1rpx solid #E6E6E6;
-		margin-bottom: 46rpx;
 	}
 
 	.imtopse image {

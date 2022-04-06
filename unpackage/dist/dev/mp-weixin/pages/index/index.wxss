@@ -1,4 +1,25 @@
 
+.imgbox{
+	width: 100rpx;
+	height: 100rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* margin-right: 20rpx; */
+}
+.topflex{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 620rpx;
+	margin: auto;
+	margin-bottom: 46rpx;
+	border-bottom: 1rpx solid #E6E6E6;
+}
+.cyback{
+	width: 45rpx;
+	height: 45rpx;
+}
 .p404 {
 	display: flex;
 	flex-direction: column;
@@ -90,10 +111,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	width: 620rpx;
-	margin: auto;
-	border-bottom: 1rpx solid #E6E6E6;
-	margin-bottom: 46rpx;
 }
 .imtopse image {
 	width: 34rpx;

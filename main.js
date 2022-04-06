@@ -4,9 +4,11 @@ import {
 } from 'pages/api/api.js'
 import store from 'store/store.js'
 import topimg from 'pages/components/topimg.vue'
+import share from 'pages/api/share.js'
 
 Vue.prototype.api = new Api()
 Vue.component('topimg', topimg)
+Vue.mixin(share)
 
 // #ifndef VUE3
 import Vue from 'vue'
