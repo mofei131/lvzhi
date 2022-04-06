@@ -133,13 +133,15 @@
 						if(this.role == 1){
 							let code = this.role == 1?-3:this.role == 2?-1:-2
 							console.log(code)
-							uni.reLaunch({
+							uni.navigateTo({
+							// uni.reLaunch({
 								url:'./ping?coop_id='+uni.getStorageSync('userInfo').cooperative_id+'&type='+code+'&part=1'
 							})
 						}else{
 							let code = this.role == 1?-3:this.role == 2?-1:-2
 							console.log(code)
-							uni.reLaunch({
+							uni.navigateTo({
+							// uni.reLaunch({
 								url:'./ping?coop_id='+uni.getStorageSync('userInfo').cooperative_id+'&type='+code+'&part=0'
 							})
 						}
