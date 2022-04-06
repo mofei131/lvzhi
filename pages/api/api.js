@@ -27,6 +27,7 @@ let urlList = {
 	ShaiDel: 'Shai/del', //删除晒连户
 	indexAuth: 'index/auth', //小程序是否审核
 	LvzhiMyList:'Lvzhi/myList',//我的履职
+	getStreetsCoops: 'index/getStreetsCoops', //获取合作社及街道
 }
 class Api extends Base {
 	LvzhiMyList(param, callback) {
@@ -326,6 +327,18 @@ class Api extends Base {
 	indexAuth(param, callback) {
 		var param = {
 			url: urlList.indexAuth,
+			type: "get",
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		this.request(param);
+	}
+	
+	getStreetsCoops(param, callback) {
+		var param = {
+			url: urlList.getStreetsCoops,
 			type: "get",
 			data: param,
 			sCallback: function(data) {

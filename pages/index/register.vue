@@ -24,8 +24,11 @@
 				<view class="inliright">
 					<picker mode="multiSelector" class="picker" @change="bindPickerChange"
 						@columnchange="bindPickerChange2" :value="array_index" :range="array">
-						<view class="uni-input">
-							{{array_index==null?'请选择街道社区':array[0][array_index] + ' ' +array[1][array_index2]}}
+						<view class="uni-input" v-if="array_index==null">
+							请选择街道社区
+						</view>
+						<view v-else>
+							{{array[0][array_index]}} {{array[1][array_index2]?array[1][array_index2]:''}}
 						</view>
 					</picker>
 				</view>
@@ -97,6 +100,7 @@
 					[],
 					[]
 				],
+				alldata: '',
 				arrayList: [],
 				arrayList2: [],
 				array_index: null,
@@ -120,6 +124,7 @@
 						this.array[0].push(res.data[i].street_name)
 					}
 					this.arrayList = res.data
+					this.huoquJiedaoHzs()
 					this.huoquHezuoshe(res.data[0].id)
 					uni.setStorageSync('streetList', res.data)
 				})
@@ -130,19 +135,39 @@
 					this.huoquHezuoshe(this.arrayList[e.detail.value].id)
 				}
 			},
+			// 获取街道合作社
+			huoquJiedaoHzs() {
+				this.api.getStreetsCoops({}, res => {
+					this.alldata = res.data
+					this.huoquHezuoshe(res.data[0].id)
+				})
+			},
 			// 获取合作社
 			huoquHezuoshe(id) {
-				this.api.getCoops({
-					street_id: id
-				}, res => {
-					var data = []
-					for (var i in res.data) {
-						data.push(res.data[i].cooperative_name)
+				// this.api.getCoops({
+				// 	street_id: id
+				// }, res => {
+				// 	var data = []
+				// 	for (var i in res.data) {
+				// 		data.push(res.data[i].cooperative_name)
+				// 	}
+				// 	this.$set(this.array, 1, data)
+				// 	this.arrayList2 = res.data
+				// 	uni.setStorageSync('cooperativeList', res.data)
+				// })
+				var data = []
+				var data2 = []
+				for (var i in this.alldata) {
+					if (id == this.alldata[i].id) {
+						data = this.alldata[i]
 					}
-					this.$set(this.array, 1, data)
-					this.arrayList2 = res.data
-					uni.setStorageSync('cooperativeList', res.data)
-				})
+				}
+				for (var j in data.coops) {
+					data2.push(data.coops[j].cooperative_name)
+				}
+				this.$set(this.array, 1, data2)
+				this.arrayList2 = data
+				uni.setStorageSync('cooperativeList', data.coops)
 			},
 			bindPickerChange(e) {
 				this.array_index = e.target.value[0]
@@ -222,6 +247,7 @@
 					desc: '展示用户信息',
 					success: (res) => {
 						console.log(res)
+						console.log(this.arrayList2, this.array_index2)
 						this.api.updateUser({
 							nickname: res.userInfo.nickName,
 							code: code,
@@ -229,7 +255,7 @@
 							realname: this.info.name,
 							post: this.info.post,
 							street_id: this.arrayList[this.array_index].id,
-							coop_id: this.arrayList2[this.array_index2].id,
+							coop_id:this.arrayList2.coops[this.array_index2] ? this.arrayList2.coops[this.array_index2].id : '',
 							sex: Number(this.sex_index) + 1, //1男 2女
 							age: this.info.age,
 							mobile: this.info.mobile,

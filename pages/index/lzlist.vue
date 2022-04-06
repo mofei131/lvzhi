@@ -11,6 +11,10 @@
 				<view class="create_time" v-if="info">
 					<mp-html class="title" :content="info.intro" />
 				</view>
+				<view v-else class="p404">
+					<image src="../../static/image/404.png"></image>
+					<text>暂无内容</text>
+				</view>
 			</view>
 		</view>
 

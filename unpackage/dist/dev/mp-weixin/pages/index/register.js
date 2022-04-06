@@ -214,6 +214,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -229,6 +232,7 @@ var _default =
       [],
       []],
 
+      alldata: '',
       arrayList: [],
       arrayList2: [],
       array_index: null,
@@ -252,6 +256,7 @@ var _default =
           _this.array[0].push(res.data[i].street_name);
         }
         _this.arrayList = res.data;
+        _this.huoquJiedaoHzs();
         _this.huoquHezuoshe(res.data[0].id);
         uni.setStorageSync('streetList', res.data);
       });
@@ -262,19 +267,39 @@ var _default =
         this.huoquHezuoshe(this.arrayList[e.detail.value].id);
       }
     },
-    // 获取合作社
-    huoquHezuoshe: function huoquHezuoshe(id) {var _this2 = this;
-      this.api.getCoops({
-        street_id: id },
-      function (res) {
-        var data = [];
-        for (var i in res.data) {
-          data.push(res.data[i].cooperative_name);
-        }
-        _this2.$set(_this2.array, 1, data);
-        _this2.arrayList2 = res.data;
-        uni.setStorageSync('cooperativeList', res.data);
+    // 获取街道合作社
+    huoquJiedaoHzs: function huoquJiedaoHzs() {var _this2 = this;
+      this.api.getStreetsCoops({}, function (res) {
+        _this2.alldata = res.data;
+        _this2.huoquHezuoshe(res.data[0].id);
       });
+    },
+    // 获取合作社
+    huoquHezuoshe: function huoquHezuoshe(id) {
+      // this.api.getCoops({
+      // 	street_id: id
+      // }, res => {
+      // 	var data = []
+      // 	for (var i in res.data) {
+      // 		data.push(res.data[i].cooperative_name)
+      // 	}
+      // 	this.$set(this.array, 1, data)
+      // 	this.arrayList2 = res.data
+      // 	uni.setStorageSync('cooperativeList', res.data)
+      // })
+      var data = [];
+      var data2 = [];
+      for (var i in this.alldata) {
+        if (id == this.alldata[i].id) {
+          data = this.alldata[i];
+        }
+      }
+      for (var j in data.coops) {
+        data2.push(data.coops[j].cooperative_name);
+      }
+      this.$set(this.array, 1, data2);
+      this.arrayList2 = data;
+      uni.setStorageSync('cooperativeList', data.coops);
     },
     bindPickerChange: function bindPickerChange(e) {
       this.array_index = e.target.value[0];
@@ -354,6 +379,7 @@ var _default =
         desc: '展示用户信息',
         success: function success(res) {
           console.log(res);
+          console.log(_this3.arrayList2, _this3.array_index2);
           _this3.api.updateUser({
             nickname: res.userInfo.nickName,
             code: code,
@@ -361,7 +387,7 @@ var _default =
             realname: _this3.info.name,
             post: _this3.info.post,
             street_id: _this3.arrayList[_this3.array_index].id,
-            coop_id: _this3.arrayList2[_this3.array_index2].id,
+            coop_id: _this3.arrayList2.coops[_this3.array_index2] ? _this3.arrayList2.coops[_this3.array_index2].id : '',
             sex: Number(_this3.sex_index) + 1, //1男 2女
             age: _this3.info.age,
             mobile: _this3.info.mobile },

@@ -2256,7 +2256,8 @@ var urlList = {
   ShaiMyList: 'Shai/myList', //我的晒连户
   ShaiDel: 'Shai/del', //删除晒连户
   indexAuth: 'index/auth', //小程序是否审核
-  LvzhiMyList: 'Lvzhi/myList' //我的履职
+  LvzhiMyList: 'Lvzhi/myList', //我的履职
+  getStreetsCoops: 'index/getStreetsCoops' //获取合作社及街道
 };var
 Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createSuper(Api);function Api() {_classCallCheck(this, Api);return _super.apply(this, arguments);}_createClass(Api, [{ key: "LvzhiMyList", value: function LvzhiMyList(
     param, callback) {
@@ -2556,6 +2557,18 @@ Api = /*#__PURE__*/function (_Base) {_inherits(Api, _Base);var _super = _createS
     param, callback) {
       var param = {
         url: urlList.indexAuth,
+        type: "get",
+        data: param,
+        sCallback: function sCallback(data) {
+          callback && callback(data);
+        } };
+
+      this.request(param);
+    } }, { key: "getStreetsCoops", value: function getStreetsCoops(
+
+    param, callback) {
+      var param = {
+        url: urlList.getStreetsCoops,
         type: "get",
         data: param,
         sCallback: function sCallback(data) {
