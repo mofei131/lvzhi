@@ -59,6 +59,7 @@
 					this.info.splice(this.info.findIndex(item => item.id == 4),1)
 					this.info[this.info.findIndex(item => item.id == 0)].value = this.userInfo.realname
 					this.info[this.info.findIndex(item => item.id == 5)].value = this.userInfo.mobile
+					this.info[this.info.findIndex(item => item.id == 0)].title = '负责人'
 				}else if(this.userInfo.role == 2){
 					this.info.splice(this.info.findIndex(item => item.id == 1),1)
 					this.info.splice(this.info.findIndex(item => item.id == 2),1)

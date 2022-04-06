@@ -8,9 +8,11 @@
 			<view class="coon-info">
 				<view class="cooperative_name">{{coopInfo.cooperative_name}}</view>
 				<view class="intro" v-if="info">时间：{{info.create_time}}</view>
-				<view class="create_time" v-if="info">
+				<!-- <view class="create_time" v-if="info">
 					<mp-html class="title" :content="info.intro" />
-				</view>
+				</view> -->
+				<rich-text class="title"  v-html='item.intro_text' v-if="user.role == 2"></rich-text>
+				<view class="title" v-else>{{item.intro}}</view>
 				<view v-else class="p404">
 					<image src="../../static/image/404.png"></image>
 					<text>暂无内容</text>

@@ -11,8 +11,8 @@
 					<view>{{userInfo.post}}</view>
 				</view>
 				<view class="mirli2">
-					<view>{{street}}</view>
-					<view>{{cooperative}}</view>
+					<view>{{userInfo.role != 4?street:''}}</view>
+					<view>{{userInfo.role != 4 && userInfo.role != 3?cooperative:''}}</view>
 				</view>
 			</view>
 		</view>

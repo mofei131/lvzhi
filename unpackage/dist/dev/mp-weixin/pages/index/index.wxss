@@ -83,6 +83,7 @@
 	font-size: 26rpx;
 	font-weight: bold;
 	width: 100rpx;
+	white-space:nowrap;
 }
 .melir1 {
 	display: flex;

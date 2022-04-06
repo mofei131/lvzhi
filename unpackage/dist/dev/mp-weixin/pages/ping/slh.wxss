@@ -1,4 +1,12 @@
 
+.imgbox{
+	width: 100rpx;
+	height: 100rpx;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	/* margin-right: 20rpx; */
+}
 .toptitle view{
 	font-size: 28rpx;
 	text-align: center;

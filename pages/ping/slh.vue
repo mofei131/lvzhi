@@ -1,8 +1,10 @@
 <template>
 	<view class="box">
 		<view class="toptitle" :style="{height:height+30+'px'}">
-			<image src="../../static/image/back.png" mode="" @click="backList"></image>
-			<view>晒履职</view>
+			<view class="imgbox" @click="backList">
+			<image src="../../static/image/back.png" mode=""></image>
+			</view>
+			<view>晒联户</view>
 			<view></view>
 		</view>
 		<!-- 用户是 4组织部 -->
@@ -153,6 +155,14 @@
 </script>
 
 <style>
+	.imgbox{
+		width: 100rpx;
+		height: 100rpx;
+		display: flex;
+		align-items: flex-end;
+		justify-content: center;
+		/* margin-right: 20rpx; */
+	}
 	.toptitle view{
 		font-size: 28rpx;
 		text-align: center;

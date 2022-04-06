@@ -311,6 +311,13 @@
 
 			// 页面跳转
 			toPage(url) {
+				// if(url = )
+				if((uni.getStorageSync('userInfo').role == 1 || uni.getStorageSync('userInfo').role == 2 || uni.getStorageSync('userInfo').role == 5)&&url=='../ping/slh'){
+					uni.navigateTo({
+						url: '../ping/lhList?coop_id='+uni.getStorageSync('userInfo').cooperative_id
+					})
+					return
+				}
 				uni.navigateTo({
 					url: url
 				})
@@ -415,6 +422,7 @@
 		font-size: 26rpx;
 		font-weight: bold;
 		width: 100rpx;
+		white-space:nowrap;
 	}
 
 	.melir1 {
